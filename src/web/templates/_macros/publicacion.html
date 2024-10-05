@@ -1,0 +1,57 @@
+{% macro Publicacion(title,foto_path, fecha_publicacion, root, id, id_visibilidad) %}
+<a href="{{ url_for('root.publicacion_detalle', publicacion_id=id) }}" class="no-underline">
+  <div class="relative max-w-sm overflow-hidden rounded shadow-lg">
+    <div
+      style="
+        height: 200px;
+        overflow: hidden;
+        border: solid 1px #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <img
+        class="object-scale-down"
+        src="{{ url_for('static', filename=foto_path) }}"
+        alt="{{ title }}"
+      />
+      {% if id_visibilidad == 1 %}
+      <img
+        class="absolute right-0 self-center h-4 mb-2 ml-4 mr-2 top-1"
+        src="/static/img/accesibilidad/publica.png"
+        alt=""
+      />
+      {% elif id_visibilidad == 2 %}
+      <img
+        class="absolute right-0 self-center h-4 mb-2 ml-4 mr-2 top-1"
+        src="/static/img/accesibilidad/archivada.png"
+        alt=""
+      />
+      {% elif id_visibilidad == 3 %}
+        <img
+            class="absolute right-0 self-center h-6 mb-2 ml-4 mr-2 top-1"
+            src="/static/img/accesibilidad/eliminada.png"
+            alt=""
+        />
+      {% elif id_visibilidad == 4 %}       
+        <img
+          class="absolute right-0 self-center h-6 mb-2 ml-4 mr-2 top-1"
+          src="/static/img/accesibilidad/intercambio.png"
+          alt=""
+        />
+      {% endif %}
+    </div>
+    <div class="px-6 py-4 text-center">
+      <div class="mb-2 text-xl font-bold">{{ title }}</div>
+      <div class="flex flex-col items-center justify-center">
+        <p
+          class="inline-block py-1 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full"
+        >
+          {{ fecha_publicacion.strftime('%H:%M %d/%m/%Y ') }}
+        </p>
+      </div>
+    </div>
+  </div>
+</a>
+{% endmacro %}
