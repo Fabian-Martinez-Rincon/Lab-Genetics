@@ -1,5 +1,18 @@
-## Char-IT
+<div align="center">
 
+## 🥼 Lab-Genetics 🧪
+
+<img src='https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjhzb3drcDhtaTZjNGtyaXJzdXNoYmdiYmQ4MTA5N2lxMDZjN3lwbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d31vEN2v9DzBqEx2/giphy.gif'>
+
+</div>
+
+---
+
+Marco de indagación para generar “Prototipo de solución”:
+
+> “Un laboratorio que centraliza muestras biológicas (de otros laboratorios) para mandarlas a analizarlas al exterior quiere digitalizar su funcionamiento ya que actualmente no cuentan con un soporte digital”
+
+---
 
 ### Para Colaborar
 
