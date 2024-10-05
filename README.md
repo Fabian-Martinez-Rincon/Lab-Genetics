@@ -12,72 +12,86 @@ Marco de indagación para generar “Prototipo de solución”:
 
 > “Un laboratorio que centraliza muestras biológicas (de otros laboratorios) para mandarlas a analizarlas al exterior quiere digitalizar su funcionamiento ya que actualmente no cuentan con un soporte digital”
 
----
-
-### Para Colaborar
-
-- Para asegurarnos de que estamos en la rama main, antes de crear una mara
-    ```bash
-    git branch
-    ```
-- Si ya creamos una rama y queremos ir a esa, usamos
-    ```bash
-    git checkout {nombre-rama}
-    ```
-- Si no existe la rama, la creamos con un nombre descriptivo
-    ```bash
-    git branch {nombre-rama} o git checkout -b {nombre-rama}  //Para movernos despues de crearla
-    ```
-- Una vez que estamos en la rama, hacemos un pull para asegurarnos de que estamos actualizados
-    ```bash
-    git pull origin main
-    ```
-- Hacemos la pull request
-    ```bash
-    git add .
-    git commit -m "Mensaje descriptivo"
-    git push origin {nombre-rama}
-    ```
+- [🤝🏼 Para Colaborar](#-para-colaborar)
+- [🧰 Recursos](#-recursos)
+- [⚙️ Instalación](#️-instalación)
+- [🕹️ Ejecución](#️-ejecución)
+- [👨‍💻 Variables de Entorno](#-variables-de-entorno)
 
 ---
 
-### Requirements
+### 🤝🏼 Para Colaborar
+
+Para asegurarnos de que estamos en la rama main, antes de crear una mara
+
+```bash
+git branch
+```
+
+Si ya creamos una rama y queremos ir a esa, usamos
+
+```bash
+git checkout {nombre-rama}
+```
+
+Si no existe la rama, la creamos con un nombre descriptivo
+
+```bash
+git checkout -b {nombre-rama}
+```
+
+Una vez que estamos en la rama, hacemos un pull para asegurarnos de que estamos actualizados
+
+```bash
+git pull origin main
+```
+
+Hacemos la pull request
+
+```bash
+git add .
+git commit -m "Mensaje descriptivo"
+git push origin {nombre-rama}
+```
+
+---
+
+### 🧰 Recursos
 
 - [Python 3.8.10](https://www.python.org/downloads/release/python-3810/)
+- [PGAdmin](https://www.pgadmin.org/download/pgadmin-4-windows/)
 
 ---
 
-### Instalación
+### ⚙️ Instalación
 
-- Paso 1 Creamos el entorno Virtual
-    ```bash
-    python -m venv .venv
-    ```
-- Paso 2 Activamos el entorno
-    ```bash
-    .venv\Scripts\activate
-    ```
-- Dependiendo el idioma
-    ```bash
-    .venv/Scripts/activate
-    ```
-- En caso de no tener permisos
-    ```bash
-    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-    ```
-- Instalamos las dependencias (Solo hace falta la primera vez)
-    ```bash
-    pip install -r requirements.txt -r requirements-dev.txt
-    ```
-- No hace falta
-    ```bash
-    livetw init -d
-    livetw build
-    ```
+Creamos el entorno Virtual
+
+```bash
+python -m venv .venv
+```
+
+Activamos el entorno
+
+```bash
+.venv\Scripts\activate
+```
+
+En caso de no tener permisos
+
+```bash
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Instalamos las dependencias (Solo hace falta la primera vez)
+
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+```
 
 ---
 
-### Ejecución
+### 🕹️ Ejecución
 
 ```bash
 flask resetdb
@@ -90,7 +104,8 @@ Para correr la aplicación
 livetw dev
 ```
 
-o los siguientes dos
+O los siguientes dos
+
 ```bash
 flask run --debug
 livetw dev --no-flask
@@ -98,30 +113,16 @@ livetw dev --no-flask
 
 ----
 
+### 👨‍💻 Variables de Entorno
+
 Para configurar las variables de entorno, copiamos y renombramos el archivo `.env.example` a `.env` y configuramos las variables de entorno.
 
 ```json
-DB_PASS = "password_example"
-DB_USER = "user_example"
-DB_NAME = "database_example"
-DB_HOST = "host_example"
+DB_PASS = "postgres"
+DB_USER = "postgres"
+DB_NAME = "localhost"
+DB_HOST = "grupo08"
 ```
 
 ---
 
-### Extensiones Recomendadas
-
-- Pretier - Code formatter
-- Headwind
-- Error Lens
-- Auto Close Tag
-- Auto Rename Tag
-- Image preview
-
----
-
-#### Rutas para la primera demo
-
-- `/eliminar_publicaciones`
-- `/eliminar_colaboradores`
-- `/eliminar_generales`
