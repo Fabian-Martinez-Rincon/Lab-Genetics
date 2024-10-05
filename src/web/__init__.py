@@ -13,8 +13,8 @@ def create_app(env: str = "development", static_folder: str = "../static"):
     app.config['SESSION_COOKIE_SECURE'] = True  # Si estás usando HTTPS
     app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=14)
 
-    database.init_app(app)
-    controllers.init_app(app)
+    #database.init_app(app)
+    #controllers.init_app(app)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
