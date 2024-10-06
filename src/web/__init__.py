@@ -32,7 +32,7 @@ def create_app(env: str = "development", static_folder: str = "../static"):
     def check_if_user_is_active():
         if current_user.is_authenticated:
             user = Usuario.query.get(current_user.id)
-            if user and user.penaltis >= 3:
+            if user:
                 logout_user()                
                 session['logged_in'] = False
                 flash('Tu cuenta ha sido eliminada.', 'error')
