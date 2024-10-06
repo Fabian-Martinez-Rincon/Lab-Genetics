@@ -1,5 +1,8 @@
 [
-    {"nombre": "General"},
-    {"nombre": "Colaborador"},
-    {"nombre": "Owner"}
+    {"nombre": "Owner"},
+    {"nombre": "Administrador"},
+    {"nombre": "Laboratorio"},
+    {"nombre": "Medico"},
+    {"nombre": "Paciente"},
+    {"nombre": "Transportista"}
 ]
