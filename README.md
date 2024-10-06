@@ -17,6 +17,12 @@ Marco de indagación para generar “Prototipo de solución”:
 - [⚙️ Instalación](#️-instalación)
 - [🕹️ Ejecución](#️-ejecución)
 - [👨‍💻 Variables de Entorno](#-variables-de-entorno)
+- [👤 Usuarios](#-usuarios)
+    - [Administrador General](#administrador-general)
+    - [Administrador de Laboratorio](#administrador-de-laboratorio)
+    - [Medico](#medico)
+    - [Paciente](#paciente)
+    - [Transportista](#transportista)
 
 ---
 
@@ -126,3 +132,43 @@ DB_HOST = "grupo08"
 
 ---
 
+### 👤 Usuarios
+
+- [Administrador General](#administrador-general)
+- [Administrador de Laboratorio](#administrador-de-laboratorio)
+- [Medico](#medico)
+- [Paciente](#paciente)
+- [Transportista](#transportista)
+
+> [!NOTE]  
+> Las enfermedades raras son enfermedades geneticas
+
+---
+
+#### Administrador General
+
+Es el unico usuario que ya viene precargado
+
+- Dar de alta a los administradores de laboratorio
+
+#### Administrador de Laboratorio
+
+- Dar de alta a los medicos
+
+#### Medico
+
+- Dar de alta paciente
+    - Dni
+    - Mail
+    - Nombre
+    - Apellido
+    - Fecha de nacimiento
+    - Los antecedentes Familiares
+    - Resumen de la historia clinica
+- Solicitar Estudio al Laboratorio
+
+#### Paciente
+
+- Elegir Turno
+
+#### Transportista
