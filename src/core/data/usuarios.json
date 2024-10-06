@@ -7,7 +7,7 @@
         "dni": "12345678",
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
-        "historia_path": "/path/to/historia_juan.pdf"
-
+        "historia_path": "/path/to/historia_juan.pdf",
+        "id_rol": "1"
     }
 ]

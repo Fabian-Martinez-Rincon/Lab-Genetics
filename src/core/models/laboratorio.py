@@ -12,5 +12,5 @@ class Laboratorio(db.Model):
     email = db.Column(db.String(255), nullable=False, unique=True)
     #Para la ubicacion del mapa concatena longitud y latitud
     address = db.Column(db.String(255), nullable=False) 
-    # id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=False)
-    # turnos = db.relationship('Turno', backref='turnos', cascade='all, delete-orphan')
+    id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), default=3)
+    turnos = db.relationship('Turno', backref='turnos_laboratorio', cascade='all, delete-orphan')
