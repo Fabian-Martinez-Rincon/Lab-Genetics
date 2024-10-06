@@ -2,8 +2,8 @@ import os
 from src.web import controllers
 from src.core.models import database, Usuario
 from datetime import timedelta
-from flask import Flask, session, redirect, url_for, flash
-from flask_login import LoginManager, logout_user, current_user
+from flask import Flask
+from flask_login import LoginManager
 from src.core.config import config
 
 def create_app(env: str = "development", static_folder: str = "../static"):
@@ -46,16 +46,6 @@ def init_login_manager(app):
     @login_manager.user_loader
     def load_user(user_id):
         return Usuario.query.get(int(user_id))
-    
-    @app.before_request
-    def check_if_user_is_active():
-        if current_user.is_authenticated:
-            user = Usuario.query.get(current_user.id)
-            if user:
-                logout_user()                
-                session['logged_in'] = False
-                flash('Tu cuenta ha sido eliminada.', 'error')
-                return redirect(url_for('root.index_get'))  # Redirige al usuario a la página de inicio de sesión
 
 def configure_app(app, env:str):
     """Configura los parámetros generales de la aplicación"""
