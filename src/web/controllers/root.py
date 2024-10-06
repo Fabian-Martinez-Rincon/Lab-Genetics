@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, session, flash, make_response
 from flask_login import login_user
-from src.core.models.filial import Filial
+from src.core.models.laboratorio import Laboratorio
 from src.core.models.usuario import Usuario
 from src.web.formularios.inicio_sesion import LoginForm
 from werkzeug.security import check_password_hash
@@ -28,7 +28,7 @@ def check_user():
 @bp.get("/")
 def index_get(): 
     try:
-        todas_las_filiales = Filial.query.all()
+        todas_las_filiales = Laboratorio.query.all()
         return render_template("index.html", filiales=todas_las_filiales)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
