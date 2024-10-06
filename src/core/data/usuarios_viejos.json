@@ -1,0 +1,56 @@
+[
+    {
+        "nombre": "Luciana Elizabeth",
+        "apellido": "Lamella",
+        "password": "pbkdf2:sha256:600000$JSiH5kjFfJGWnjnE$f55058cb83c459fac6073d28e078ade99ef24174cf7fc4a92901d2ed6fede40f",
+        "email": "lulilamella@gmail.com",
+        "dni": "12345678",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455"
+    },
+    {
+        "nombre": "Austin",
+        "apellido": "Myles",
+        "password": "pbkdf2:sha256:600000$KnJr1WcwcVsUlMD1$bacac8250396cc85cba9e0f847ccbfc3f6875c3cf4b7f754cdfa8d8704e821ff",
+        "email": "sincroniko@gmail.com",
+        "dni": "87654321",
+        "fecha_nacimiento": "1985-08-15",
+        "telefono": "5566778899"
+    },
+    {
+        "nombre": "Carlos",
+        "apellido": "Rodr\u00edguez",
+        "password": "pbkdf2:sha256:600000$THNfR8z3njWo0XAM$92e867cc84ddde32dd1d540e33359b503104e76ac4e390c34fbe463703c8bbe1",
+        "email": "general3@gmail.com",
+        "dni": "34567890",
+        "fecha_nacimiento": "1992-07-10",
+        "telefono": "3344556677"
+    },
+    {
+        "nombre": "Luis",
+        "apellido": "Martinez",
+        "password": "pbkdf2:sha256:600000$WpuVurTMu2T6YHWW$8f9f3e0c723f629c92bfdf85ee868d7e56e66f2c6ecb503ff2850280bf988a3b",
+        "email": "colaborador@gmail.com",
+        "dni": "45678901",
+        "fecha_nacimiento": "1988-09-12",
+        "telefono": "4455667788"
+    },
+    {
+        "nombre": "Sofia",
+        "apellido": "Fernandez",
+        "password": "pbkdf2:sha256:600000$FWwjxHOQ7EXRmSy6$09f5db15af0dbb227b28ab163a24815b2306f62e061c8ffb195f507ebbcf8b69",
+        "email": "colaborador2@gmail.com",
+        "dni": "56789012",
+        "fecha_nacimiento": "1993-10-15",
+        "telefono": "5566778899"
+    },
+    {
+        "nombre": "Mario y Maria",
+        "apellido": "",
+        "password": "pbkdf2:sha256:600000$oPSNLVAB74mVWDPO$2db90d2093e17556ff7f1252c3ea37d7c45046952dff724256635a1f15eb47d8",
+        "email": "hopetrade08@gmail.com",
+        "dni": "",
+        "fecha_nacimiento": "1990-11-20",
+        "telefono": "6677889900"
+    }
+]

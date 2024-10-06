@@ -10,6 +10,7 @@ class Laboratorio(db.Model):
     telefono = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    address = db.Column(db.String(255), nullable=False) #Para la ubicacion del mapa concatena longitud y latitud
-    id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=False)
-    turnos = db.relationship('Turno', backref='turnos', cascade='all, delete-orphan')
+    #Para la ubicacion del mapa concatena longitud y latitud
+    address = db.Column(db.String(255), nullable=False) 
+    # id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=False)
+    # turnos = db.relationship('Turno', backref='turnos', cascade='all, delete-orphan')

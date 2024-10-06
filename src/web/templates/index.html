@@ -1,13 +1,13 @@
 {% extends "_layouts/app.html" %} {% import "_macros/table.html" as
 Table %} {% block head %}
-<title>HopeTrade</title>
+<title>Lab-Genetics</title>
 {% endblock %} {% block content %}
 <main class="flex flex-col items-center min-h-screen">
   <section class="w-full max-w-4xl px-4 py-12 text-center">
     <div>
       <h1
-        class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
-        HopeTrade
+        class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+        Lab-Genetics
       </h1>
       {% if not(session.logged_in) %}
       <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
@@ -15,21 +15,20 @@ Table %} {% block head %}
       </p>
       {% endif %}
       <p class="mb-4 text-base md:text-lg text-zinc-500">
-        "HopeTrade" es una página web diseñada para facilitar y
-        mejorar la gestión de donaciones y promover el intercambio de
-        productos entre los usuarios en la red de filiales de la
-        organización benéfica Cáritas.
+        "Lab-Genetics" es una plataforma web diseñada para gestionar el proceso de diagnóstico de cinco enfermedades raras, facilitando la coordinación entre médicos, pacientes, administradores de laboratorio y transportistas.
+
+        
       </p>
     </div>
     <button
       onclick="toggleFiliales()"
-      class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
-      Ver Filiales
+      class="px-6 py-2 my-4 text-white transition duration-300 bg-indigo-600 rounded hover:bg-indigo-500">
+      Ver Laboratorios
     </button>
     <div
       id="filialesContainer"
       class="overflow-x-auto w-full overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out">
-      <h2 class="my-4 text-2xl font-bold">Nuestras Filiales</h2>
+      <h2 class="my-4 text-2xl font-bold">Nuestros Laboratorios</h2>
       {% call Table.Table() %} {{ Table.TableHeader(("Nombre",
       "Dirección", "Horarios", "Días")) }}
       <tbody>

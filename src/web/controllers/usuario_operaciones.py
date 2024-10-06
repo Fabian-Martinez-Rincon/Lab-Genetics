@@ -22,14 +22,6 @@ def penalizar_usuario(user_id):
         return jsonify({"success": False, "error": "El motivo es obligatorio."}), 400
     try:
         user = Usuario.query.get_or_404(user_id)
-        user.penaltis += 1
-        if user.penaltis > 2:
-            Notificacion.informarEliminacionUsuario(user.id, motivo)
-            # db.session.delete(user)
-            eliminar_publicaciones_usuario(user.id)
-            db.session.commit()
-            flash(f'El usuario fue penalizado y eliminado con éxito', 'success')
-            return jsonify({"success": True, "action": "deleted"})
         db.session.commit()
         Notificacion.informarPenalizacion(user.id, motivo)
         flash(f'El usuario fue penalizado con éxito', 'success')
@@ -39,16 +31,6 @@ def penalizar_usuario(user_id):
         flash(f'Error al penalizar al usuario: {str(e)}', 'error')
         return jsonify({"success": False, "error": str(e)})
 
-@bp.route("/get_penaltis/<int:user_id>", methods=['GET'])
-def get_penaltis(user_id):
-    if not(session.get('user_id')):
-        return jsonify({"success": False, "error": "Debes iniciar sesión para realizar esta operación."}), 401
-
-    try:
-        user = Usuario.query.get_or_404(user_id)
-        return jsonify({"success": True, "penaltis": user.penaltis})
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
 
 @bp.route("/eliminar_usuario/<int:user_id>", methods=['DELETE'])
 def eliminar_usuario(user_id):
@@ -66,7 +48,7 @@ def eliminar_usuario(user_id):
     try:
         user = Usuario.query.get_or_404(user_id)
         eliminar_publicaciones_usuario(user.id)
-        user.penaltis = 3  # Establecer penalizaciones en 3 antes de eliminar
+        #user.penaltis = 3  # Establecer penalizaciones en 3 antes de eliminar
         Notificacion.informarEliminacionUsuario(user.id, motivo)
         db.session.commit()
         flash(f'Usuario General eliminado correctamente', 'success')

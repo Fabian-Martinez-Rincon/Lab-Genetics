@@ -39,15 +39,12 @@ def login():
     if form.validate_on_submit():
         user = Usuario.query.filter_by(email=form.email.data).first()
         if user and check_password_hash(user.password, form.password.data):
-            if user.penaltis < 3:  # Verifica si el usuario no ha sido eliminado (penalizado 3 veces)
-                login_user(user)
-                session['user_id'] = user.id
-                session['logged_in'] = True
-                #session['rol_id'] = user.id_rol
-                flash('Inicio de sesión Exitoso', 'success')
-                return redirect(url_for('root.index_get'))
-            else:
-                flash('Este usuario ha sido eliminado.', 'error')
+            login_user(user)
+            session['user_id'] = user.id
+            session['logged_in'] = True
+            #session['rol_id'] = user.id_rol
+            flash('Inicio de sesión Exitoso', 'success')
+            return redirect(url_for('root.index_get'))
         else:
             flash('El mail o contraseña son incorrectos.', 'error')
     return render_template('/comunes/login.html', form=form)

@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from src.core.models.database import db
 from src.core.models import Laboratorio
+from src.core.models import Usuario
 
 def cargar_datos(filename):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -20,7 +21,8 @@ def eliminar_y_agregar(entidad, datos):
 def seed_db():
     try:
         entidades_datos = {
-            Laboratorio: 'filiales.json',
+            Laboratorio: 'laboratorios.json',
+            Usuario: 'usuarios.json'
         }
         
         for entidad, archivo in entidades_datos.items():
