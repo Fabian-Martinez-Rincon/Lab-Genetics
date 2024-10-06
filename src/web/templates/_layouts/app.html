@@ -42,6 +42,17 @@ endblock %} {% block base_body %}
       </a>
     </div>
 
+    <!-- Mostrar el ID del usuario en el header si está autenticado -->
+    {% if session.logged_in %}
+    
+    <div class="flex items-center">
+      <h1
+        class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+        ID Usuario: {{ current_user.id }}
+      </h1>
+    </div>
+    {% endif %}
+
     <nav class="flex md:mr-2">
       <div class="relative">
         <button
