@@ -2,7 +2,6 @@ import os
 import typing as t
 from dotenv import load_dotenv
 
-
 class ConfigurationError(Exception):
     def __init__(self, message: str):
         super().__init__(message)
@@ -15,7 +14,6 @@ def env_or_error(env: str, default: t.Union[str, None] = None) -> str:
     return value
 
 class Config:
-    # Flask-livetw config
     LIVETW_DEV: bool
     TESTING = False
     #Configurar la carga de imagenes
