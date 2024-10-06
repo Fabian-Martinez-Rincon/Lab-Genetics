@@ -20,5 +20,4 @@ def reset_db():
     """This function deletes and recreates the DB to update the models' definitions"""
     with current_app.app_context():
         db.drop_all()
-        print("parece que anda")
         db.create_all()

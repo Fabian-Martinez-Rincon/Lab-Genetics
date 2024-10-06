@@ -32,7 +32,7 @@ def index_get():
         return render_template("index.html", filiales=todas_las_filiales)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
-    
+
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()

@@ -4,7 +4,7 @@ from src.core.models.oferta import Oferta
 from src.core.models.estado import Estado
 from src.core.models.usuario import Usuario
 from src.core.models.database import db
-from src.core.models.notificacion import Notificacion
+from core.models.de_momento_no.notificacion import Notificacion
 
 bp = Blueprint("usuario_operaciones", __name__)
 
