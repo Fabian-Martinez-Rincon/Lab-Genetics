@@ -1,7 +1,7 @@
 from src.core.models.database import db
 
-class Rol(db.Model):
-    __tablename__="roles"
+class Permiso(db.Model):
+    __tablename__="permisos"
     id = db.Column(db.Integer, primary_key=True, unique= True)
     nombre = db.Column(db.String(50), nullable=False, unique= True)
-    permisos = db.relationship('Permiso', backref='permisos', cascade='all, delete-orphan')
+    id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=False)
