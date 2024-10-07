@@ -1,0 +1,52 @@
+{% extends "_layouts/app.html" %}
+{% import "_macros/table.html" as Table %}
+
+{% block head %}
+<title>Lab-Genetics - Lista de Laboratorios</title>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <div>
+      <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+        Lista de Laboratorios
+      </h1>
+      <p class="mb-4 text-base md:text-lg text-zinc-500">
+        A continuación se muestra una lista de los laboratorios registrados.
+      </p>
+    </div>
+
+    <div class="w-full overflow-x-auto">
+      <h2 class="my-4 text-2xl font-bold">Laboratorios</h2>
+      {% call Table.Table() %}
+      {{ Table.TableHeader(("Nombre", "Email", "Días", "Horarios", "Dirección", "Teléfono")) }}
+      <tbody>
+        {% for laboratorio in laboratorios %}
+        <tr class="text-black bg-very-light-yellow-green">
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.nombre }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.email }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.dias }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.horarios }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.direccion }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.telefono }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endcall %}
+    </div>
+  </section>
+</main>
+{% endblock %}

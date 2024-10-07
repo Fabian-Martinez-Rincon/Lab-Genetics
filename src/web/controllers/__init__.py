@@ -1,8 +1,8 @@
 import flask
-from src.web.controllers import root, registrar, listar_usuarios
+from src.web.controllers import root, registrar, listar_usuarios, listar_laboratorios
 
 _blueprints = (
-    root.bp, registrar.bp, listar_usuarios.bp
+    root.bp, registrar.bp, listar_usuarios.bp, listar_laboratorios.bp
 )
 
 def init_app(app: flask.Flask):
