@@ -3,6 +3,72 @@
 
 {% block head %}
 <title>Lab-Genetics - Lista de Laboratorios</title>
+<style>
+  /* Estilos para el toggle switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    overflow: visible; /* Asegurar que el tooltip no se corte */
+}
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+    z-index: 1; /* Asegurar que el toggle esté debajo del tooltip */
+}
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+  .tooltip {
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none; /* Evitar que el mouse interactúe con el tooltip */
+    white-space: nowrap; /* Evitar que el texto se divida */
+    z-index: 100; /* Asegurar que el tooltip esté en el frente */
+    transform: translateX(-50%);
+    left: 50%; /* Centrar horizontalmente */
+    bottom: 45px; /* Ajustar el tooltip encima del toggle */
+}
+
+</style>
 {% endblock %}
 
 {% block content %}
@@ -20,27 +86,30 @@
     <div class="w-full overflow-x-auto">
       <h2 class="my-4 text-2xl font-bold">Laboratorios</h2>
       {% call Table.Table() %}
-      {{ Table.TableHeader(("Nombre", "Email", "Días", "Horarios", "Dirección", "Teléfono")) }}
+      {{ Table.TableHeader(("Nombre", "Email", "Días", "Horarios", "Dirección", "Teléfono", "Estado")) }}
       <tbody>
         {% for laboratorio in laboratorios %}
         <tr class="text-black bg-very-light-yellow-green">
+          <td class="py-4 break-words whitespace-normal">{{ laboratorio.nombre }}</td>
+          <td class="py-4 break-words whitespace-normal">{{ laboratorio.email }}</td>
+          <td class="py-4 break-words whitespace-normal">{{ laboratorio.dias }}</td>
+          <td class="py-4 break-words whitespace-normal">{{ laboratorio.horarios }}</td>
+          <td class="py-4 break-words whitespace-normal">{{ laboratorio.direccion }}</td>
+          <td class="py-4 break-words whitespace-normal">{{ laboratorio.telefono }}</td>
           <td class="py-4 break-words whitespace-normal">
-            {{ laboratorio.nombre }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ laboratorio.email }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ laboratorio.dias }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ laboratorio.horarios }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ laboratorio.direccion }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ laboratorio.telefono }}
+            <form method="POST" action="/listar_laboratorios" class="relative flex items-center">
+              <input type="hidden" name="laboratorio_id" value="{{ laboratorio.id }}">
+              <label class="switch">
+                  <input type="checkbox" name="estado" value="ACTIVO" 
+                  {% if laboratorio.estado == 'ACTIVO' %}checked{% endif %} 
+                  onchange="this.form.submit()">
+                  <span class="slider" 
+                        onmouseover="showTooltip(this)" 
+                        onmouseout="hideTooltip(this)"></span>
+                  <span class="tooltip">Inhabilitar Laboratorio</span> <!-- Tooltip dentro del formulario -->
+              </label>
+          </form>
+          
           </td>
         </tr>
         {% endfor %}
@@ -49,4 +118,19 @@
     </div>
   </section>
 </main>
+<script>
+  function showTooltip(slider) {
+    const tooltip = slider.nextElementSibling; // Tooltip justo después del slider
+    tooltip.textContent = slider.previousElementSibling.checked ? 'Inhabilitar Laboratorio' : 'Habilitar Laboratorio';
+    
+    // Mostrar el tooltip
+    tooltip.style.opacity = '1'; // Hacer visible el tooltip
+}
+
+function hideTooltip(slider) {
+    const tooltip = slider.nextElementSibling; // Tooltip justo después del slider
+    tooltip.style.opacity = '0'; // Ocultar el tooltip
+}
+
+</script>
 {% endblock %}

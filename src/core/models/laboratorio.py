@@ -10,6 +10,7 @@ class Laboratorio(db.Model):
     telefono = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    estado = db.Column(db.String(50), default = 'ACTIVO') #Activo - Inactivo
     #Para la ubicacion del mapa concatena longitud y latitud
     address = db.Column(db.String(255), nullable=False) 
     id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), default=3)

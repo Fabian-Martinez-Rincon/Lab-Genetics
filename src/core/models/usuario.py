@@ -15,6 +15,7 @@ class Usuario(UserMixin, db.Model):
     id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=False)
     id_medico = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=True)
     turnos = db.relationship('Turno', backref='turnos', cascade='all, delete-orphan') 
+    estado = db.Column(db.String(50), default = 'ACTIVO') #Activo - Inactivo
     # Relación con los estudios como paciente
     estudios_como_paciente = db.relationship('Estudio', backref='paciente', foreign_keys='Estudio.id_paciente', cascade='all, delete-orphan')
     # Relación con los estudios como médico
