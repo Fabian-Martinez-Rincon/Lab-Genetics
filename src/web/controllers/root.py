@@ -42,7 +42,7 @@ def login():
             login_user(user)
             session['user_id'] = user.id
             session['logged_in'] = True
-            #session['rol_id'] = user.id_rol
+            session['rol_id'] = user.id_rol
             flash('Inicio de sesión Exitoso', 'success')
             return redirect(url_for('root.index_get'))
         else:
