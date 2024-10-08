@@ -49,9 +49,22 @@ endblock %} {% block base_body %}
       {% if session.logged_in %}
     
         <div class="flex items-center">
-          <h1
-            class="mr-6 font-extrabold text-indigo-100 md:text-4xl lg:text-2xl">
-            ID Usuario: {{ current_user.id }}
+          <h1 class="mr-6 font-extrabold text-indigo-100 md:text-4xl lg:text-2xl">
+            {% if current_user.id == 1 %}
+              Owner
+            {% elif current_user.id == 2 %}
+              Administrador
+            {% elif current_user.id == 3 %}
+              Laboratorio
+            {% elif current_user.id == 4 %}
+              Medico
+            {% elif current_user.id == 5 %}
+              Paciente
+            {% elif current_user.id == 6 %}
+              Transportista
+            {% else %}
+              Desconocido
+            {% endif %}
           </h1>
         </div>
         {% endif %}
