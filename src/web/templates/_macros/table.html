@@ -1,11 +1,12 @@
 {% macro Table() %}
-<div class="overflow-x-scroll text-xs bg-indigo-500 rounded sm:overflow-x-auto md:text-base">
+<div class="overflow-x-scroll text-xs rounded sm:overflow-x-auto md:text-base">
   <table class="w-full text-center text-blue-100 rounded-lg dark:text-blue-100">
     {{ caller() }}
   </table>
 </div>
-{% endmacro %} {% macro TableHeader(col_names) %}
-<thead class="text-xs text-black uppercas dark:text-white">
+{% endmacro %}
+ {% macro TableHeader(col_names) %}
+<thead class="text-xs text-black uppercase bg-indigo-500 dark:text-white">
   <tr>
     {% for name in col_names %}
     <th scope="col" class="p-2">{{ name }}</th>
@@ -13,3 +14,4 @@
   </tr>
 </thead>
 {% endmacro %}
+
