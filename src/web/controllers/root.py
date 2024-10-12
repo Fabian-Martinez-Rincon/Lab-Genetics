@@ -63,3 +63,15 @@ def logout():
 @bp.app_errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+@bp.route('/perfil')
+def perfil():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        user = Usuario.query.get(session.get('user_id'))
+        return render_template('/comunes/perfil.html', user=user)
+    else:
+        flash('You must be logged in to view your profile.', 'error')
+        return redirect(url_for('root.index_get'))
