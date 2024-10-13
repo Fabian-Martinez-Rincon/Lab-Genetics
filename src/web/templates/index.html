@@ -1,36 +1,77 @@
-{% extends "_layouts/app.html" %} {% import "_macros/table.html" as
-Table %} {% block head %}
+{% extends "_layouts/app.html" %} 
+{% import "_macros/table.html" as Table %} 
+
+{% block head %}
 <title>Lab-Genetics</title>
-{% endblock %} {% block content %}
+{% endblock %} 
+
+{% block content %}
 <main class="flex flex-col items-center min-h-screen">
   <section class="w-full max-w-4xl px-4 py-12 text-center">
     <div>
-      <h1
-        class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+      <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
         Lab-Genetics
       </h1>
+      
       {% if not(session.logged_in) %}
+      <!-- Si no está autenticado -->
       <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
         Qué esperas para registrarte!!
       </p>
-      {% endif %}
+      
+      {% else %}
+      <!-- Si está autenticado, mostramos las opciones -->
       <p class="mb-4 text-base md:text-lg text-zinc-500">
-        "Lab-Genetics" es una plataforma web diseñada para gestionar el proceso de diagnóstico de cinco enfermedades raras, facilitando la coordinación entre médicos, pacientes, administradores de laboratorio y transportistas.
-
-        
+        ¡Bienvenido {{ current_user.username }}! Selecciona una opción para continuar:
       </p>
+
+      <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+        <!-- Botón Registrar Admin Lab -->
+        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+          <div class="flex flex-col items-center">
+            <img src="/static/img/accesibilidad/admin.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
+            <span class="text-lg">Registrar Admin</span>
+          </div>
+        </button>
+
+        <!-- Botón Registrar Médico -->
+        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+          <div class="flex flex-col items-center">
+            <img src="/static/img/accesibilidad/medico.png" alt="Icono Médico" class="w-10 h-10 mb-2">
+            <span class="text-lg">Registrar Médico</span>
+          </div>
+        </button>
+
+        <!-- Botón Ver Usuarios -->
+        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+          <div class="flex flex-col items-center">
+            <img src="/static/img/accesibilidad/users.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
+            <span class="text-lg">Ver Usuarios</span>
+          </div>
+        </button>
+
+        <!-- Botón Ver Perfil -->
+        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+          <div class="flex flex-col items-center">
+            <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+            <span class="text-lg">Ver Perfil</span>
+          </div>
+        </button>
+      </div>
+      {% endif %}
     </div>
+    
+    <!-- Solo mostramos el botón de laboratorios si el usuario ha iniciado sesión -->
+    {% if session.logged_in %}
     <button
       onclick="toggleFiliales()"
       class="px-6 py-2 my-4 text-white transition duration-300 bg-indigo-600 rounded hover:bg-indigo-500">
       Ver Laboratorios
     </button>
-    <div
-      id="filialesContainer"
-      class="overflow-x-auto w-full overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out">
+    <div id="filialesContainer" class="overflow-x-auto w-full overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out">
       <h2 class="my-4 text-2xl font-bold">Nuestros Laboratorios</h2>
-      {% call Table.Table() %} {{ Table.TableHeader(("Nombre",
-      "Dirección", "Horarios", "Días")) }}
+      {% call Table.Table() %}
+      {{ Table.TableHeader(("Nombre", "Dirección", "Horarios", "Días")) }}
       <tbody>
         {% for filial in filiales %}
         <tr class="text-black bg-very-light-yellow-green">
@@ -51,15 +92,14 @@ Table %} {% block head %}
       </tbody>
       {% endcall %}
     </div>
+    {% endif %}
   </section>
 </main>
+
 <script>
   function toggleFiliales() {
     const container = document.getElementById("filialesContainer");
-    if (
-      container.style.maxHeight === "0px" ||
-      container.style.maxHeight === ""
-    ) {
+    if (container.style.maxHeight === "0px" || container.style.maxHeight === "") {
       container.style.maxHeight = container.scrollHeight + "px";
     } else {
       container.style.maxHeight = "0px";
