@@ -44,7 +44,7 @@ endblock %} {% block base_body %}
 
     <!-- Mostrar el ID del usuario en el header si está autenticado -->
     
-
+    {% if session.logged_in and session.rol_id %}
     <nav class="flex md:mr-2">
       {% if session.logged_in %}
     
@@ -203,6 +203,7 @@ endblock %} {% block base_body %}
           </ul>
         </div>
       </div>
+      {% endif %}
     </nav>
   </header>
 
