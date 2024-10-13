@@ -21,9 +21,8 @@
       {% else %}
       <!-- Si está autenticado, mostramos las opciones -->
       <p class="mb-4 text-base md:text-lg text-zinc-500">
-        ¡Bienvenidx {{ current_user.nombre}} {{ current_user.apellido}} 😃! Selecciona una opción para continuar:
+        ¡Bienvenidx <span class="text-blue-500">{{ current_user.nombre}}</span> <span class="text-blue-500">{{ current_user.apellido}}</span> 😃! Selecciona una opción para continuar:
       </p>
-      
       {% if session.rol_id == 1 %}
         <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
           <!-- Botón Registrar Admin Lab -->
@@ -60,7 +59,7 @@
         </div>
         {%elif session.rol_id == 2 %}
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
-            <!-- Botón Registrar Admin Lab -->
+            <!-- Botón Generar Presupuesto -->
             <button class="flex items-center justify-center py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/presupuesto.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
@@ -68,7 +67,7 @@
               </div>
             </button>
 
-            <!-- Botón Registrar Médico -->
+            <!-- Botón Confirmar Pagos -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/confirmarpagos.png" alt="Icono Médico" class="w-10 h-10 mb-2">
@@ -76,7 +75,7 @@
               </div>
             </button>
 
-            <!-- Botón Ver Usuarios -->
+            <!-- Botón Cargar Resultados -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/cargarresultados.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
@@ -84,7 +83,7 @@
               </div>
             </button>
 
-            <!-- Botón Ver Perfil -->
+            <!-- Botón Espera de Envios -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/esperadeenvio.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
@@ -102,6 +101,14 @@
           </div>
         {%elif session.rol_id == 3 %}
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+            
+            <!-- Botón Turnos -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/calendario.png" alt="Icono Médico" class="w-10 h-10 mb-2">
+                <span class="text-lg">Turnos</span>
+              </div>
+            </button>
             <!-- Botón Ver Perfil -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
               <div class="flex flex-col items-center">
@@ -112,7 +119,7 @@
           </div>
         {%elif session.rol_id == 4 %}
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
-            <!-- Botón Registrar Admin Lab -->
+            <!-- Botón Registrar Paciente -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/paciente.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
@@ -120,7 +127,7 @@
               </div>
             </button>
 
-            <!-- Botón Registrar Médico -->
+            <!-- Botón Ver Pacientes -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/listarpacientes.png" alt="Icono Médico" class="w-10 h-10 mb-2">
@@ -128,7 +135,7 @@
               </div>
             </button>
 
-            <!-- Botón Ver Usuarios -->
+            <!-- Botón Ver Estudios -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/verestudios.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
@@ -147,7 +154,7 @@
 
         {%elif session.rol_id == 5 %}
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
-            <!-- Botón Registrar Admin Lab -->
+            <!-- Botón Presupuesto -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/presupuesto.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
@@ -155,7 +162,7 @@
               </div>
             </button>
 
-            <!-- Botón Registrar Médico -->
+            <!-- Botón Turnos -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/calendario.png" alt="Icono Médico" class="w-10 h-10 mb-2">
@@ -163,7 +170,7 @@
               </div>
             </button>
 
-            <!-- Botón Ver Usuarios -->
+            <!-- Botón Mis Estudios -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/verestudios.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
@@ -182,7 +189,7 @@
           
           {%elif session.rol_id == 6 %}
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
-            <!-- Botón Registrar Admin Lab -->
+            <!-- Botón Pedidos -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/pedidos.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
@@ -201,50 +208,7 @@
         {% endif %}
       {% endif %}
     </div>
-    
-    <!-- Solo mostramos el botón de laboratorios si el usuario ha iniciado sesión -->
-    {% if session.logged_in %}
-    <button
-      onclick="toggleFiliales()"
-      class="px-6 py-2 my-4 text-white transition duration-300 bg-indigo-600 rounded hover:bg-indigo-500">
-      Ver Laboratorios
-    </button>
-    <div id="filialesContainer" class="overflow-x-auto w-full overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out">
-      <h2 class="my-4 text-2xl font-bold">Nuestros Laboratorios</h2>
-      {% call Table.Table() %}
-      {{ Table.TableHeader(("Nombre", "Dirección", "Horarios", "Días")) }}
-      <tbody>
-        {% for filial in filiales %}
-        <tr class="text-black bg-very-light-yellow-green">
-          <td class="py-4 break-words whitespace-normal">
-            {{ filial.nombre }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ filial.direccion }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ filial.horarios }}
-          </td>
-          <td class="py-4 break-words whitespace-normal">
-            {{ filial.dias }}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      {% endcall %}
-    </div>
-    {% endif %}
   </section>
 </main>
 
-<script>
-  function toggleFiliales() {
-    const container = document.getElementById("filialesContainer");
-    if (container.style.maxHeight === "0px" || container.style.maxHeight === "") {
-      container.style.maxHeight = container.scrollHeight + "px";
-    } else {
-      container.style.maxHeight = "0px";
-    }
-  }
-</script>
 {% endblock %}
