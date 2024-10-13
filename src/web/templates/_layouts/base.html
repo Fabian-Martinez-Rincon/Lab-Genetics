@@ -87,6 +87,7 @@
       class="flex flex-col h-full overflow-hidden bg-very-light-yellow-green">
       {% block base_body %}{% endblock %}
     </div>
+    
     <div class="flash-container">
       {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -111,5 +112,13 @@
       {% endif %} {% endwith %}
     </div>
     <div class="font-mono sr-only"></div>
+    <footer class="py-4 mt-auto text-center text-white bg-indigo-600">
+      <p class="text-sm">&copy; 2024 Lab-Genetics. Todos los derechos reservados.</p>
+      <p class="mt-2 text-sm">
+        <a href="" class="text-blue-200 hover:underline">Política de Privacidad</a> |
+        <a href="" class="mx-2 text-blue-200 hover:underline">Términos y Condiciones</a> |
+        <a href="" class="text-blue-200 hover:underline">Contacto</a>
+      </p>
+    </footer>
   </body>
 </html>
