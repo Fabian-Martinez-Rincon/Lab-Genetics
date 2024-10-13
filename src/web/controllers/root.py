@@ -26,12 +26,16 @@ def check_user():
             return response 
         
 @bp.get("/")
-def index_get(): 
+def index_get():
+    if not session.get('logged_in'):  # Verifica si el usuario está logueado
+        return redirect(url_for('root.login'))  # Redirige a la página de login
+
     try:
         todas_las_filiales = Laboratorio.query.all()
         return render_template("index.html", filiales=todas_las_filiales)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
+
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -54,11 +58,11 @@ def login():
 def logout():
     if not(session.get('user_id')):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
-        return redirect(url_for('root.index_get'))
+        return redirect(url_for('root.login'))
     session.pop('user_id', None)
     session['logged_in'] = False
     flash('Se ha cerrado la sesión correctamente.', 'success')
-    return redirect(url_for('root.index_get'))
+    return redirect(url_for('root.login'))
     
 @bp.app_errorhandler(404)
 def page_not_found(e):

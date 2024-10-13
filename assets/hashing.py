@@ -5,15 +5,60 @@ import json
 usuarios_json = '''
 [
 {
-        "nombre": "Administrador General",
-        "apellido": "Fabian",
-        "password": "hola12345",
-        "email": "fabianmartinezrincon.123@gmail.com",
+        "nombre": "Owner",
+        "apellido": "",
+        "password": "owner1234",
+        "email": "owner@gmail.com",
         "dni": "12345678",
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455"
-        
-    }
+},
+{
+        "nombre": "",
+        "apellido": "Fabian",
+        "password": "administrador1234",
+        "email": "administrador@gmail.com",
+        "dni": "12345678",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455"
+},
+{
+        "nombre": "",
+        "apellido": "Fabian",
+        "password": "laboratorio1234",
+        "email": "laboratorio@gmail.com",
+        "dni": "12345678",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455"
+},
+{
+        "nombre": "",
+        "apellido": "Fabian",
+        "password": "medico1234",
+        "email": "medico@gmail.com",
+        "dni": "12345678",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455"
+},
+{
+        "nombre": "",
+        "apellido": "Fabian",
+        "password": "paciente1234",
+        "email": "paciente1234",
+        "dni": "12345678",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455"
+},
+{
+        "nombre": "",
+        "apellido": "Fabian",
+        "password": "transportista1234",
+        "email": "transportista@gmail.com",
+        "dni": "12345678",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455"
+}
+
 ]
 '''
 
