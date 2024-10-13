@@ -140,7 +140,9 @@ endblock %} {% block base_body %}
             {% if session.rol_id == 1 %}
             <!-- owner -->
             {% set informationOwner = [ 
-              ["Listar Usuarios", "/listar_usuarios", svg_generales],
+              ["Ver Usuarios", "/listar_usuarios", svg_generales],
+              ["Registrar Administrador","/listar_usuarios", svg_generales],
+              ["Registrar Medico","/listar_usuarios", svg_generales],
               ["Listar Laboratorios", "/listar_laboratorios", svg_laboratorio],
               ["Registrar Laboratorio", "/registrar_laboratorio", svg_registrar]
               ]
@@ -151,7 +153,10 @@ endblock %} {% block base_body %}
             {%elif session.rol_id == 2 %}
             <!-- Administrador Laboratorio -->
             {% set informationAdministrador = [
-              ["Listar Usuarios", "/", svg_generales]
+              ["Generar Presupuesto", "/", svg_generales],
+              ["Confirmar Pagos", "/", svg_generales],
+              ["Cargar Resultados", "/", svg_generales],
+              ["Espera de Envios", "/", svg_generales],
               ]
             %} 
             {{
@@ -161,10 +166,41 @@ endblock %} {% block base_body %}
             {% elif session.rol_id == 3 %}
             <!-- Laboratorio extraccion -->
             {% set informationLaboratorio = [ 
-              ["Listar Usuarios", "/", svg_generales]
+              ["Turnos", "/", svg_generales]
             ] %} {{ 
               Menu.Menu(informationLaboratorio) 
             }}
+
+            {% elif session.rol_id == 4 %}
+            <!-- Medico -->
+            {% set informationLaboratorio = [ 
+              ["Registrar Paciente", "/", svg_generales],
+              ["Ver Pacientes", "/", svg_generales],
+              ["Ver Estudios", "/", svg_generales],
+            ] %} {{ 
+              Menu.Menu(informationLaboratorio) 
+            }}
+
+            {% elif session.rol_id == 5 %}
+            <!-- Paciente -->
+            {% set informationLaboratorio = [ 
+              ["Presupuesto", "/", svg_generales],
+              ["Turnos", "/", svg_generales],
+              ["Mis Estudios", "/", svg_generales]
+            ] %} {{ 
+              Menu.Menu(informationLaboratorio) 
+            }}
+
+            {% elif session.rol_id == 6 %}
+            <!-- Transportista -->
+            {% set informationLaboratorio = [ 
+              ["Registrar Paciente", "/", svg_generales],
+              ["Ver Pacientes", "/", svg_generales],
+              ["Ver Estudios", "/", svg_generales],
+            ] %} {{ 
+              Menu.Menu(informationLaboratorio) 
+            }}
+            
             {% endif %}
 
             <li>
