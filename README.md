@@ -148,23 +148,29 @@ DB_HOST = "grupo08"
 
 ### Cuentas
 
-- **Owner**
-    - **Correo:**owner@gmail.com
-    - **Contraseña:**owner1234
-- **Administrador de Laboratorio**
-    - **Correo:**administrador@gmail.com
-    - **Contraseña:**administrador1234
-- **Laboratorio**
-    - **Correo:**laboratorio@gmail.com
-    - **Contraseña:**laboratorio1234
-- **Medico**
-    - **Correo:**medico@gmail.com
-    - **Contraseña:**medico1234
-- **Paciente**
-    - **Correo:**paciente@gmail.com
-    - **Contraseña:**paciente1234
-- **Transportista**
-    - **Correo:**transportista@gmail.com
-    - **Contraseña:**transportista1234
+
+**Owner**
+- **Correo:** owner@gmail.com
+- **Contraseña:** owner1234
+
+**Administrador de Laboratorio**
+- **Correo:** administrador@gmail.com
+- **Contraseña:** administrador1234
+
+**Laboratorio**
+- **Correo:** laboratorio@gmail.com
+- **Contraseña:** laboratorio1234
+
+**Medico**
+- **Correo:** medico@gmail.com
+- **Contraseña:** medico1234
+
+**Paciente**
+- **Correo:** paciente@gmail.com
+- **Contraseña:** paciente1234
+
+**Transportista**
+- **Correo:** transportista@gmail.com
+- **Contraseña:** transportista1234
 
 ---

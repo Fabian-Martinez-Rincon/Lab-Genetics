@@ -18,46 +18,187 @@
       <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
         Qué esperas para registrarte!!
       </p>
-      
       {% else %}
       <!-- Si está autenticado, mostramos las opciones -->
       <p class="mb-4 text-base md:text-lg text-zinc-500">
-        ¡Bienvenidx {{ current_user.nombre}}{{ current_user.apellido}} 😃! Selecciona una opción para continuar:
+        ¡Bienvenidx {{ current_user.nombre}} {{ current_user.apellido}} 😃! Selecciona una opción para continuar:
       </p>
+      
+      {% if session.rol_id == 1 %}
+        <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+          <!-- Botón Registrar Admin Lab -->
+          <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+            <div class="flex flex-col items-center">
+              <img src="/static/img/accesibilidad/admin.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
+              <span class="text-lg">Registrar Admin</span>
+            </div>
+          </button>
 
-      <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
-        <!-- Botón Registrar Admin Lab -->
-        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
-          <div class="flex flex-col items-center">
-            <img src="/static/img/accesibilidad/admin.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
-            <span class="text-lg">Registrar Admin</span>
-          </div>
-        </button>
+          <!-- Botón Registrar Médico -->
+          <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+            <div class="flex flex-col items-center">
+              <img src="/static/img/accesibilidad/medico.png" alt="Icono Médico" class="w-10 h-10 mb-2">
+              <span class="text-lg">Registrar Médico</span>
+            </div>
+          </button>
 
-        <!-- Botón Registrar Médico -->
-        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
-          <div class="flex flex-col items-center">
-            <img src="/static/img/accesibilidad/medico.png" alt="Icono Médico" class="w-10 h-10 mb-2">
-            <span class="text-lg">Registrar Médico</span>
-          </div>
-        </button>
+          <!-- Botón Ver Usuarios -->
+          <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+            <div class="flex flex-col items-center">
+              <img src="/static/img/accesibilidad/users.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
+              <span class="text-lg">Ver Usuarios</span>
+            </div>
+          </button>
 
-        <!-- Botón Ver Usuarios -->
-        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
-          <div class="flex flex-col items-center">
-            <img src="/static/img/accesibilidad/users.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
-            <span class="text-lg">Ver Usuarios</span>
-          </div>
-        </button>
+          <!-- Botón Ver Perfil -->
+          <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+            <div class="flex flex-col items-center">
+              <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+              <span class="text-lg">Ver Perfil</span>
+            </div>
+          </button>
+        </div>
+        {%elif session.rol_id == 2 %}
+          <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+            <!-- Botón Registrar Admin Lab -->
+            <button class="flex items-center justify-center py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/presupuesto.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
+                <span class="text-lg">Generar Presupuesto</span>
+              </div>
+            </button>
 
-        <!-- Botón Ver Perfil -->
-        <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
-          <div class="flex flex-col items-center">
-            <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
-            <span class="text-lg">Ver Perfil</span>
+            <!-- Botón Registrar Médico -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/confirmarpagos.png" alt="Icono Médico" class="w-10 h-10 mb-2">
+                <span class="text-lg">Confirmar Pagos</span>
+              </div>
+            </button>
+
+            <!-- Botón Ver Usuarios -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/cargarresultados.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
+                <span class="text-lg">Cargar Resultados</span>
+              </div>
+            </button>
+
+            <!-- Botón Ver Perfil -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/esperadeenvio.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+                <span class="text-lg">Espera de Envios</span>
+              </div>
+            </button>
+            
+            <!-- Botón Ver Perfil -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+                <span class="text-lg">Ver Perfil</span>
+              </div>
+            </button>
           </div>
-        </button>
-      </div>
+        {%elif session.rol_id == 3 %}
+          <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+            <!-- Botón Ver Perfil -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+                <span class="text-lg">Ver Perfil</span>
+              </div>
+            </button>
+          </div>
+        {%elif session.rol_id == 4 %}
+          <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+            <!-- Botón Registrar Admin Lab -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/paciente.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
+                <span class="text-lg">Registrar Paciente</span>
+              </div>
+            </button>
+
+            <!-- Botón Registrar Médico -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/listarpacientes.png" alt="Icono Médico" class="w-10 h-10 mb-2">
+                <span class="text-lg">Ver Pacientes</span>
+              </div>
+            </button>
+
+            <!-- Botón Ver Usuarios -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/verestudios.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
+                <span class="text-lg">Ver Estudios</span>
+              </div>
+            </button>
+
+            <!-- Botón Ver Perfil -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+                <span class="text-lg">Ver Perfil</span>
+              </div>
+            </button>
+          </div>
+
+        {%elif session.rol_id == 5 %}
+          <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+            <!-- Botón Registrar Admin Lab -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/presupuesto.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
+                <span class="text-lg">Presupuesto</span>
+              </div>
+            </button>
+
+            <!-- Botón Registrar Médico -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/calendario.png" alt="Icono Médico" class="w-10 h-10 mb-2">
+                <span class="text-lg">Turnos</span>
+              </div>
+            </button>
+
+            <!-- Botón Ver Usuarios -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/verestudios.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
+                <span class="text-lg">Mis Estudios</span>
+              </div>
+            </button>
+
+            <!-- Botón Ver Perfil -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+                <span class="text-lg">Ver Perfil</span>
+              </div>
+            </button>
+          </div>
+          
+          {%elif session.rol_id == 6 %}
+          <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+            <!-- Botón Registrar Admin Lab -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/pedidos.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
+                <span class="text-lg">Pedidos</span>
+              </div>
+            </button>
+
+            <!-- Botón Ver Perfil -->
+            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
+                <span class="text-lg">Ver Perfil</span>
+              </div>
+            </button>
+          </div>
+        {% endif %}
       {% endif %}
     </div>
     

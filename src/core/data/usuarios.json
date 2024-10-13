@@ -44,7 +44,7 @@
         "id_rol": "4"
     },
     {
-        "nombre": "Encarna ",
+        "nombre": "Encarna",
         "apellido": "Vales",
         "password": "pbkdf2:sha256:600000$ajUtdkMvYIrkG5lJ$3fe714691afec2c129d9fe3b4b7ace47f327617625f41de7b2fd6a347f97cd99",
         "email": "paciente@gmail.com",
