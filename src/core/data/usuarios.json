@@ -1,13 +1,68 @@
 [
     {
-        "nombre": "Administrador General",
-        "apellido": "Fabian",
-        "password": "pbkdf2:sha256:600000$GMe3gRKXIEo7rbUm$12408456977de344df1f6b77280576d507192adf0be8d95b77a118a79c40582d",
-        "email": "fabianmartinezrincon.123@gmail.com",
-        "dni": "12345678",
+        "nombre": "Owner",
+        "apellido": "",
+        "password": "pbkdf2:sha256:600000$jawoU9LJFQqneIpf$55df4a082ab7d2f054c074c005d9da324af460e7625acf630d8e085949e2c76a",
+        "email": "owner@gmail.com",
+        "dni": "51481608",
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "1"
+    },
+    {
+        "nombre": "Administrador",
+        "apellido": "",
+        "password": "pbkdf2:sha256:600000$VXfTHFRFTohYdz27$e64ab5611855c9d122bc8e3211e3fce78e33aa8cc2309faa2b1a23c6dbc447c3",
+        "email": "administrador@gmail.com",
+        "dni": "06867618",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455",
+        "historia_path": "/path/to/historia_juan.pdf",
+        "id_rol": "2"
+    },
+    {
+        "nombre": "Laboratorio",
+        "apellido": "",
+        "password": "pbkdf2:sha256:600000$3NsQIysFIKaXPqjO$d22d5b3d2ad3d02951113b5c34b9898bc384d9981e0e47f03f4b9693a265407a",
+        "email": "laboratorio@gmail.com",
+        "dni": "22078712",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455",
+        "historia_path": "/path/to/historia_juan.pdf",
+        "id_rol": "3"
+    },
+    {
+        "nombre": "Medico",
+        "apellido": "",
+        "password": "pbkdf2:sha256:600000$6oAn1L6BwaTzONuX$dab8e17826ed858e22292e6779f9d0f350da646d5d8c8eec0a1c4c5ebbc8c88e",
+        "email": "medico@gmail.com",
+        "dni": "18685557",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455",
+        "historia_path": "/path/to/historia_juan.pdf",
+        "id_rol": "4"
+    },
+    {
+        "nombre": "Paciente",
+        "apellido": "",
+        "password": "pbkdf2:sha256:600000$ajUtdkMvYIrkG5lJ$3fe714691afec2c129d9fe3b4b7ace47f327617625f41de7b2fd6a347f97cd99",
+        "email": "paciente@gmail.com",
+        "dni": "29450345",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455",
+        "historia_path": "/path/to/historia_juan.pdf",
+        "id_rol": "5"
+    },
+    {
+        "nombre": "Transportista",
+        "apellido": "",
+        "password": "pbkdf2:sha256:600000$HWxNShI6ipPUOb0L$4992215717ad41706aa69c587a3038008782c371b110b1b2a961038c410152ed",
+        "email": "transportista@gmail.com",
+        "dni": "01533699",
+        "fecha_nacimiento": "1990-05-24",
+        "telefono": "1122334455",
+        "historia_path": "/path/to/historia_juan.pdf",
+        "id_rol": "5"
     }
 ]

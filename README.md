@@ -134,8 +134,9 @@ DB_HOST = "grupo08"
 
 ### 👤 Usuarios
 
-- [Administrador General](#administrador-general)
+- [Owner](#administrador-general)
 - [Administrador de Laboratorio](#administrador-de-laboratorio)
+- [Laboratorio](#laboratorio)
 - [Medico](#medico)
 - [Paciente](#paciente)
 - [Transportista](#transportista)
@@ -145,30 +146,25 @@ DB_HOST = "grupo08"
 
 ---
 
-#### Administrador General
+### Cuentas
 
-Es el unico usuario que ya viene precargado
+- **Owner**
+    - **Correo:**owner@gmail.com
+    - **Contraseña:**owner1234
+- **Administrador de Laboratorio**
+    - **Correo:**administrador@gmail.com
+    - **Contraseña:**administrador1234
+- **Laboratorio**
+    - **Correo:**laboratorio@gmail.com
+    - **Contraseña:**laboratorio1234
+- **Medico**
+    - **Correo:**medico@gmail.com
+    - **Contraseña:**medico1234
+- **Paciente**
+    - **Correo:**paciente@gmail.com
+    - **Contraseña:**paciente1234
+- **Transportista**
+    - **Correo:**transportista@gmail.com
+    - **Contraseña:**transportista1234
 
-- Dar de alta a los administradores de laboratorio
-
-#### Administrador de Laboratorio
-
-- Dar de alta a los medicos
-
-#### Medico
-
-- Dar de alta paciente
-    - Dni
-    - Mail
-    - Nombre
-    - Apellido
-    - Fecha de nacimiento
-    - Los antecedentes Familiares
-    - Resumen de la historia clinica
-- Solicitar Estudio al Laboratorio
-
-#### Paciente
-
-- Elegir Turno
-
-#### Transportista
+---
