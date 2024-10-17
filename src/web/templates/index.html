@@ -24,56 +24,56 @@
         ¡Bienvenidx <span class="text-blue-500">{{ current_user.nombre}}</span> <span class="text-blue-500">{{ current_user.apellido}}</span> 😃! Selecciona una opción para continuar:
       </p>
       {% if session.rol_id == 1 %}
-        <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
+        <div class="grid max-w-md grid-cols-3 gap-4 mx-auto my-8">
           <!-- Botón Registrar Admin Lab -->
-          <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+          <a href='/registrar_administrador' class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
             <div class="flex flex-col items-center">
-              <img src="/static/img/accesibilidad/admin.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
-              <span class="text-lg">Registrar Admin</span>
+              <img src="/static/img/accesibilidad/admin.png" alt="Icono Admin Lab" class="mb-3 w-14 h-14">
+              <span class="text-xl">Registrar Admin</span>
             </div>
-          </button>
-
+          </a>
+        
           <!-- Botón Registrar Médico -->
-          <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+          <a href='/registrar_medico' class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
             <div class="flex flex-col items-center">
-              <img src="/static/img/accesibilidad/medico.png" alt="Icono Médico" class="w-10 h-10 mb-2">
-              <span class="text-lg">Registrar Médico</span>
+              <img src="/static/img/accesibilidad/medico.png" alt="Icono Médico" class="mb-3 w-14 h-14">
+              <span class="text-xl">Registrar Médico</span>
             </div>
-          </button>
-
+          </a>
+        
           <!-- Botón Ver Usuarios -->
-          <a href="/listar_usuarios" class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+          <a href="/listar_usuarios" class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
             <div class="flex flex-col items-center">
-              <img src="/static/img/accesibilidad/users.png" alt="Icono Usuarios" class="w-10 h-10 mb-2">
-              <span class="text-lg">Ver Usuarios</span>
+              <img src="/static/img/accesibilidad/users.png" alt="Icono Usuarios" class="mb-3 w-14 h-14">
+              <span class="text-xl">Ver Usuarios</span>
             </div>
           </a>
-          
-
+        
           <!-- Botón Ver Perfil -->
-          <a href="/perfil" class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+          <a href="/perfil" class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
             <div class="flex flex-col items-center">
-              <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="w-10 h-10 mb-2">
-              <span class="text-lg">Ver Perfil</span>
+              <img src="/static/img/accesibilidad/profile.png" alt="Icono Perfil" class="mb-3 w-14 h-14">
+              <span class="text-xl">Ver Perfil</span>
             </div>
           </a>
-
+        
           <!-- Botón Listar Laboratorios -->
-          <a href='listar_laboratorios' class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+          <a href='listar_laboratorios' class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
             <div class="flex flex-col items-center">
-              <img src="/static/img/accesibilidad/listarlaboratorios.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
-              <span class="text-lg">Listar Laboratorios</span>
+              <img src="/static/img/accesibilidad/listarlaboratorios.png" alt="Icono Admin Lab" class="mb-3 w-14 h-14">
+              <span class="text-xl">Listar Laboratorios</span>
             </div>
           </a>
-
-          <!-- Botón Registrar Médico -->
-          <a href='registrar_laboratorio' class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+        
+          <!-- Botón Registrar Laboratorio -->
+          <a href='registrar_laboratorio' class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
             <div class="flex flex-col items-center">
-              <img src="/static/img/accesibilidad/laboratorio.png" alt="Icono Médico" class="w-10 h-10 mb-2">
-              <span class="text-lg">Registrar Laboratorio</span>
+              <img src="/static/img/accesibilidad/laboratorio.png" alt="Icono Laboratorio" class="mb-3 w-14 h-14">
+              <span class="text-xl">Registrar Laboratorio</span>
             </div>
           </a>
         </div>
+        
         {%elif session.rol_id == 2 %}
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
             <!-- Botón Generar Presupuesto -->
