@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash
 from src.core.models.database import db
 from src.web.formularios.registrar import RegisterForm
 from src.web.formularios.registrar_medico import RegisterMedicoForm
+from src.web.formularios.registrar_administrador import RegisterAdministradorForm
 from src.core.models.usuario import Usuario
 from flask import Blueprint
 
@@ -102,3 +103,26 @@ def register_medico():
         mostrar_errores(form)
         return render_template('/registros/registrar_medico.html', form=form, password=password)
     return render_template('/registros/registrar_medico.html', form=form, password='')
+
+@bp.route('/registrar_administrador', methods=['GET', 'POST'])
+def register_administrador():
+    path = '/registros/registrar_administrador.html'
+    form = RegisterAdministradorForm()
+    if form.validate_on_submit():
+        validar_mail(form, path)
+        validar_dni(form, path)
+        validar_contrasenia(form, path)
+        new_medico = crear_usuario(form, 2) # 2 es el id del rol administrador
+        try:
+            db.session.add(new_medico)
+            db.session.commit()
+            flash('El administrador ha sido registrado correctamente', 'success')
+            return redirect(url_for('root.index_get'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Ocurrió un error: {e}', 'error')
+    else:
+        password = request.form.get('password', '')
+        mostrar_errores(form)
+        return render_template('/registros/registrar_administrador.html', form=form, password=password)
+    return render_template('/registros/registrar_administrador.html', form=form, password='')

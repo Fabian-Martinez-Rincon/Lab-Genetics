@@ -10,7 +10,7 @@ def validate_fecha_nacimiento(form, field):
     if age < 18:
         raise ValidationError("Debes tener al menos 18 años para registrarte.")
 
-class RegisterMedicoForm(FlaskForm):
+class RegisterAdministradorForm(FlaskForm):
     nombre           = StringField('Nombre', validators=[DataRequired(), Length(max=50)])
     apellido         = StringField('Apellido', validators=[DataRequired(), Length(max=50)])
     password         = PasswordField('Contraseña', validators=[DataRequired(), Length(min=8, message="La contraseña debe tener al menos 8 caracteres.")])
@@ -21,4 +21,4 @@ class RegisterMedicoForm(FlaskForm):
     dni              = StringField('DNI', validators=[Optional(), Length(min=8)])
     fecha_nacimiento = DateField('Fecha de Nacimiento', validators=[DataRequired(), validate_fecha_nacimiento], format='%Y-%m-%d')
     telefono         = StringField('Teléfono', validators=[Optional(), Length(max=50)])
-    submit           = SubmitField('Registrar Médico')
+    submit           = SubmitField('Registrar Administrador')

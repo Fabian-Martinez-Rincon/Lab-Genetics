@@ -26,12 +26,12 @@
       {% if session.rol_id == 1 %}
         <div class="grid max-w-md grid-cols-3 gap-4 mx-auto my-8">
           <!-- Botón Registrar Admin Lab -->
-          <button class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+          <a href='/registrar_administrador' class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
             <div class="flex flex-col items-center">
               <img src="/static/img/accesibilidad/admin.png" alt="Icono Admin Lab" class="mb-3 w-14 h-14">
               <span class="text-xl">Registrar Admin</span>
             </div>
-          </button>
+          </a>
         
           <!-- Botón Registrar Médico -->
           <a href='/registrar_medico' class="flex items-center justify-center px-10 py-6 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
