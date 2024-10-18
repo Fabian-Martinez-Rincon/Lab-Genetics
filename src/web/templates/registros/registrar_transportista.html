@@ -7,14 +7,14 @@
   <div class="w-full max-w-sm">
     <!-- Logo del médico -->
     <div class="flex justify-center mb-4">
-      <img src="/static/img/accesibilidad/medico.png" alt="Icono Médico" class="w-16 h-16">
+      <img src="/static/img/accesibilidad/transportista.png" alt="Icono Médico" class="w-16 h-16">
     </div>
 
-    <h1 class="mb-4 text-2xl font-extrabold text-center md:text-3xl lg:text-4xl text-green-shade">
-      Registrar Médico
+    <h1 class="mb-4 text-2xl font-extrabold text-center text-indigo-800 md:text-3xl lg:text-4xl">
+      Registrar Transportista
     </h1>
 
-    <form action="{{ url_for('registrar.register_medico') }}" method="POST">
+    <form action="{{ url_for('registrar.register_transportista') }}" method="POST">
       {{ form.hidden_tag() }}
 
       <div class="rounded-md shadow-sm">

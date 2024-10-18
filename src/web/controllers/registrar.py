@@ -4,6 +4,7 @@ from src.core.models.database import db
 from src.web.formularios.registrar import RegisterForm
 from src.web.formularios.registrar_medico import RegisterMedicoForm
 from src.web.formularios.registrar_administrador import RegisterAdministradorForm
+from src.web.formularios.registrar_transportista import RegisterTransportistaForm
 from src.core.models.usuario import Usuario
 from flask import Blueprint
 
@@ -126,3 +127,26 @@ def register_administrador():
         mostrar_errores(form)
         return render_template('/registros/registrar_administrador.html', form=form, password=password)
     return render_template('/registros/registrar_administrador.html', form=form, password='')
+
+@bp.route('/registrar_transportista', methods=['GET', 'POST'])
+def register_transportista():
+    path = '/registros/registrar_transportista.html'
+    form = RegisterTransportistaForm()
+    if form.validate_on_submit():
+        validar_mail(form, path)
+        validar_dni(form, path)
+        validar_contrasenia(form, path)
+        new_medico = crear_usuario(form, 6) # 2 es el id del rol transportista
+        try:
+            db.session.add(new_medico)
+            db.session.commit()
+            flash('El administrador ha sido registrado correctamente', 'success')
+            return redirect(url_for('root.index_get'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Ocurrió un error: {e}', 'error')
+    else:
+        password = request.form.get('password', '')
+        mostrar_errores(form)
+        return render_template('/registros/registrar_transportista.html', form=form, password=password)
+    return render_template('/registros/registrar_transportista.html', form=form, password='')
