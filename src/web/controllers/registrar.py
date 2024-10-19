@@ -1,36 +1,53 @@
 from flask import render_template, redirect, url_for, flash, request
 from werkzeug.security import generate_password_hash
+from functools import wraps
 from src.core.models.database import db
-from src.web.formularios.registrar import RegisterForm
 from src.web.formularios.registrar_medico import RegisterMedicoForm
 from src.web.formularios.registrar_administrador import RegisterAdministradorForm
 from src.web.formularios.registrar_transportista import RegisterTransportistaForm
 from src.core.models.usuario import Usuario
 from flask import Blueprint
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 
 bp = Blueprint("registrar", __name__)
 
-def validar_mail(form, path):
-    existing_user = Usuario.query.filter_by(email=form.email.data).first()
-    if existing_user:
-        flash('Ya existe un usuario registrado con ese mail', 'error')
+# Decorador para manejar el proceso de registro
+def manejar_registro(form_class, template_path, id_rol):
+    def decorador(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            form = form_class()
+            if form.validate_on_submit():
+                validar_formulario(form, template_path)
+                new_user = crear_usuario(form, id_rol)
+                return guardar_usuario(new_user)
+            else:
+                password = request.form.get('password', '')
+                mostrar_errores(form)
+                return render_template(template_path, form=form, password=password)
+        return wrapped
+    return decorador
+
+# Funciones de validación y creación
+def validar_formulario(form, path):
+    """Valida los campos del formulario: email, dni, y contraseña."""
+    if Usuario.query.filter_by(email=form.email.data).first():
+        flash('Ya existe un usuario registrado con ese email', 'error')
         form.email.data = ''
         return render_template(path, form=form, password=request.form['password'])
 
-def validar_dni(form, path):
-    existing_user_dni = Usuario.query.filter_by(dni=form.dni.data).first()
-    if existing_user_dni:
+    if Usuario.query.filter_by(dni=form.dni.data).first():
         flash('Ya existe un usuario registrado con ese dni', 'error')
         form.dni.data = ''
         return render_template(path, form=form, password=request.form['password'])
 
-def validar_contrasenia(form, path):
     if len(form.password.data) < 8:
         flash('La contraseña debe tener mínimo 8 caracteres', 'error')
         form.password.data = ''
         return render_template(path, form=form, password=request.form['password'])
 
-def crear_usuario(form, id):
+def crear_usuario(form, id_rol):
+    """Crea un nuevo usuario a partir del formulario."""
     hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
     new_user = Usuario(
         nombre=form.nombre.data,
@@ -41,112 +58,53 @@ def crear_usuario(form, id):
         fecha_nacimiento=form.fecha_nacimiento.data,
         telefono=form.telefono.data,
         historia_path='historia_clinica.pdf',
-        id_rol=id,
+        id_rol=id_rol,
     )
     return new_user
 
+def guardar_usuario(new_user):
+    """Guarda un usuario en la base de datos con manejo de errores."""
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Registro exitoso', 'success')
+        return redirect(url_for('root.index_get'))
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Ocurrió un error: {e}', 'error')
+        return None
+
 def mostrar_errores(form):
+    """Muestra los errores de validación del formulario."""
     for fieldName, errorMessages in form.errors.items():
         for err in errorMessages:
-            if (err == "Por favor ingrese un correo electrónico válido."):
-                form.email.data = ""                 
-                flash(f'{err}', 'error')        
-                continue               
-            if (err == 'This field is required.'):
-                flash(f'El campo {fieldName} es obligatorio', 'error')                
+            if err == "Por favor ingrese un correo electrónico válido.":
+                form.email.data = ''
+                flash(f'{err}', 'error')
+            elif err == 'This field is required.':
+                flash(f'El campo {fieldName} es obligatorio', 'error')
             else:
                 form.fecha_nacimiento.data = None
-                form.fecha_nacimiento.data = ''       
                 flash(f'{err}', 'error')
 
-@bp.route('/registrar_usuario', methods=['GET', 'POST'])
-def register():
-    path = '/comunes/registrar.html'
-    form = RegisterForm()
-    if form.validate_on_submit():
-        validar_mail(form, path)
-        validar_dni(form, path)
-        validar_contrasenia(form, path)
-        new_user = crear_usuario(form)
-        try:
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Fue registrado correctamente', 'success')
-            return redirect(url_for('root.login'))
-        except Exception as e:
-            db.session.rollback()
-            flash(f'ups ocurrio un error: {e}', 'error')
-    else:
-        password = request.form.get('password', '')
-        mostrar_errores(form)
-        return render_template('/comunes/registrar.html', form=form, password=password)
-    return render_template('/comunes/registrar.html', form=form, password='')
 
 @bp.route('/registrar_medico', methods=['GET', 'POST'])
+@verificar_autenticacion
+@verificar_rol(1)
+@manejar_registro(RegisterMedicoForm, '/registros/registrar_medico.html', 4)
 def register_medico():
-    path = '/registros/registrar_medico.html'
-    form = RegisterMedicoForm()
-    if form.validate_on_submit():
-        validar_mail(form, path)
-        validar_dni(form, path)
-        validar_contrasenia(form, path)
-        new_medico = crear_usuario(form, 4) # 4 es el id del rol médico
-        try:
-            db.session.add(new_medico)
-            db.session.commit()
-            flash('El médico ha sido registrado correctamente', 'success')
-            return redirect(url_for('root.index_get'))
-        except Exception as e:
-            db.session.rollback()
-            flash(f'Ocurrió un error: {e}', 'error')
-    else:
-        password = request.form.get('password', '')
-        mostrar_errores(form)
-        return render_template('/registros/registrar_medico.html', form=form, password=password)
-    return render_template('/registros/registrar_medico.html', form=form, password='')
+    pass
 
 @bp.route('/registrar_administrador', methods=['GET', 'POST'])
+@verificar_autenticacion
+@verificar_rol(1)
+@manejar_registro(RegisterAdministradorForm, '/registros/registrar_administrador.html', 2)
 def register_administrador():
-    path = '/registros/registrar_administrador.html'
-    form = RegisterAdministradorForm()
-    if form.validate_on_submit():
-        validar_mail(form, path)
-        validar_dni(form, path)
-        validar_contrasenia(form, path)
-        new_medico = crear_usuario(form, 2) # 2 es el id del rol administrador
-        try:
-            db.session.add(new_medico)
-            db.session.commit()
-            flash('El administrador ha sido registrado correctamente', 'success')
-            return redirect(url_for('root.index_get'))
-        except Exception as e:
-            db.session.rollback()
-            flash(f'Ocurrió un error: {e}', 'error')
-    else:
-        password = request.form.get('password', '')
-        mostrar_errores(form)
-        return render_template('/registros/registrar_administrador.html', form=form, password=password)
-    return render_template('/registros/registrar_administrador.html', form=form, password='')
+    pass
 
 @bp.route('/registrar_transportista', methods=['GET', 'POST'])
+@verificar_autenticacion
+@verificar_rol(1)
+@manejar_registro(RegisterTransportistaForm, '/registros/registrar_transportista.html', 6)
 def register_transportista():
-    path = '/registros/registrar_transportista.html'
-    form = RegisterTransportistaForm()
-    if form.validate_on_submit():
-        validar_mail(form, path)
-        validar_dni(form, path)
-        validar_contrasenia(form, path)
-        new_medico = crear_usuario(form, 6) # 2 es el id del rol transportista
-        try:
-            db.session.add(new_medico)
-            db.session.commit()
-            flash('El administrador ha sido registrado correctamente', 'success')
-            return redirect(url_for('root.index_get'))
-        except Exception as e:
-            db.session.rollback()
-            flash(f'Ocurrió un error: {e}', 'error')
-    else:
-        password = request.form.get('password', '')
-        mostrar_errores(form)
-        return render_template('/registros/registrar_transportista.html', form=form, password=password)
-    return render_template('/registros/registrar_transportista.html', form=form, password='')
+    pass

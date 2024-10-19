@@ -27,9 +27,8 @@ def check_user():
         
 @bp.get("/")
 def index_get():
-    if not session.get('logged_in'):  # Verifica si el usuario está logueado
-        return redirect(url_for('root.login'))  # Redirige a la página de login
-
+    if not session.get('logged_in'):
+        return redirect(url_for('root.login'))
     try:
         todas_las_filiales = Laboratorio.query.all()
         return render_template("index.html", filiales=todas_las_filiales)
@@ -69,6 +68,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 @bp.route('/perfil')
+
 def perfil():
     if not(session.get('user_id')):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
