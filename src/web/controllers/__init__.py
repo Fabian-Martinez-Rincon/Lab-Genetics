@@ -2,16 +2,16 @@ import flask
 from src.web.controllers import (
     root,
     registrar,
-    listar_usuarios,
+    listar,
     listar_laboratorios,
     registrar_laboratorio,
-    editar_perfil
+    editar_perfil,
 )
 
 _blueprints = (
     root.bp,
     registrar.bp,
-    listar_usuarios.bp,
+    listar.bp,
     listar_laboratorios.bp,
     registrar_laboratorio.bp,
     editar_perfil.bp
