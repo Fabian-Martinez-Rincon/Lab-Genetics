@@ -1,0 +1,26 @@
+[
+    {
+        "id_paciente": 1,
+        "id_laboratorio": 3,
+        "fecha": "2024-10-01",
+        "hora": "08:00:00"
+    },
+    {
+        "id_paciente": 1,
+        "id_laboratorio": 3,
+        "fecha": "2024-10-02",
+        "hora": "09:00:00"
+    },
+    {
+        "id_paciente": 1,
+        "id_laboratorio": 3,
+        "fecha": "2024-10-03",
+        "hora": "10:00:00"
+    },
+    {
+        "id_paciente": 1,
+        "id_laboratorio": 3,
+        "fecha": "2024-10-04",
+        "hora": "11:00:00"
+    }
+]
