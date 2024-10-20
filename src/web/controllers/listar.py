@@ -3,6 +3,7 @@ from src.core.models.database import db
 from src.core.models.usuario import Usuario
 from src.core.models.rol import Rol
 from src.core.models.turno import Turno
+from src.core.models.estado import Estado
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 
 
@@ -35,7 +36,10 @@ def listar_usuarios():
 @verificar_autenticacion
 @verificar_rol(3)
 def listar_turnos():
-    mis_turnos = Turno.query.filter(
+    # Consulta que incluye el nombre del estado y ordena los turnos por fecha
+    mis_turnos = Turno.query.join(Estado, Turno.estado == Estado.id).filter(
         Turno.id_laboratorio == session['user_id']
-    ).all()
+    ).add_columns(
+        Turno.fecha, Turno.hora, Turno.id_estudio, Estado.nombre.label('estado_nombre')
+    ).order_by(Turno.fecha.asc()).all()  # Ordena los turnos por fecha de forma ascendente
     return render_template('owner/listar_turnos.html', turnos=mis_turnos)

@@ -2,10 +2,8 @@ import os
 import json
 from datetime import datetime
 from src.core.models.database import db
-from src.core.models import Laboratorio
-from src.core.models import Usuario
-from src.core.models import Rol
-from src.core.models import Turno
+from src.core.models import Laboratorio, Usuario, Rol, Turno, Estado, Resultado, Estudio, Presupuesto, Pedido
+
 
 def cargar_datos(filename):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -31,6 +29,11 @@ def seed_db():
             Rol: 'roles.json',
             Usuario: 'usuarios.json',
             Laboratorio: 'laboratorios.json',
+            Estado: 'estados.json',
+            Resultado: 'resultados.json',
+            Presupuesto: 'presupuestos.json',
+            Pedido: 'pedidos.json',
+            Estudio: 'estudios.json',
             Turno: 'turnos.json'
         }
         
