@@ -1,0 +1,16 @@
+[
+    {
+        "id_paciente": 1,
+        "id_medico": 2,
+        "sintomas": "Dolor de cabeza, fiebre",
+        "listado_genes": "BRCA1, BRCA2",
+        "hallazgos_secundarios": true,
+        "fecha_solicitud": "2024-10-20T14:00:00",
+        "fecha_ingreso_central": "2024-10-21",
+        "id_estado": 2,
+        "id_resultado": 1,
+        "id_presupuesto": 1,
+        "comprobante_path": "path/to/comprobante1.pdf",
+        "id_pedido": 1
+    }
+]

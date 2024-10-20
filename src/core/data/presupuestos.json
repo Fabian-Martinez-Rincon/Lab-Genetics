@@ -1,0 +1,17 @@
+[
+    {
+        "fecha_vencimiento": "2024-12-31",
+        "Detalle": "Análisis completo de sangre y bioquímica básica. Incluye: Hemograma, Glucosa, Colesterol total, Urea, Creatinina.",
+        "montoFinal": 1500.00
+    },
+    {
+        "fecha_vencimiento": "2025-01-15",
+        "Detalle": "Evaluación cardiaca detallada. Incluye: Electrocardiograma, Prueba de esfuerzo, Ecocardiograma.",
+        "montoFinal": 3200.50
+    },
+    {
+        "fecha_vencimiento": "2024-11-20",
+        "Detalle": "Panel de salud general. Incluye: Chequeo completo, análisis de vitaminas y minerales, perfil tiroideo.",
+        "montoFinal": 2100.75
+    }
+]
