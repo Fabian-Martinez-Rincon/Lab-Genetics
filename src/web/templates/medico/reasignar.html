@@ -1,0 +1,33 @@
+{% extends "_layouts/app.html" %} 
+{% block head %}
+<title>Reasignar Paciente</title>
+{% endblock %} 
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <h1 class="mb-4 text-3xl font-extrabold text-indigo-800">Reasignar Paciente</h1>
+
+    <form method="POST" action="{{ url_for('reasignar.reasignar') }}">
+      <div class="mb-4">
+        <label for="dni" class="block text-left">DNI del Paciente:</label>
+        <input type="text" name="dni" id="dni" required class="w-full px-4 py-2 border border-gray-300 rounded" placeholder="Ingrese el DNI del paciente">
+      </div>
+
+      <button type="submit" class="w-full px-4 py-2 text-white bg-indigo-600 rounded hover:bg-indigo-500">
+        Reasignar Paciente
+      </button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li class="text-red-500">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </section>
+</main>
+{% endblock %}

@@ -6,6 +6,9 @@ from src.web.controllers import (
     listar_laboratorios,
     registrar_laboratorio,
     editar_perfil,
+    registrar_paciente,
+    mis_pacientes,
+    reasignar,
 )
 
 _blueprints = (
@@ -14,7 +17,10 @@ _blueprints = (
     listar.bp,
     listar_laboratorios.bp,
     registrar_laboratorio.bp,
-    editar_perfil.bp
+    editar_perfil.bp,
+    registrar_paciente.bp,
+    mis_pacientes.bp,
+    reasignar.bp,
 )
 
 def init_app(app: flask.Flask):
