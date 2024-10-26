@@ -1,40 +1,54 @@
-{% extends "_layouts/app.html" %} {% block head %}
+{% extends "_layouts/app.html" %}
+{% block head %}
 <title>{{ user.nombre }} {{ user.apellido }}</title>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="flex flex-col items-center justify-center mt-10 text-center">
-  <img
-    src="/static/img/accesibilidad/user.png"
-    alt="User Profile"
-    class="w-24 h-24 mb-6 rounded-full"
-  />
+  <img src="/static/img/accesibilidad/user.png" alt="User Profile" class="w-24 h-24 mb-6 rounded-full" />
 
   <h1 class="mb-6 text-4xl font-semibold text-gray-900">{{ user.nombre }} {{ user.apellido }}</h1>
 
   <div class="max-w-lg mx-auto text-xl text-left text-gray-700">
-    <p class="mb-2">
-      <strong>Email:</strong>
-      {{ user.email }}
-    </p>
-    {% if user.id_rol == 1 %}
-    <p class="mb-2">
-      <strong>DNI:</strong>
-      {{ user.dni }}
-    </p>
-    <p class="mb-2">
-      <strong>Teléfono:</strong>
-      {{ user.telefono }}
-    </p>
-    <p class="mb-2">
-      <strong>Fecha de nacimiento:</strong>
-      {{ user.fecha_nacimiento.strftime('%d/%m/%Y') }}
-    </p>
+    <p class="mb-2"><strong>Email:</strong> {{ user.email }}</p>
+    <p class="mb-2"><strong>DNI:</strong> {{ user.dni }}</p>
+    <p class="mb-2"><strong>Teléfono:</strong> {{ user.telefono }}</p>
+
+    {% if user.id_rol in [2, 4, 5, 6] %}
+      <p class="mb-2"><strong>Fecha de nacimiento:</strong> 
+        {% if user.fecha_nacimiento %} 
+          {{ user.fecha_nacimiento.strftime('%d/%m/%Y') }} 
+        {% else %} 
+          No registrada 
+        {% endif %}
+      </p>
+    {% endif %}
+
+    {% if user.id_rol == 5 %}
+      <p class="mb-2"><strong>Antecedentes familiares:</strong>
+        {% if user.patologias %}
+          <ul>
+            {% for patologia in user.patologias %}
+              <li>{{ patologia.nombre }}</li>  {# Asegúrate de que "nombre" es un atributo de tu modelo Patologia #}
+            {% endfor %}
+          </ul>
+        {% else %}
+          <span>No tiene antecedentes familiares registrados.</span>
+        {% endif %}
+      </p>
+    {% endif %}
+    
+    {% if user.id_rol == 3 %}
+      <p class="mb-2"><strong>Dirección:</strong> {{ user.direccion }}</p>
+      <p class="mb-2"><strong>Horarios:</strong> {{ user.horarios }}</p>
+      <p class="mb-2"><strong>Días:</strong> {{ user.dias }}</p>
+      <p class="mb-2"><strong>Address:</strong> {{ user.address }}</p>
     {% endif %}
   </div>
-  <a
-    href="{{ url_for('editar_perfil.editar_perfil', usuario_id=user.id) }}"
-    class="px-4 py-2 mt-6 text-white transition bg-indigo-800 rounded hover:bg-green-cyan"
-  >
+
+  <a href="{{ url_for('editar_perfil.editar_perfil', usuario_id=user.id) }}" class="px-4 py-2 mt-6 text-white transition bg-indigo-800 rounded hover:bg-green-cyan">
     Editar perfil
   </a>
 </div>
 {% endblock %}
+

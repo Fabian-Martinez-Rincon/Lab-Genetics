@@ -2,7 +2,7 @@ import os
 import json
 from datetime import datetime
 from src.core.models.database import db
-from src.core.models import Laboratorio, Usuario, Rol, Turno, Estado, Resultado, Estudio, Presupuesto, Pedido
+from src.core.models import Laboratorio, Usuario, Rol, Turno, Estado, Resultado, Estudio, Presupuesto, Pedido, Patologia
 
 
 def cargar_datos(filename):
@@ -34,7 +34,8 @@ def seed_db():
             Presupuesto: 'presupuestos.json',
             Pedido: 'pedidos.json',
             Estudio: 'estudios.json',
-            Turno: 'turnos.json'
+            Turno: 'turnos.json',
+            Patologia: 'patologias.json'
         }
         
         for entidad, archivo in entidades_datos.items():

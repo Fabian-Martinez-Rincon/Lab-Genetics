@@ -20,7 +20,7 @@ class Usuario(UserMixin, db.Model):
     estudios_como_paciente = db.relationship('Estudio', backref='paciente', foreign_keys='Estudio.id_paciente', cascade='all, delete-orphan')
     # Relación con los estudios como médico
     estudios_como_medico = db.relationship('Estudio', backref='medico', foreign_keys='Estudio.id_medico', cascade='all, delete-orphan')
-    
+    patologias = db.relationship('Patologia', secondary='antecedentes_usuarios', backref='usuarios')
      
 # Tabla intermedia para la relación muchos a muchos entre Usuario y Antecedentes Familiares
 antecedentes_usuarios = db.Table('antecedentes_usuarios',

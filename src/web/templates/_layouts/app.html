@@ -174,8 +174,9 @@ endblock %} {% block base_body %}
             {% elif session.rol_id == 4 %}
             <!-- Medico -->
             {% set informationLaboratorio = [ 
-              ["Registrar Paciente", "/", svg_generales],
-              ["Ver Pacientes", "/", svg_generales],
+              ["Registrar Paciente", "/registrar_paciente", svg_generales],
+              ["Reasignar Paciente", "/reasignar", svg_generales],
+              ["Ver Pacientes", "/mis_pacientes", svg_generales],
               ["Ver Estudios", "/", svg_generales],
             ] %} {{ 
               Menu.Menu(informationLaboratorio) 

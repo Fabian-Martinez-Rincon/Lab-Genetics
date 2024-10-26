@@ -16,9 +16,10 @@ def env_or_error(env: str, default: t.Union[str, None] = None) -> str:
 class Config:
     LIVETW_DEV: bool
     TESTING = False
-    #Configurar la carga de imagenes
-    UPLOAD_FOLDER = 'Char-IT/static/'
-    ALLOWED_EXTENSIONS = {'png', 'PNG', 'jpg', 'JPG'}
+    #Configurar la carga de historias clinicas
+    UPLOAD_FOLDER = 'Lab-Genetics/static/historias'
+    ALLOWED_EXTENSIONS = {'pdf'}
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # Tamaño máximo de archivo: 16MB
     # Configurar la extensión Flask-Mail
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465

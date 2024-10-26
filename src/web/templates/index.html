@@ -144,20 +144,27 @@
         {%elif session.rol_id == 4 %}
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
             <!-- Botón Registrar Paciente -->
-            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+            <a href="/registrar_paciente" class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/paciente.png" alt="Icono Admin Lab" class="w-10 h-10 mb-2">
                 <span class="text-lg">Registrar Paciente</span>
               </div>
-            </button>
+            </a>
+            <!-- Boton para Reasignar Paciente -->
+            <a href='/reasignar' class="flex items-center justify-center w-full px-12 py-6 text-white transition duration-500 bg-indigo-600 rounded-lg shadow-md hover:shadow-lg hover:bg-indigo-500">
+              <div class="flex flex-col items-center">
+                <img src="/static/img/accesibilidad/users.png" alt="Icono Reasignar Paciente" class="object-contain mb-3 w-14 h-14">
+                <span class="text-xl">Reasignar Paciente</span>
+              </div>
+            </a>
 
             <!-- Botón Ver Pacientes -->
-            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+            <a href="/mis_pacientes" class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/listarpacientes.png" alt="Icono Médico" class="w-10 h-10 mb-2">
                 <span class="text-lg">Ver Pacientes</span>
               </div>
-            </button>
+            </a>
 
             <!-- Botón Ver Estudios -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
