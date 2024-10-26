@@ -36,10 +36,13 @@ def listar_usuarios():
 @verificar_autenticacion
 @verificar_rol(3)
 def listar_turnos():
-    # Consulta que incluye el nombre del estado y ordena los turnos por fecha
-    mis_turnos = Turno.query.join(Estado, Turno.estado == Estado.id).filter(
-        Turno.id_laboratorio == session['user_id']
-    ).add_columns(
-        Turno.fecha, Turno.hora, Turno.id_estudio, Estado.nombre.label('estado_nombre')
-    ).order_by(Turno.fecha.asc()).all()  # Ordena los turnos por fecha de forma ascendente
+    # Consulta que incluye el nombre del estado y el usuario asociado al turno
+    mis_turnos = Turno.query \
+        .join(Estado, Turno.estado == Estado.id) \
+        .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
+        .add_columns(
+            Turno.fecha, Turno.hora, Turno.id_estudio, Estado.nombre.label('estado_nombre'),
+            Usuario.dni, Usuario.nombre, Usuario.apellido
+        ) \
+        .order_by(Turno.fecha.asc()).all()
     return render_template('owner/listar_turnos.html', turnos=mis_turnos)

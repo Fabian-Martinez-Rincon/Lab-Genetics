@@ -19,7 +19,7 @@
 
     <div class="w-full overflow-x-auto">
       {% call Table.Table() %}
-      {{ Table.TableHeader(("Fecha", "Hora", "ID Estudio", "Estado")) }}
+      {{ Table.TableHeader(("Fecha", "Hora", "ID Estudio", "Estado", "DNI", "Nombre", "Apellido")) }}
       <tbody>
         {% for turno in turnos %}
         <tr class="bg-gray-100 even:bg-white hover:bg-gray-200">
@@ -27,6 +27,9 @@
           <td class="px-6 py-4 text-gray-700">{{ turno.hora }}</td>
           <td class="px-6 py-4 text-gray-700">{{ turno.id_estudio }}</td>
           <td class="px-6 py-4 text-gray-700">{{ turno.estado_nombre }}</td>
+          <td class="px-6 py-4 text-gray-700">{{ turno.dni or "No asignado" }}</td>
+          <td class="px-6 py-4 text-gray-700">{{ turno.nombre or "No asignado" }}</td>
+          <td class="px-6 py-4 text-gray-700">{{ turno.apellido or "No asignado" }}</td>
         </tr>
         {% endfor %}
       </tbody>
