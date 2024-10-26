@@ -1,0 +1,69 @@
+{% extends "_layouts/app.html" %}
+{% import "_macros/table.html" as Table %}
+
+{% block head %}
+<title>Lista de Laboratorios</title>
+<style>
+    /* Estilos generales para la tabla */
+
+    /* Estilos para el botón */
+    .action-button {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 4px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+    .action-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Estilos adicionales para responsividad y estética */
+    @media (max-width: 768px) {
+        th, td {
+            padding: 8px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+      Lista de Laboratorios
+    </h1>
+    <p class="mb-4 text-base text-gray-500 md:text-lg">
+      A continuación se muestra una lista de todos los laboratorios activos. Seleccione uno para registrar un turno.
+    </p>
+    <div class="table-container">
+      {% call Table.Table() %}
+      {{ Table.TableHeader(("Nombre", "Dirección", "Teléfono", "Acción")) }}
+      <tbody>
+        {% for laboratorio in laboratorios %}
+        <tr class="text-black bg-very-light-yellow-green">
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.nombre }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.direccion }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ laboratorio.telefono }}
+          </td>
+          <td class="py-0 whitespace-normal">
+            <a href="{{ url_for('registrar_turno.register_turno', laboratorio_id=laboratorio.id) }}" class="action-button">
+              Registrar Turno
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endcall %}
+    </div>
+  </section>
+</main>
+{% endblock %}

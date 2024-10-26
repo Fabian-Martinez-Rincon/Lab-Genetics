@@ -5,7 +5,7 @@ from src.core.models.rol import Rol
 from src.core.models.turno import Turno
 from src.core.models.estado import Estado
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
-
+from src.core.models.laboratorio import Laboratorio
 
 """
 ## Roles
@@ -59,3 +59,8 @@ def listar_turnos():
         ) \
         .order_by(Turno.fecha.asc()).all()
     return render_template('owner/listar_turnos.html', turnos=mis_turnos)
+
+@bp.route('/listar_laboratorios_turnos', methods=['GET'])
+def listar_laboratorios():
+    laboratorios = Laboratorio.query.filter_by(estado='ACTIVO').all()
+    return render_template('owner/listar_laboratorios_turnos.html', laboratorios=laboratorios)

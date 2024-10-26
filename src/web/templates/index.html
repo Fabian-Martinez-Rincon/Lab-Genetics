@@ -23,7 +23,7 @@
       <p class="mb-4 text-base md:text-lg text-zinc-500">
         ¡Bienvenidx <span class="text-blue-500">{{ current_user.nombre}}</span> <span class="text-blue-500">{{ current_user.apellido}}</span> 😃! Selecciona una opción para continuar:
       </p>
-      {% if session.rol_id == 1 %}
+      {% if session.rol_id == 1 %} <!-- Si el rol es 1, es el owner -->
         <div class="grid max-w-lg grid-cols-3 gap-6 mx-auto my-8">
           <!-- Botón Registrar Transportista -->
           <a href='/registrar_transportista' class="flex items-center justify-center w-full px-12 py-6 text-white transition duration-500 bg-indigo-600 rounded-lg shadow-md hover:shadow-lg hover:bg-indigo-500">
@@ -81,7 +81,7 @@
             </div>
           </a>
         </div>
-        {%elif session.rol_id == 2 %}
+        {%elif session.rol_id == 2 %} <!-- Si el rol es 2, es el administrador general -->
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
             <!-- Botón Generar Presupuesto -->
             <button class="flex items-center justify-center py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
@@ -123,7 +123,7 @@
               </div>
             </a>
           </div>
-        {%elif session.rol_id == 3 %}
+        {%elif session.rol_id == 3 %} <!-- Si el rol es 3, es el Laboratorio -->
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
             
             <!-- Botón Turnos -->
@@ -141,7 +141,7 @@
               </div>
             </a>
           </div>
-        {%elif session.rol_id == 4 %}
+        {%elif session.rol_id == 4 %} <!-- Si el rol es 4, es el Medico -->
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
             <!-- Botón Registrar Paciente -->
             <a href="/registrar_paciente" class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
@@ -183,7 +183,7 @@
             </a>
           </div>
 
-        {%elif session.rol_id == 5 %}
+        {%elif session.rol_id == 5 %} <!-- Si el rol es 5, es el Paciente -->
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
             <!-- Botón Presupuesto -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
@@ -194,12 +194,12 @@
             </button>
 
             <!-- Botón Turnos -->
-            <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
+            <a href='/listar_laboratorios_turnos' class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
               <div class="flex flex-col items-center">
                 <img src="/static/img/accesibilidad/calendario.png" alt="Icono Médico" class="w-10 h-10 mb-2">
                 <span class="text-lg">Turnos</span>
               </div>
-            </button>
+            </a>
 
             <!-- Botón Mis Estudios -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-gray-500 rounded-lg shadow-lg hover:bg-gray-400">
@@ -218,7 +218,7 @@
             </a>
           </div>
           
-          {%elif session.rol_id == 6 %}
+          {%elif session.rol_id == 6 %} <!-- Si el rol es 6, es el Transportista -->
           <div class="grid max-w-md grid-cols-2 gap-4 mx-auto my-8">
             <!-- Botón Pedidos -->
             <button class="flex items-center justify-center px-6 py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
