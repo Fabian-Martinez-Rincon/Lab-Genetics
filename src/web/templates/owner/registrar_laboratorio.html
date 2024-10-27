@@ -32,14 +32,49 @@
         </div>
 
         <div class="mb-2">
-          <label for="horarios" class="block font-bold text-gray-700">Horarios</label>
-          <input type="text" name="horarios" id="horarios" required class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
+          <label for="hora_inicio" class="block font-bold text-gray-700">Hora de Apertura</label>
+          <input type="time" name="hora_inicio" id="hora_inicio" required class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
         </div>
+        
+        <div class="mb-2">
+            <label for="hora_fin" class="block font-bold text-gray-700">Hora de Cierre</label>
+            <input type="time" name="hora_fin" id="hora_fin" required class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
+        </div>
+      
 
         <div class="mb-2">
-          <label for="dias" class="block font-bold text-gray-700">Días</label>
-          <input type="text" name="dias" id="dias" required class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
-        </div>
+          <label for="dias" class="block font-bold text-gray-700">Días de Atención</label>
+          <div class="flex flex-wrap gap-2">
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="dias" value="Lunes" class="form-checkbox text-cyan-shade">
+              <span class="ml-2">Lunes</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="dias" value="Martes" class="form-checkbox text-cyan-shade">
+              <span class="ml-2">Martes</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="dias" value="Miércoles" class="form-checkbox text-cyan-shade">
+              <span class="ml-2">Miércoles</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="dias" value="Jueves" class="form-checkbox text-cyan-shade">
+              <span class="ml-2">Jueves</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="dias" value="Viernes" class="form-checkbox text-cyan-shade">
+              <span class="ml-2">Viernes</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="dias" value="Sábado" class="form-checkbox text-cyan-shade">
+              <span class="ml-2">Sábado</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="dias" value="Domingo" class="form-checkbox text-cyan-shade">
+              <span class="ml-2">Domingo</span>
+            </label>
+          </div>
+        </div>        
 
         <div class="mb-2">
           <label for="telefono" class="block font-bold text-gray-700">Teléfono</label>
