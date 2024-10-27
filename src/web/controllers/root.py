@@ -11,7 +11,7 @@ from flask import (
 
 bp = Blueprint("root", __name__)
 
-@bp.before_request
+@bp.before_request # Este metodo nunca se usa xd
 def check_user():
     user_id = session.get('user_id')
     if user_id:
@@ -47,15 +47,19 @@ def login():
         else:
             user_type = 'usuario'
         
-        if user and check_password_hash(user.password, form.password.data):
-            login_user(user)
-            session['user_id'] = user.id
-            session['user_type'] = user_type
-            session['logged_in'] = True
-            session['rol_id'] = user.id_rol
-            
-            flash('Inicio de sesión Exitoso', 'success')
-            return redirect(url_for('root.index_get'))
+        if user:
+            if user.estado != 'ACTIVO':
+                flash('Tu cuenta está inactiva. Por favor, contacta con soporte.', 'error')
+                return redirect(url_for('root.index_get'))
+            if check_password_hash(user.password, form.password.data):
+                login_user(user)
+                session['user_id'] = user.id
+                session['user_type'] = user_type
+                session['logged_in'] = True
+                session['rol_id'] = user.id_rol
+                
+                flash('Inicio de sesión Exitoso', 'success')
+                return redirect(url_for('root.index_get'))
         else:
             flash('El mail o contraseña son incorrectos.', 'error')
     return render_template('/comunes/login.html', form=form)

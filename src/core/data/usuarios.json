@@ -8,7 +8,8 @@
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
-        "id_rol": "1"
+        "id_rol": "1",
+        "estado": "ACTIVO"
     },
     {
         "nombre": "Dolores",
@@ -19,7 +20,8 @@
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
-        "id_rol": "2"
+        "id_rol": "2",
+        "estado": "ACTIVO"
     },
     {
         "nombre": "Ana",
@@ -30,7 +32,8 @@
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
-        "id_rol": "3"
+        "id_rol": "3",
+        "estado": "ACTIVO"
     },
     {
         "nombre": "Emiliano",
@@ -41,7 +44,8 @@
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
-        "id_rol": "4"
+        "id_rol": "4",
+        "estado": "ACTIVO"
     },
     {
         "nombre": "Encarna",
@@ -52,7 +56,8 @@
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
-        "id_rol": "5"
+        "id_rol": "5",
+        "estado": "ACTIVO"
     },
     {
         "nombre": "Perfecto",
@@ -63,6 +68,7 @@
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
-        "id_rol": "6"
+        "id_rol": "6",
+        "estado": "ACTIVO"
     }
 ]
