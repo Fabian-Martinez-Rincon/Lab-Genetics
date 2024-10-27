@@ -2,6 +2,7 @@ from werkzeug.security import generate_password_hash
 import json
 
 # Lista de usuarios en formato JSON como string
+# LA CONTRA DE LOS LABORATORIOS ES lab12345 ya se encuentra hasheada en la seed
 usuarios_json = '''
 [
 {
