@@ -6,7 +6,7 @@ import string
 from werkzeug.security import generate_password_hash
 from src.core.models.notificacion import Notificacion
 bp = Blueprint('registrar_laboratorio', __name__)
-
+from src.web.controllers.utils import verificar_autenticacion, verificar_rol
 # Función para generar una contraseña aleatoria
 def generar_password_aleatoria(length=10):
     characters = string.ascii_letters + string.digits + string.punctuation
@@ -14,6 +14,8 @@ def generar_password_aleatoria(length=10):
     return password
 
 @bp.route('/registrar_laboratorio', methods=['GET', 'POST'])
+@verificar_autenticacion
+@verificar_rol(1)
 def registrar_laboratorio():
     if request.method == 'POST':
         nombre = request.form.get('nombre')

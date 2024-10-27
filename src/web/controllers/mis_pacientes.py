@@ -4,7 +4,7 @@ from flask_login import current_user
 from src.core.models.usuario import Usuario
 from src.core.models.database import db
 
-bp = Blueprint('/mis_pacientes', __name__)
+bp = Blueprint('mis_pacientes', __name__)
 
 @bp.route('/mis_pacientes', methods=['GET', 'POST'])
 @verificar_autenticacion

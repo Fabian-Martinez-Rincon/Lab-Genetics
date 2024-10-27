@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash
 from src.core.models.database import db
 from werkzeug.utils import secure_filename
 import os
-
+from src.core.models.notificacion import Notificacion
 bp = Blueprint('registrar_paciente', __name__)
 
 @bp.route('/registrar_paciente', methods=['GET', 'POST'])
@@ -30,10 +30,6 @@ def registrar_paciente():
                 flash('Ya existe un usuario registrado con ese dni', 'error')
                 return render_template('medico/reasignar.html')
 
-            if len(form.password.data) < 8:
-                flash('La contraseña debe tener mínimo 8 caracteres', 'error')
-                form.password.data = ''
-                return render_template('medico/registrar_paciente.html', form=form, patologias=patologias)
 
             historia = form.historia.data
             ruta_historia = None  
@@ -41,20 +37,21 @@ def registrar_paciente():
                 dni = form.dni.data  
                 nombre_archivo = f"{secure_filename(dni)}.pdf"  
                 if nombre_archivo.lower().endswith('.pdf'):
-                    ruta_carpeta = os.path.join(current_app.config['UPLOAD_FOLDER'], 'historia')
-                    os.makedirs(ruta_carpeta, exist_ok=True)
-                    ruta_historia = os.path.join(ruta_carpeta, nombre_archivo)
-                    if os.path.exists(ruta_historia):
+                    ruta_carpeta = 'historia'  
+                    carpeta_absoluta = os.path.join(current_app.config['UPLOAD_FOLDER'], ruta_carpeta)
+                    os.makedirs(carpeta_absoluta, exist_ok=True)
+                    ruta_historia_absoluta = os.path.join(carpeta_absoluta, nombre_archivo)
+                    if os.path.exists(ruta_historia_absoluta):
                         flash('Ya existe un archivo con este DNI.', 'error')
                         return render_template('medico/registrar_paciente.html', form=form, patologias=patologias)
-                    historia.save(ruta_historia)
+                    historia.save(ruta_historia_absoluta)
+                    ruta_historia = os.path.join(ruta_carpeta, nombre_archivo).replace("\\", "/")  # Guardar solo "historia/12345678.pdf"
                 else:
                     flash('El archivo debe estar en formato PDF.', 'error')
                     return render_template('medico/registrar_paciente.html', form=form, patologias=patologias)
-            
             id_medico = session.get('user_id')
-            # Creación del nuevo usuario
-            hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
+
+            hashed_password = generate_password_hash(form.dni.data, method='pbkdf2:sha256')
             new_user = Usuario(
                 nombre=form.nombre.data,
                 apellido=form.apellido.data,
@@ -80,6 +77,8 @@ def registrar_paciente():
                 db.session.add(new_user)
                 db.session.commit()
                 flash('Registro exitoso', 'success')
+                descripcion = f" Ha sido Registrado con exito en la plataforma. \n Recuerde que Su constraseña es: \n {form.dni.data}"
+                Notificacion.send_mail(new_user.id, descripcion)
                 return redirect(url_for('root.index_get'))
             except Exception as e:
                 db.session.rollback()

@@ -20,7 +20,7 @@
     <div class="w-full overflow-x-auto">
       <h2 class="my-4 text-2xl font-bold">Pacientes</h2>
       {% call Table.Table() %}
-      {{ Table.TableHeader(("DNI", "Nombre", "Apellido")) }}
+      {{ Table.TableHeader(("DNI", "Nombre", "Apellido" , "Acción")) }}
       <tbody>
         {% for paciente in pacientes %}
         <tr class="text-black bg-very-light-yellow-green">
@@ -32,6 +32,10 @@
           </td>
           <td class="py-4 break-words whitespace-normal">
             {{ paciente.apellido }}
+          </td>
+          <td>
+            <a href="{{ url_for('ver_paciente.ver_paciente', paciente_id=paciente.id) }}" 
+               class="text-indigo-500 hover:underline">Ver Perfil</a>
           </td>
         </tr>
         {% endfor %}

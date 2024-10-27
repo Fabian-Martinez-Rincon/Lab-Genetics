@@ -1,0 +1,76 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Perfil del Paciente</title>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12">
+    <div "flex flex-col items-center justify-center mt-10 text-center">
+      <h1 class="mb-6 text-4xl font-semibold text-gray-900">Perfil del Paciente</h1>
+      <div "max-w-lg mx-auto text-xl text-left text-gray-700">
+      <table class="w-full text-left table-auto">
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">Nombre</th>
+          <td class="px-4 py-2">{{ paciente.nombre }}</td>
+        </tr>
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">Apellido</th>
+          <td class="px-4 py-2">{{ paciente.apellido }}</td>
+        </tr>
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">Email</th>
+          <td class="px-4 py-2">{{ paciente.email }}</td>
+        </tr>
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">DNI</th>
+          <td class="px-4 py-2">{{ paciente.dni }}</td>
+        </tr>
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">Fecha de Nacimiento</th>
+          <td class="px-4 py-2">{{ paciente.fecha_nacimiento }}</td>
+        </tr>
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">Teléfono</th>
+          <td class="px-4 py-2">{{ paciente.telefono }}</td>
+        </tr>
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">Historia Clínica</th>
+          <td class="px-4 py-2">
+            {% if paciente.historia_path %}
+            <a href="{{ url_for('ver_paciente.descargar_historia', paciente_id=paciente.id) }}" 
+            class="text-blue-500 hover:underline" target="_blank">Ver Historia Clinica</a>        
+            {% else %}
+            No disponible
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th class="px-4 py-2 font-bold text-gray-700">Antecedentes Familiares</th>
+          <td class="px-4 py-2">
+            {% if paciente.patologias %}
+              <ul>
+                {% for patologia in paciente.patologias %}
+                  <li>{{ patologia.nombre }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              No hay antecedentes registrados
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+      <div class="mt-6">
+        <a href="" 
+           class="px-4 py-2 text-white bg-purple-900 rounded hover:bg-indigo-700">Ver Estudios</a>
+        <a href="" 
+           class="px-4 py-2 text-white bg-purple-500 rounded hover:bg-indigo-700">Solicitar Estudio</a>
+        <a href="{{ url_for('editar_paciente.editar_paciente', paciente_id=paciente.id) }}" 
+           class="px-4 py-2 text-white bg-purple-900 rounded hover:bg-indigo-700">Agregar Antecedentes Familiares</a>
+      </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

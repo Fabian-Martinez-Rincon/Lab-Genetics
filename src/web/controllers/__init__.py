@@ -10,6 +10,8 @@ from src.web.controllers import (
     mis_pacientes,
     reasignar,
     registrar_turno,
+    editar_paciente,
+    ver_paciente,
 )
 
 _blueprints = (
@@ -23,6 +25,8 @@ _blueprints = (
     mis_pacientes.bp,
     reasignar.bp,
     registrar_turno.bp,
+    editar_paciente.bp,
+    ver_paciente.bp,
 )
 
 def init_app(app: flask.Flask):
