@@ -2,7 +2,7 @@ from src.core.models.database import db
 from src.core.models.usuario import Usuario
 from flask_mail import Mail, Message
 from flask import current_app
-
+from src.core.models.laboratorio import Laboratorio
 class Notificacion(db.Model):
     __tablename__="notificaciones"
     id = db.Column(db.Integer, primary_key=True, unique= True)
@@ -24,7 +24,23 @@ class Notificacion(db.Model):
         msg = Message(subject, sender=sender, recipients=recipients)
         msg.body = message
         mail.send(msg)       
-        
+    
+    @staticmethod
+    def send_mail_Lab(userId: int, descripcion: str)->None:
+        """
+        Send the confirmation email to the user.
+        """
+        app = current_app._get_current_object()
+        usuario= Laboratorio.query.filter_by(id=userId).first()
+        mail = Mail(app)
+        subject = 'Nueva Notificacion'
+        sender = app.config['MAIL_DEFAULT_SENDER']
+        recipients = [usuario.email]
+        message = f'¡Atencion! Se le notifica que:\n{descripcion}\n\n Para Conocer mas detalles ingrese a la plataforma.'
+        msg = Message(subject, sender=sender, recipients=recipients)
+        msg.body = message
+        mail.send(msg)  
+    
     @staticmethod
     def send_mail2(email: str, descripcion: str)->None:
         """

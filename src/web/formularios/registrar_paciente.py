@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, DateField, SelectMultipleField, FileField
+from wtforms import StringField, SubmitField, DateField, SelectMultipleField, FileField
 from wtforms.validators import DataRequired, Length, Optional, Email, ValidationError
 from flask_wtf.file import FileAllowed, FileRequired
 import datetime
@@ -7,7 +7,6 @@ import datetime
 class RegisterPacienteForm(FlaskForm):
     nombre = StringField('Nombre', validators=[DataRequired(), Length(max=50)])
     apellido = StringField('Apellido', validators=[DataRequired(), Length(max=50)])
-    password = PasswordField('Contraseña', validators=[DataRequired(), Length(min=8, message="La contraseña debe tener al menos 8 caracteres.")])
     email = StringField('Email', validators=[
         DataRequired(message="Este campo es obligatorio."),
         Email(message="Por favor ingrese un correo electrónico válido.")

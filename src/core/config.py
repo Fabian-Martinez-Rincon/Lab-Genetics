@@ -26,7 +26,7 @@ class Config:
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
     MAIL_USERNAME = 'hopeTrade08@gmail.com'
-    MAIL_PASSWORD = 'hgju fnoc xpfg rrwp'  # para ingresar a GMAIL: 08_hopeTrade
+    MAIL_PASSWORD = 'vsbj uexq dmqg ansg'  # para ingresar a GMAIL: 08_hopeTrade
     MAIL_DEFAULT_SENDER = 'hopeTrade08@gmail.com'
     
     @classmethod

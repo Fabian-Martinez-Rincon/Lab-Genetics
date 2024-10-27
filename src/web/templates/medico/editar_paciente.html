@@ -1,0 +1,38 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Editar Paciente</title>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12">
+    <h1 class="mb-6 text-3xl font-extrabold text-indigo-800">Editar Antecedentes del Paciente</h1>
+
+    <form method="POST" action="{{ url_for('editar_paciente.editar_paciente', paciente_id=paciente.id) }}">
+
+      <h2 class="mb-4 text-xl font-bold">Antecedentes Familiares</h2>
+      <ul>
+        {% for patologia in paciente.patologias %}
+          <li>{{ patologia.nombre }}</li>
+        {% endfor %}
+      </ul>
+
+      <!-- Selección de nuevas patologías -->
+      <div class="mb-4">
+        <label for="patologias" class="block font-bold text-gray-700">Agregar Patología:</label>
+        <select name="patologia" id="patologia" class="block w-full mt-1">
+          {% for patologia in todas_las_patologias %}
+            <option value="{{ patologia.id }}">{{ patologia.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Botón para agregar la nueva patología -->
+      <a href="{{ url_for('ver_paciente.ver_paciente', paciente_id=paciente.id) }}" 
+      class="px-4 py-2 text-white bg-purple-900 rounded hover:bg-indigo-700">Cancelar</a>
+      <button type="submit" class="px-4 py-2 text-white bg-indigo-600 rounded hover:bg-indigo-700">Agregar Antecedente</button>
+    </form>
+  </section>
+</main>
+{% endblock %}
