@@ -1,6 +1,7 @@
 from src.core.models.database import db
+from flask_login import UserMixin
 
-class Laboratorio(db.Model):
+class Laboratorio(UserMixin, db.Model):
     __tablename__ = "laboratorios"
     id = db.Column(db.Integer, primary_key=True, unique=True)
     nombre = db.Column(db.String(255), nullable=False)
