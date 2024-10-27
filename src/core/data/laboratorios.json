@@ -6,8 +6,9 @@
         "dias": "lunes a viernes",
         "telefono": "315-248-7745",
         "email": "buenosaires@lab.com",
-        "password": "lab123",
-        "address": "Buenos Aires, Argentina"
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Buenos Aires, Argentina",
+        "id_rol": "3"
     },
     {
         "nombre": "Laboratorio La Plata",
@@ -16,8 +17,9 @@
         "dias": "lunes a viernes",
         "telefono": "403-562-8973",
         "email": "laplata@lab.com",
-        "password": "lab123",
-        "address": "La Plata, Buenos Aires, Argentina"
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "La Plata, Buenos Aires, Argentina",
+        "id_rol": "3"
     },
     {
         "nombre": "Laboratorio Ushuaia",
@@ -26,8 +28,9 @@
         "dias": "lunes a viernes",
         "telefono": "540-689-1224",
         "email": "ushuaia@lab.com",
-        "password": "lab123",
-        "address": "Ushuaia, Tierra del Fuego, Argentina"
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Ushuaia, Tierra del Fuego, Argentina",
+        "id_rol": "3"
     },
     {
         "nombre": "Laboratorio Santa Rosa",
@@ -36,8 +39,9 @@
         "dias": "lunes a viernes",
         "telefono": "760-834-2985",
         "email": "santarosa@lab.com",
-        "password": "lab123",
-        "address": "Santa Rosa, La Pampa, Argentina"
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Santa Rosa, La Pampa, Argentina",
+        "id_rol": "3"
     },
     {
         "nombre": "Laboratorio Mar del Plata",
@@ -46,8 +50,9 @@
         "dias": "lunes a viernes",
         "telefono": "601-215-4038",
         "email": "mardelplata@lab.com",
-        "password": "lab123",
-        "address": "Mar del Plata, Buenos Aires, Argentina"
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Mar del Plata, Buenos Aires, Argentina",
+        "id_rol": "3"
     },
     {
         "nombre": "Laboratorio Mendoza",
@@ -56,7 +61,8 @@
         "dias": "lunes a viernes",
         "telefono": "802-431-5510",
         "email": "mendoza@lab.com",
-        "password": "lab123",
-        "address": "Mendoza, Argentina"
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Mendoza, Argentina",
+        "id_rol": "3"
     }
 ]

@@ -50,17 +50,17 @@ endblock %} {% block base_body %}
     
         <div class="flex items-center">
           <h1 class="mr-6 font-extrabold text-indigo-100 md:text-4xl lg:text-2xl">
-            {% if current_user.id == 1 %}
+            {% if current_user.id_rol == 1 %}
               Owner
-            {% elif current_user.id == 2 %}
+            {% elif current_user.id_rol == 2 %}
               Administrador
-            {% elif current_user.id == 3 %}
+            {% elif current_user.id_rol == 3 %}
               Laboratorio
-            {% elif current_user.id == 4 %}
+            {% elif current_user.id_rol == 4 %}
               Medico
-            {% elif current_user.id == 5 %}
+            {% elif current_user.id_rol == 5 %}
               Paciente
-            {% elif current_user.id == 6 %}
+            {% elif current_user.id_rol == 6 %}
               Transportista
             {% else %}
               Desconocido
