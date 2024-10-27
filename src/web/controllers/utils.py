@@ -1,6 +1,7 @@
 from flask import session, flash, redirect, url_for
 from functools import wraps
 from src.core.models.usuario import Usuario
+from src.core.models.laboratorio import Laboratorio
 
 def verificar_autenticacion(f):
     """
@@ -38,9 +39,12 @@ def verificar_rol(rol_permitido):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             user_id = session.get('user_id')
-            usuario = Usuario.query.get(user_id)
-
-            if not usuario or usuario.id_rol != rol_permitido:
+            user_type = session.get('user_type')
+            if user_type == 'usuario':
+                usuario = Usuario.query.get(user_id)
+            elif user_type == 'laboratorio':
+                usuario = Laboratorio.query.get(user_id)
+            if  usuario.id_rol != rol_permitido:
                 flash('No tienes permiso para realizar esta operación.', 'error')
                 return redirect(url_for('root.index_get'))
 
