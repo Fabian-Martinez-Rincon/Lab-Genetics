@@ -11,7 +11,7 @@
     width: 60px;
     height: 34px;
     overflow: visible; /* Asegurar que el tooltip no se corte */
-}
+  }
 
   .switch input {
     opacity: 0;
@@ -30,7 +30,7 @@
     transition: .4s;
     border-radius: 34px;
     z-index: 1; /* Asegurar que el toggle esté debajo del tooltip */
-}
+  }
 
   .slider:before {
     position: absolute;
@@ -66,8 +66,7 @@
     transform: translateX(-50%);
     left: 50%; /* Centrar horizontalmente */
     bottom: 45px; /* Ajustar el tooltip encima del toggle */
-}
-
+  }
 </style>
 {% endblock %}
 
@@ -105,14 +104,13 @@
           <td class="py-4 break-words whitespace-normal">
             <form method="POST" action="/listar_usuarios" class="relative flex items-center">
               <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+              <input type="hidden" name="nuevo_estado" value="{{ 'INACTIVO' if usuario.estado == 'ACTIVO' else 'ACTIVO' }}">
               <label class="switch">
-                  <input type="checkbox" name="estado" value="ACTIVO"
+                <input type="checkbox" name="estado" 
                   {% if usuario.estado == 'ACTIVO' %}checked{% endif %}
                   onchange="this.form.submit()">
-                  <span class="slider"
-                        onmouseover="showTooltip(this)"
-                        onmouseout="hideTooltip(this)"></span>
-                  <span class="tooltip">Cambiar Estado</span> <!-- Tooltip dentro del formulario -->
+                <span class="slider" onmouseover="showTooltip(this)" onmouseout="hideTooltip(this)"></span>
+                <span class="tooltip">{{ 'Inhabilitar Usuario' if usuario.estado == 'ACTIVO' else 'Habilitar Usuario' }}</span>
               </label>
             </form>
           </td>
@@ -130,12 +128,11 @@
     
     // Mostrar el tooltip
     tooltip.style.opacity = '1'; // Hacer visible el tooltip
-}
+  }
 
-function hideTooltip(slider) {
+  function hideTooltip(slider) {
     const tooltip = slider.nextElementSibling; // Tooltip justo después del slider
     tooltip.style.opacity = '0'; // Ocultar el tooltip
-}
-
+  }
 </script>
 {% endblock %}

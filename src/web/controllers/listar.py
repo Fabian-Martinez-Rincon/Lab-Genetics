@@ -32,7 +32,7 @@ def listar_usuarios():
     
     if request.method == 'POST':
         usuario_id = request.form.get('usuario_id')
-        nuevo_estado = request.form.get('estado')
+        nuevo_estado = request.form.get('nuevo_estado')
 
         # Actualiza el estado del usuario
         usuario = Usuario.query.get(usuario_id)
@@ -44,6 +44,7 @@ def listar_usuarios():
 
     usuarios = filtrar_usuarios(roles_permitidos)
     return render_template('owner/listar_usuarios.html', usuarios=usuarios)
+
 
 @bp.route('/listar_turnos')
 @verificar_autenticacion
