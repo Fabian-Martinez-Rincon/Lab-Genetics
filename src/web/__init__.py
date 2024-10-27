@@ -2,9 +2,10 @@ import os
 from src.web import controllers
 from src.core.models import database, Usuario
 from datetime import timedelta
-from flask import Flask
+from flask import Flask, session
 from flask_login import LoginManager
 from src.core.config import config
+from src.core.models import Laboratorio
 
 def create_app(env: str = "development", static_folder: str = "../static"):
     app = Flask(
@@ -45,7 +46,18 @@ def init_login_manager(app):
 
     @login_manager.user_loader
     def load_user(user_id):
-        return Usuario.query.get(int(user_id))
+        # Comprobar el tipo de usuario en la sesión
+        user_type = session.get('user_type')
+        id = int(user_id)  # Convertir el ID a entero, ya que solo almacenamos el número
+        
+        if user_type == "usuario":
+            return Usuario.query.get(id)
+        elif user_type == "laboratorio":
+            return Laboratorio.query.get(id)
+        return None
+
+
+
 
 def configure_app(app, env:str):
     """Configura los parámetros generales de la aplicación"""
