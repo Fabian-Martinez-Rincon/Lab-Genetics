@@ -41,16 +41,25 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = Usuario.query.filter_by(email=form.email.data).first()
+        if not user:
+            user = Laboratorio.query.filter_by(email=form.email.data).first()
+            user_type = 'laboratorio'
+        else:
+            user_type = 'usuario'
+        
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             session['user_id'] = user.id
+            session['user_type'] = user_type
             session['logged_in'] = True
             session['rol_id'] = user.id_rol
+            
             flash('Inicio de sesión Exitoso', 'success')
             return redirect(url_for('root.index_get'))
         else:
             flash('El mail o contraseña son incorrectos.', 'error')
     return render_template('/comunes/login.html', form=form)
+
 
 
 @bp.route('/logout')
