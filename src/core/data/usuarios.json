@@ -45,6 +45,7 @@
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "4",
+        "id_medico":"4",
         "estado": "ACTIVO"
     },
     {
