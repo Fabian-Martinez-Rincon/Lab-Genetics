@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, request, redirect, url_for
+from flask import Flask, render_template, Blueprint, request, redirect, url_for, session, flash
 from src.core.models.database import db
 from src.core.models.usuario import Usuario
 from src.core.models.rol import Rol
@@ -65,3 +65,22 @@ def listar_turnos():
 def listar_laboratorios():
     laboratorios = Laboratorio.query.filter_by(estado='ACTIVO').all()
     return render_template('owner/listar_laboratorios_turnos.html', laboratorios=laboratorios)
+
+@bp.route('/mis_estudios', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(5)
+def mis_estudios():
+    id_usuario = session.get('user_id')
+    
+    usuario = Usuario.query.get(id_usuario)
+    if not usuario:
+        flash('Usuario no encontrado.', 'error')
+        return redirect(url_for('root.index_get'))
+    
+    estudios = usuario.estudios_como_paciente
+    for estudio in estudios:
+        estado_nombre = db.session.query(Estado.nombre).filter_by(id=estudio.id_estado).scalar()
+        estudio.estado_nombre = estado_nombre
+    return render_template('paciente/mis_estudios.html', estudios=estudios)
+
+
