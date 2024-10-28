@@ -1,7 +1,7 @@
 [
     {
-        "id_paciente": 1,
-        "id_medico": 2,
+        "id_paciente": 5,
+        "id_medico": 4,
         "sintomas": "Dolor de cabeza, fiebre",
         "listado_genes": "BRCA1, BRCA2",
         "hallazgos_secundarios": true,

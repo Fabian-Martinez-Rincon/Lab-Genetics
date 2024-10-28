@@ -1,0 +1,44 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Mis Estudios</title>
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8">
+  <div class="w-full max-w-4xl space-y-8">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold text-indigo-700">Mis Estudios</h1>
+      <p class="mt-2 text-lg text-gray-700">Aquí puedes ver el historial de tus estudios médicos registrados.</p>
+    </div>
+    
+    {% if estudios %}
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for estudio in estudios %}
+          <div class="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
+            <h2 class="mb-4 text-xl font-semibold text-indigo-700">Estudio {{ loop.index }}</h2>
+            <p class="text-gray-700"><strong>Fecha de Solicitud:</strong> {{ estudio.fecha_solicitud.strftime('%d/%m/%Y') }}</p>
+            <p class="text-gray-700"><strong>Síntomas:</strong> {{ estudio.sintomas or 'No especificado' }}</p>
+            <p class="text-gray-700"><strong>Listado de Genes:</strong> {{ estudio.listado_genes or 'No especificado' }}</p>
+            <p class="text-gray-700">
+              <strong>Comprobante:</strong> 
+              {% if estudio.comprobante_path %}
+                <a href="{{ estudio.comprobante_path }}" class="text-indigo-600 underline hover:text-indigo-800" target="_blank">Ver Comprobante</a>
+              {% else %}
+                No disponible
+              {% endif %}
+            </p>
+            <p class="text-gray-700"><strong>Fecha de Ingreso a Central:</strong> {{ estudio.fecha_ingreso_central.strftime('%d/%m/%Y') if estudio.fecha_ingreso_central else 'Pendiente' }}</p>
+            <p class="text-gray-700"><strong>Estado:</strong> {{ estudio.estado_nombre }}</p>
+            <p class="text-gray-700"><strong>Resultado:</strong> {{ estudio.id_resultado }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-center">
+        <p class="text-lg text-gray-600">No tienes estudios registrados en el sistema.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
