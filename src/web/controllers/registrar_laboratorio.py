@@ -27,8 +27,8 @@ def registrar_laboratorio():
         telefono = request.form.get('telefono')
         dias_seleccionados = request.form.getlist('dias')
         dias = ", ".join(dias_seleccionados)  
-        lat = request.form.get('latitud')  
-        lng = request.form.get('longitud')
+        lat = float(request.form.get('latitud')  )
+        lng = float(request.form.get('longitud'))
         if not lat and not lng:
             flash("Debe seleccionar una ubicación en el mapa", "error")
             return render_template('owner/registrar_laboratorio.html', form=request.form)
@@ -57,6 +57,9 @@ def registrar_laboratorio():
             telefono=telefono,
             email=email,
             password=password_hash,
+            id_rol=3,
+            latitud=lat,
+            longitud=lng,
             address=f"{lat},{lng}"
         )
         db.session.add(nuevo_laboratorio)
