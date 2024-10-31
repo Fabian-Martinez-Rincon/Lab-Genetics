@@ -80,20 +80,19 @@
       </h1>
       <p class="mb-4 text-base md:text-lg text-zinc-500">
         A continuación se muestra una lista de los laboratorios registrados.
+        Todos los Laboratorios abren de lunes a Viernes en los horarios de <strong>8:00 am a 6:00 pm.</strong>
       </p>
     </div>
 
     <div class="w-full overflow-x-auto">
       <h2 class="my-4 text-2xl font-bold">Laboratorios</h2>
       {% call Table.Table() %}
-      {{ Table.TableHeader(("Nombre", "Email", "Días", "Horarios", "Dirección", "Teléfono", "Estado")) }}
+      {{ Table.TableHeader(("Nombre", "Email", "Dirección", "Teléfono", "Estado")) }}
       <tbody>
         {% for laboratorio in laboratorios %}
         <tr class="text-black bg-very-light-yellow-green">
           <td class="py-4 break-words whitespace-normal">{{ laboratorio.nombre }}</td>
           <td class="py-4 break-words whitespace-normal">{{ laboratorio.email }}</td>
-          <td class="py-4 break-words whitespace-normal">{{ laboratorio.dias }}</td>
-          <td class="py-4 break-words whitespace-normal">{{ laboratorio.horarios }}</td>
           <td class="py-4 break-words whitespace-normal">{{ laboratorio.direccion }}</td>
           <td class="py-4 break-words whitespace-normal">{{ laboratorio.telefono }}</td>
           <td class="py-4 break-words whitespace-normal">

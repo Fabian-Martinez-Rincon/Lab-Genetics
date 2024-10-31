@@ -1,6 +1,8 @@
 {% extends "_layouts/app.html" %}
 {% block head %}
 <title>{{ user.nombre }} {{ user.apellido }}</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -39,10 +41,25 @@
     {% endif %}
     
     {% if user.id_rol == 3 %}
+    <div class="max-w-lg mx-auto text-xl text-left text-gray-700">
       <p class="mb-2"><strong>Dirección:</strong> {{ user.direccion }}</p>
       <p class="mb-2"><strong>Horarios:</strong> {{ user.horarios }}</p>
       <p class="mb-2"><strong>Días:</strong> {{ user.dias }}</p>
-      <p class="mb-2"><strong>Address:</strong> {{ user.address }}</p>
+    </div>
+    
+    <!-- Map container -->
+    <div id="map" style="width: 100%; height: 300px;" class="mb-4"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var map = L.map('map').setView([{{ user.latitud }}, {{ user.longitud }}], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '© OpenStreetMap'
+        }).addTo(map);
+        
+        var marker = L.marker([{{ user.latitud }}, {{ user.longitud }}]).addTo(map);
+      });
+    </script>
     {% endif %}
   </div>
 

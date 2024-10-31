@@ -13,6 +13,8 @@ class Laboratorio(UserMixin, db.Model):
     email = db.Column(db.String(255), nullable=False, unique=True)
     estado = db.Column(db.String(50), default = 'ACTIVO') #Activo - Inactivo
     #Para la ubicacion del mapa concatena longitud y latitud
-    address = db.Column(db.String(255), nullable=False) 
+    address = db.Column(db.String(255), nullable=False)
+    latitud = db.Column(db.Float, nullable=True)  # Campo para la latitud
+    longitud = db.Column(db.Float, nullable=True)
     id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), default=3)
     turnos = db.relationship('Turno', backref='turnos_laboratorio', cascade='all, delete-orphan')

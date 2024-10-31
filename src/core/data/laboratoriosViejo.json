@@ -1,0 +1,67 @@
+[
+    {
+        "nombre": "Laboratorio Buenos Aires",
+        "direccion": "Av. Rivadavia 4163, Buenos Aires",
+        "horarios": "8:00 a 16:00",
+        "dias": "lunes a viernes",
+        "telefono": "315-248-7745",
+        "email": "buenosaires@lab.com",
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Buenos Aires, Argentina",
+        "id_rol": "3",
+        "latitud": -34.599359424815496,
+        "longitud": -58.377195990445856
+    },
+    {
+        "nombre": "Laboratorio La Plata",
+        "direccion": "Calle 6 N° 988 entre 51 y 53, La Plata, Buenos Aires",
+        "horarios": "8:00 a 16:00",
+        "dias": "lunes a viernes",
+        "telefono": "403-562-8973",
+        "email": "laplata@lab.com",
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "La Plata, Buenos Aires, Argentina",
+        "id_rol": "3",
+        "latitud": -34.59926658491173,
+        "longitud": -58.377920738459956
+    },
+    {
+        "nombre": "Laboratorio Centro",
+        "direccion": "Av. Maipú 870, Ushuaia, Tierra del Fuego",
+        "horarios": "8:00 a 16:00",
+        "dias": "lunes a viernes",
+        "telefono": "540-689-1224",
+        "email": "ushuaia@lab.com",
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Ushuaia, Tierra del Fuego, Argentina",
+        "id_rol": "3",
+        "latitud": -34.57048551853706,
+        "longitud": -58.378159224881365
+    },
+    {
+        "nombre": "Laboratorio Santa Rosa",
+        "direccion": "Alvear 144, Santa Rosa, La Pampa",
+        "horarios": "8:00 a 16:00",
+        "dias": "lunes a viernes",
+        "telefono": "760-834-2985",
+        "email": "santarosa@lab.com",
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Santa Rosa, La Pampa, Argentina",
+        "id_rol": "3",
+        "latitud": -34.589301880580656,
+        "longitud": -58.393406625191304
+    },
+    {
+        "nombre": "Laboratorio Mar del Plata",
+        "direccion": "San Lorenzo 2455, Mar del Plata, Buenos Aires",
+        "horarios": "8:00 a 16:00",
+        "dias": "lunes a viernes",
+        "telefono": "601-215-4038",
+        "email": "mardelplata@lab.com",
+        "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
+        "address": "Mar del Plata, Buenos Aires, Argentina",
+        "id_rol": "3",
+        "latitud": -34.5760822288267,
+        "longitud": -58.40688162824099
+    }
+]
