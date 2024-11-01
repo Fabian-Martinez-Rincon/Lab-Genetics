@@ -19,18 +19,16 @@
         </select>
       </div>
 
-      <!-- Mostrar campo de síntomas si es 'puntual' -->
       <div class="mb-2" id="sintomas_section" style="display: none;">
         <label for="sintomas" class="block font-bold text-gray-700">Síntomas:</label>
         <div class="flex">
-          <input type="text" id="sintomas_input" placeholder="Escriba un síntoma aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" autocomplete="off" oninput="sugerirSintomas(this.value)">
+          <input type="text" id="sintomas_input" placeholder="Escriba un síntoma aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" autocomplete="off" oninput="this.value = this.value.toUpperCase(); sugerirSintomas(this.value)" style="text-transform: uppercase;">
           <button type="button" id="agregar_sintoma" class="px-4 py-2 ml-2 text-white bg-green-500 rounded hover:bg-green-600" onclick="agregarSintoma()">Agregar</button>
         </div>
         <div id="sugerencias" class="mt-1 bg-white border border-gray-300 rounded"></div>
-        <textarea name="sintomas" id="sintomas" placeholder="Síntomas seleccionados" class="w-full mt-2 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" rows="4" readonly></textarea>
+        <textarea name="sintomas" id="sintomas" placeholder="Síntomas seleccionados" class="w-full mt-2 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" rows="4" readonly style="text-transform: uppercase;"></textarea>
       </div>
-
-      <!-- Mostrar los antecedentes si es 'familiar' -->
+      
       <div class="mb-2" id="antecedentes_section" style="display: none;">
         <label class="block font-bold text-gray-700">Antecedentes Familiares:</label>
         <div class="mt-2 space-y-2">
@@ -48,7 +46,6 @@
         <input type="text" name="genes_adicionales" id="genes_adicionales" placeholder="Escriba los genes aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
       </div>
 
-      <!-- Hallazgos secundarios -->
       <div class="mb-2">
         <input type="checkbox" id="hallazgos_secundarios" name="hallazgos_secundarios" class="w-5 h-5 border-gray-300 rounded form-checkbox text-cyan-shade focus:ring-cyan-shade">
         <label for="hallazgos_secundarios" class="ml-2 font-medium text-gray-900">Incluir Hallazgos Secundarios</label>
@@ -64,19 +61,17 @@
 
     function sugerirSintomas(input) {
         const sugerencias = document.getElementById('sugerencias');
-        sugerencias.innerHTML = ''; // Limpiar sugerencias previas
+        sugerencias.innerHTML = ''; 
 
         if (input.length > 0) {
-            // Filtrar síntomas coincidentes
             const sintomasCoincidentes = sintomas.filter(sintoma =>
                 sintoma.toLowerCase().includes(input.toLowerCase())
             );
 
-            // Mostrar síntomas coincidentes
             sintomasCoincidentes.forEach(sintoma => {
                 const div = document.createElement('div');
                 div.className = 'p-2 hover:bg-gray-200 cursor-pointer';
-                div.textContent = sintoma; // Usar textContent para mayor seguridad
+                div.textContent = sintoma; 
                 div.onclick = () => seleccionarSintoma(sintoma);
                 sugerencias.appendChild(div);
             });
@@ -85,8 +80,8 @@
 
     function seleccionarSintoma(sintoma) {
         const input = document.getElementById('sintomas_input');
-        input.value = sintoma; // Usar solo el síntoma seleccionado en el campo de entrada
-        document.getElementById('sugerencias').innerHTML = ''; // Limpiar sugerencias
+        input.value = sintoma.toUpperCase(); 
+        document.getElementById('sugerencias').innerHTML = ''; 
     }
 
     function agregarSintoma() {
@@ -94,17 +89,14 @@
         const sintomasTextArea = document.getElementById('sintomas');
 
         if (input.value.trim() !== '') {
-            // Agregar el síntoma al área de texto
-            sintomasTextArea.value += (sintomasTextArea.value ? ', ' : '') + input.value.trim();
-            input.value = ''; // Limpiar el campo de entrada
-            document.getElementById('sugerencias').innerHTML = ''; // Limpiar sugerencias
+            sintomasTextArea.value += (sintomasTextArea.value ? ', ' : '') + input.value.trim().toUpperCase(); 
+            input.value = ''; 
+            document.getElementById('sugerencias').innerHTML = ''; 
         }
     }
 
-    // Mostrar u ocultar secciones basadas en el tipo de estudio
     document.getElementById('tipo_estudio').addEventListener('change', function() {
         const tipoEstudio = this.value;
-        // Mostrar u ocultar secciones
         document.getElementById('sintomas_section').style.display = tipoEstudio === 'puntual' ? 'block' : 'none';
         document.getElementById('antecedentes_section').style.display = tipoEstudio === 'familiar' ? 'block' : 'none';
     });

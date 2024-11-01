@@ -9,6 +9,7 @@ class Estudio(db.Model):
     tipo_estudio = db.Column(db.String(50), nullable=False)  # Familiar o Puntual
     sintomas = db.Column(db.String(255), nullable=True)
     listado_genes = db.Column(db.String(255), nullable=True)
+    genes_adicionales = db.Column(db.String(255), nullable=True)
     hallazgos_secundarios = db.Column(db.Boolean, default=False)
     fecha_solicitud = db.Column(db.DateTime, default=datetime.now)
     fecha_ingreso_central = db.Column(db.Date, nullable=True)

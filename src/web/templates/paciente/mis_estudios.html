@@ -16,21 +16,49 @@
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {% for estudio in estudios %}
           <div class="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
-            <h2 class="mb-4 text-xl font-semibold text-indigo-700">Estudio {{ loop.index }}</h2>
+            <h2 class="mb-4 text-xl font-semibold text-indigo-700">ID Estudio: {{ estudio.id }}</h2>
+            {% if estudio.tipo_estudio == "familiar" %}
+              <p class="text-gray-700"><strong>Tipo de Estudio:</strong> Sospecha Familiar</p>
+            {% else %}
+            <p class="text-gray-700"><strong>Tipo de Estudio:</strong> Sospecha Puntual</p>
+            {% endif %}
             <p class="text-gray-700"><strong>Fecha de Solicitud:</strong> {{ estudio.fecha_solicitud.strftime('%d/%m/%Y') }}</p>
+            {% if estudio.tipo_estudio != 'familiar' %}
             <p class="text-gray-700"><strong>Síntomas:</strong> {{ estudio.sintomas or 'No especificado' }}</p>
+            {% endif %}
             <p class="text-gray-700"><strong>Listado de Genes:</strong> {{ estudio.listado_genes or 'No especificado' }}</p>
-            <p class="text-gray-700">
-              <strong>Comprobante:</strong> 
-              {% if estudio.comprobante_path %}
-                <a href="{{ estudio.comprobante_path }}" class="text-indigo-600 underline hover:text-indigo-800" target="_blank">Ver Comprobante</a>
-              {% else %}
-                No disponible
+
+            {% if estudio.patologias %}
+            <p class="text-gray-700"><strong>Patologías:</strong>  
+                <ul>
+                  {% for patologia in estudio.patologias %}
+                    <li>{{ patologia.nombre }}</li>  
+                  {% endfor %}
+                </ul>
               {% endif %}
             </p>
-            <p class="text-gray-700"><strong>Fecha de Ingreso a Central:</strong> {{ estudio.fecha_ingreso_central.strftime('%d/%m/%Y') if estudio.fecha_ingreso_central else 'Pendiente' }}</p>
+            {% if estudio.comprobante_path %}
+            <p class="text-gray-700">
+              <strong>Comprobante:</strong> 
+                <a href="{{ estudio.comprobante_path }}" class="text-indigo-600 underline hover:text-indigo-800" target="_blank">Ver Comprobante</a>
+            </p>
+            {% endif %}
+            {% if estudio.fecha_ingreso_central %}
+            <p class="text-gray-700"><strong>Fecha de Ingreso a Central:</strong> {{ estudio.fecha_ingreso_central.strftime('%d/%m/%Y')   }}</p>
+            {% endif %}
             <p class="text-gray-700"><strong>Estado:</strong> {{ estudio.estado_nombre }}</p>
-            <p class="text-gray-700"><strong>Resultado:</strong> {{ estudio.id_resultado }}</p>
+            {% if estudio.genes_adicionales %}
+              <p class="text-gray-700"><strong>Genes Adicionales Solicitados:</strong> {{ estudio.genes_adicionales }}</p>
+            {% endif %}
+            {% if estudio.hallazgos_secundarios %}
+              <p class="text-gray-700"><strong>Se solicitaron Hallazgos Secundarios</strong> </p>
+            {% endif %}
+            {% if estudio.id_resultado %}
+            <p class="text-gray-700"><strong>Resultado:</strong> 
+             
+                {{ estudio.id_resultado }}
+            </p>
+            {% endif %}
           </div>
         {% endfor %}
       </div>
@@ -42,3 +70,4 @@
   </div>
 </div>
 {% endblock %}
+

@@ -72,7 +72,9 @@ def solicitar_estudio(paciente_id):
         )
 
         estudio.id = estudio.generar_id(paciente.apellido)
-
+        if request.form.get('genes_adicionales'):
+            estudio.genes_adicionales = request.form.get('genes_adicionales')
+            
         if tipo_estudio == 'puntual':
             sintomas = request.form.get('sintomas')
             if not sintomas:
