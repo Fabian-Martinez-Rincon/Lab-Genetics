@@ -33,8 +33,8 @@ def seed_db():
             Resultado: 'resultados.json',
             Presupuesto: 'presupuestos.json',
             Pedido: 'pedidos.json',
-            Estudio: 'estudios.json',
-            Turno: 'turnos.json',
+            #Estudio: 'estudios.json',
+            #Turno: 'turnos.json',
             Patologia: 'patologias.json'
         }
         

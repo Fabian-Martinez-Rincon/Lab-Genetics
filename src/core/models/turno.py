@@ -5,7 +5,7 @@ class Turno(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique= True)
     id_paciente = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=True)  # Permite NULL
     id_laboratorio = db.Column(db.Integer, db.ForeignKey("laboratorios.id"), nullable=False)
-    id_estudio = db.Column(db.Integer, db.ForeignKey("estudios.id"), nullable=False)
+    id_estudio = db.Column(db.String (255), db.ForeignKey("estudios.id"), nullable=False)
     estado = db.Column(db.Integer, db.ForeignKey("estados.id"), nullable=False)
     fecha = db.Column(db.Date, nullable=False)
     hora = db.Column(db.Time, nullable=False)
