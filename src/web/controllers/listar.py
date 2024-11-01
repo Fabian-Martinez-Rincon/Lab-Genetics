@@ -6,6 +6,8 @@ from src.core.models.turno import Turno
 from src.core.models.estado import Estado
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 from src.core.models.laboratorio import Laboratorio
+from src.core.models.estudio import Estudio
+from src.core.models.historialEstado import HistorialEstado
 
 """
 ## Roles
@@ -78,9 +80,16 @@ def mis_estudios():
         return redirect(url_for('root.index_get'))
     
     estudios = usuario.estudios_como_paciente
+
     for estudio in estudios:
-        estado_nombre = db.session.query(Estado.nombre).filter_by(id=estudio.id_estado).scalar()
-        estudio.estado_nombre = estado_nombre
+        estado_actual = db.session.query(HistorialEstado.estado)\
+            .filter(HistorialEstado.estudio_id == estudio.id)\
+            .order_by(HistorialEstado.fecha_hora.desc())\
+            .first()
+        
+        estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
+
     return render_template('paciente/mis_estudios.html', estudios=estudios)
+
 
 

@@ -1,0 +1,105 @@
+{% extends "_layouts/app.html" %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center px-4 py-8 bg-very-light-yellow-green sm:px-6 lg:px-8">
+  <div class="w-full max-w-sm">
+    <h1 class="mb-4 text-2xl font-extrabold text-center text-indigo-800 md:text-3xl lg:text-4xl">
+      Solicitar Estudio para {{ paciente.nombre }} {{ paciente.apellido }}
+    </h1>
+    
+    <form action="{{ url_for('solicitar_estudio.solicitar_estudio', paciente_id=paciente.id) }}" method="POST">
+      <div class="mb-2">
+        <label for="tipo_estudio" class="block font-bold text-gray-700">Tipo de Estudio:</label>
+        <select name="tipo_estudio" id="tipo_estudio" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" required>
+          <option value="" selected disabled>Seleccione</option>
+          {% if paciente.patologias %}
+            <option value="familiar">Sospecha Familiar</option>
+          {% endif %}
+          <option value="puntual">Sospecha Puntual</option>
+        </select>
+      </div>
+
+      <div class="mb-2" id="sintomas_section" style="display: none;">
+        <label for="sintomas" class="block font-bold text-gray-700">Síntomas:</label>
+        <div class="flex">
+          <input type="text" id="sintomas_input" placeholder="Escriba un síntoma aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" autocomplete="off" oninput="this.value = this.value.toUpperCase(); sugerirSintomas(this.value)" style="text-transform: uppercase;">
+          <button type="button" id="agregar_sintoma" class="px-4 py-2 ml-2 text-white bg-green-500 rounded hover:bg-green-600" onclick="agregarSintoma()">Agregar</button>
+        </div>
+        <div id="sugerencias" class="mt-1 bg-white border border-gray-300 rounded"></div>
+        <textarea name="sintomas" id="sintomas" placeholder="Síntomas seleccionados" class="w-full mt-2 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" rows="4" readonly style="text-transform: uppercase;"></textarea>
+      </div>
+      
+      <div class="mb-2" id="antecedentes_section" style="display: none;">
+        <label class="block font-bold text-gray-700">Antecedentes Familiares:</label>
+        <div class="mt-2 space-y-2">
+          {% for patologia in paciente.patologias %}
+            <div class="flex items-center">
+              <input type="checkbox" name="patologias" value="{{ patologia.id }}" id="patologia_{{ patologia.id }}" class="w-5 h-5 border-gray-300 rounded form-checkbox text-cyan-shade focus:ring-cyan-shade">
+              <label for="patologia_{{ patologia.id }}" class="ml-2 font-medium text-gray-900">{{ patologia.nombre }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <label for="genes_adicionales" class="block font-bold text-gray-700">Solicitar Genes Adicionales:</label>
+        <input type="text" name="genes_adicionales" id="genes_adicionales" placeholder="Escriba los genes aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
+      </div>
+
+      <div class="mb-2">
+        <input type="checkbox" id="hallazgos_secundarios" name="hallazgos_secundarios" class="w-5 h-5 border-gray-300 rounded form-checkbox text-cyan-shade focus:ring-cyan-shade">
+        <label for="hallazgos_secundarios" class="ml-2 font-medium text-gray-900">Incluir Hallazgos Secundarios</label>
+      </div>
+
+      <button type="submit" class="w-full px-4 py-2 mt-4 font-bold text-white rounded bg-cyan-shade hover:bg-cyan-shade-focus">Solicitar Estudio</button>
+    </form>
+  </div>
+</div>
+
+<script>
+    const sintomas = {{ sintomas_lista | tojson }};
+
+    function sugerirSintomas(input) {
+        const sugerencias = document.getElementById('sugerencias');
+        sugerencias.innerHTML = ''; 
+
+        if (input.length > 0) {
+            const sintomasCoincidentes = sintomas.filter(sintoma =>
+                sintoma.toLowerCase().includes(input.toLowerCase())
+            );
+
+            sintomasCoincidentes.forEach(sintoma => {
+                const div = document.createElement('div');
+                div.className = 'p-2 hover:bg-gray-200 cursor-pointer';
+                div.textContent = sintoma; 
+                div.onclick = () => seleccionarSintoma(sintoma);
+                sugerencias.appendChild(div);
+            });
+        }
+    }
+
+    function seleccionarSintoma(sintoma) {
+        const input = document.getElementById('sintomas_input');
+        input.value = sintoma.toUpperCase(); 
+        document.getElementById('sugerencias').innerHTML = ''; 
+    }
+
+    function agregarSintoma() {
+        const input = document.getElementById('sintomas_input');
+        const sintomasTextArea = document.getElementById('sintomas');
+
+        if (input.value.trim() !== '') {
+            sintomasTextArea.value += (sintomasTextArea.value ? ', ' : '') + input.value.trim().toUpperCase(); 
+            input.value = ''; 
+            document.getElementById('sugerencias').innerHTML = ''; 
+        }
+    }
+
+    document.getElementById('tipo_estudio').addEventListener('change', function() {
+        const tipoEstudio = this.value;
+        document.getElementById('sintomas_section').style.display = tipoEstudio === 'puntual' ? 'block' : 'none';
+        document.getElementById('antecedentes_section').style.display = tipoEstudio === 'familiar' ? 'block' : 'none';
+    });
+</script>
+
+{% endblock %}
