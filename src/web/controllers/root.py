@@ -29,6 +29,9 @@ bp = Blueprint("root", __name__)
 def index_get():
     if not session.get('logged_in'):
         return redirect(url_for('root.login'))
+    if session.get('token') == False:
+        flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
+        return redirect(url_for('editar_perfil.editar_perfil', usuario_id=session['user_id']))
     try:
         todas_las_filiales = Laboratorio.query.all()
         return render_template("index.html", filiales=todas_las_filiales)
@@ -57,7 +60,10 @@ def login():
                 session['user_type'] = user_type
                 session['logged_in'] = True
                 session['rol_id'] = user.id_rol
-                
+                session['token'] = user.token
+                if user.token == False:
+                    flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
+                    return redirect(url_for('editar_perfil.editar_perfil', usuario_id=user.id))
                 flash('Inicio de sesión Exitoso', 'success')
                 return redirect(url_for('root.index_get'))
         else:
@@ -86,7 +92,9 @@ def perfil():
     if not session.get('user_id') or not session.get('user_type'):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
-    
+    if session['token'] == False:
+        flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
+        return redirect(url_for('editar_perfil.editar_perfil', usuario_id=session['user_id']))
     if session['user_type'] == 'usuario':
         user = Usuario.query.get(session['user_id'])
     elif session['user_type'] == 'laboratorio':

@@ -17,4 +17,6 @@ class Laboratorio(UserMixin, db.Model):
     latitud = db.Column(db.Float, nullable=True)  # Campo para la latitud
     longitud = db.Column(db.Float, nullable=True)
     id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), default=3)
+    #Para el Primer Inicio de sesion
+    token = db.Column(db.Boolean, default=False)
     turnos = db.relationship('Turno', backref='turnos_laboratorio', cascade='all, delete-orphan')

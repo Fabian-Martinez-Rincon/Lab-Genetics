@@ -7,6 +7,8 @@ def verificar_autenticacion(f):
     """
     Decorador que verifica si el usuario ha iniciado sesión.
     Si no está autenticado, redirige al usuario a la página principal.
+    Si esta autenticado y su cuenta está inactiva, redirige al usuario a la página principal.(Excepto si es un laboratorio)
+    Si esta autenticado, verifica si el usuario debe actualizar su contraseña.
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -14,8 +16,20 @@ def verificar_autenticacion(f):
         if not user_id:
             flash('Debes iniciar sesión para realizar esta operación.', 'error')
             return redirect(url_for('root.index_get'))
+        
+        usuario = Usuario.query.get(user_id)
+        if usuario:
+            if usuario.estado == 'INACTIVO':
+                flash('Tu cuenta está inactiva. Por favor, contacta con soporte.', 'error')
+                return redirect(url_for('root.index_get'))
+        else:
+            usuario = Laboratorio.query.get(user_id)
+        if usuario.token == False:
+            flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
+            return redirect(url_for('editar_perfil.editar_perfil', usuario_id=usuario.id))
         return f(*args, **kwargs)
     return decorated_function
+
 
 def verificar_rol(rol_permitido):
     """

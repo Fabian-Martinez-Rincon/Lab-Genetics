@@ -24,6 +24,9 @@ def editar_perfil():
             # La contraseña actual es correcta, procede a actualizar la contraseña
             hashed_password = generate_password_hash(form.nueva_password.data, method='pbkdf2:sha256')
             usuario_actual.password = hashed_password
+            if usuario_actual.token == False:
+                usuario_actual.token = True
+                session['token'] = True
             db.session.commit()
             flash('¡Perfil actualizado correctamente!', 'success')
             return redirect(url_for('root.perfil', usuario_id=usuario_actual.id))

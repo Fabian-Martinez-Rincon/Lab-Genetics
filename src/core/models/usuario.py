@@ -21,7 +21,8 @@ class Usuario(UserMixin, db.Model):
     # Relación con los estudios como médico
     estudios_como_medico = db.relationship('Estudio', backref='medico', foreign_keys='Estudio.id_medico', cascade='all, delete-orphan')
     patologias = db.relationship('Patologia', secondary='antecedentes_usuarios', backref='usuarios')
-     
+    #Para el Primer Inicio de sesion
+    token = db.Column(db.Boolean, default=False)
 # Tabla intermedia para la relación muchos a muchos entre Usuario y Antecedentes Familiares
 antecedentes_usuarios = db.Table('antecedentes_usuarios',
     db.Column('usuario_id', db.Integer, db.ForeignKey('usuarios.id'), primary_key=True),

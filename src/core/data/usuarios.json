@@ -9,7 +9,8 @@
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "1",
-        "estado": "ACTIVO"
+        "estado": "ACTIVO",
+        "token": true
     },
     {
         "nombre": "Dolores",
@@ -21,7 +22,8 @@
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "2",
-        "estado": "ACTIVO"
+        "estado": "ACTIVO",
+        "token": true
     },
     {
         "nombre": "Ana",
@@ -33,7 +35,8 @@
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "3",
-        "estado": "ACTIVO"
+        "estado": "ACTIVO",
+        "token": true
     },
     {
         "nombre": "Emiliano",
@@ -45,7 +48,8 @@
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "4",
-        "estado": "ACTIVO"
+        "estado": "ACTIVO",
+        "token": true
     },
     {
         "nombre": "Encarna",
@@ -58,7 +62,8 @@
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "5",
         "id_medico":"4",
-        "estado": "ACTIVO"
+        "estado": "ACTIVO",
+        "token": true
     },
     {
         "nombre": "Perfecto",
@@ -70,6 +75,7 @@
         "telefono": "1122334455",
         "historia_path": "/path/to/historia_juan.pdf",
         "id_rol": "6",
-        "estado": "ACTIVO"
+        "estado": "ACTIVO",
+        "token": true
     }
 ]
