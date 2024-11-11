@@ -10,7 +10,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Desarrollo UMYH S.L.",
@@ -23,7 +24,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Transportes Ibérica S.L.N.E",
@@ -36,7 +38,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Escalona y Alcántara S.L.L.",
@@ -49,7 +52,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Felicia Gálvez Casanovas S.L.U.",
@@ -62,7 +66,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Ripoll y asociados S.L.",
@@ -75,7 +80,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Soluciones RG S.L.",
@@ -88,7 +94,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Alimentación Españolas S.A.",
@@ -101,7 +108,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Tudela y asociados S.A.",
@@ -114,7 +122,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Desarrollo Jordá S.A.",
@@ -127,7 +136,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Logística del Mediterráneo S.L.",
@@ -140,7 +150,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Yáñez y Aznar S.L.",
@@ -153,7 +164,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Construcción Pedrero y asociados S.L.L.",
@@ -166,7 +178,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Hermanos Lobato S.L.",
@@ -179,7 +192,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Fábrica del Noroeste S.Coop.",
@@ -192,7 +206,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Comercial Frías y asociados S.A.",
@@ -205,7 +220,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Gabaldón & Asociados S.Com.",
@@ -218,7 +234,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Banco Cortes S.A.",
@@ -231,7 +248,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Vinicio Millán Mate S.L.N.E",
@@ -244,7 +262,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Grupo Pastor S.Com.",
@@ -257,7 +276,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Minería Oliver & Asociados S.Coop.",
@@ -270,7 +290,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Virginia Roda Rojas S.C.P",
@@ -283,7 +304,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Hnos Martinez S.L.U.",
@@ -296,7 +318,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Comercializadora NMIR S.L.L.",
@@ -309,7 +332,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Industrias del Mediterráneo S.L.",
@@ -322,7 +346,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Manufacturas Zaragoza S.L.L.",
@@ -335,7 +360,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Fábrica Acosta S.C.P",
@@ -348,7 +374,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Abril y Codina S.Com.",
@@ -361,7 +388,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Alimentación Tello & Asociados S.A.",
@@ -374,7 +402,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Severino Barros Comas S.L.",
@@ -387,7 +416,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Banco Hervia & Asociados S.C.P",
@@ -400,7 +430,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Tecnologías Hurtado & Asociados S.A.T.",
@@ -413,7 +444,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Peral & Asociados S.L.L.",
@@ -426,7 +458,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Grupo Pelayo S.L.",
@@ -439,7 +472,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Supermercados Valencia S.A.T.",
@@ -452,7 +486,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Cantero y Martorell S.L.",
@@ -465,7 +500,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Abascal y Grau S.Com.",
@@ -478,7 +514,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Hnos Pera S.Com.",
@@ -491,7 +528,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Quevedo y Salmerón S.L.",
@@ -504,7 +542,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Suministros Guijarro y asociados S.Com.",
@@ -517,7 +556,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Bellido y Téllez S.L.N.E",
@@ -530,7 +570,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Construcción Pino & Asociados S.L.N.E",
@@ -543,7 +584,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Transportes DES S.Coop.",
@@ -556,7 +598,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Calzada y Quintanilla S.Coop.",
@@ -569,7 +612,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Construcción Sabater S.L.N.E",
@@ -582,7 +626,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Tecnologías NSPA S.L.N.E",
@@ -595,7 +640,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Hermanos Colom S.Coop.",
@@ -608,7 +654,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Inversiones VIKM S.A.",
@@ -621,7 +668,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Industrias Oliva y asociados S.Com.",
@@ -634,7 +682,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Manufacturas AYX S.L.",
@@ -647,7 +696,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Consultoría NCQG S.L.N.E",
@@ -660,7 +710,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Inmobiliaria LBBZ S.L.",
@@ -673,7 +724,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Supermercados Española S.L.L.",
@@ -686,7 +738,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Instalaciones Águila S.A.",
@@ -699,7 +752,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Gallo y Zurita S.L.",
@@ -712,7 +766,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Servicios Ibérica S.L.",
@@ -725,7 +780,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Restauración YNF S.Com.",
@@ -738,7 +794,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Cases y asociados S.A.",
@@ -751,7 +808,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Pizarro y Torrents S.A.U",
@@ -764,7 +822,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Tecnologías Linares y asociados S.Coop.",
@@ -777,7 +836,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Industrias Pagès S.Coop.",
@@ -790,7 +850,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Familia Huertas S.Com.",
@@ -803,7 +864,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Toro y Rodriguez S.A.T.",
@@ -816,7 +878,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Villanueva & Asociados S.A.",
@@ -829,7 +892,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Trujillo & Asociados S.Com.",
@@ -842,7 +906,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Construcción Goñi S.L.",
@@ -855,7 +920,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Adán y asociados S.A.",
@@ -868,7 +934,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Aramburu y Piña S.L.N.E",
@@ -881,7 +948,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Fábrica Tudela S.Coop.",
@@ -894,7 +962,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Alimentación OWCS S.Coop.",
@@ -907,7 +976,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Hnos Guerra S.L.",
@@ -920,7 +990,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Garcia & Asociados S.A.",
@@ -933,7 +1004,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Comercial del Levante S.Coop.",
@@ -946,7 +1018,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Comercial Isern S.L.L.",
@@ -959,7 +1032,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Finanzas IGX S.Coop.",
@@ -972,7 +1046,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Alimentación Viana S.Com.",
@@ -985,7 +1060,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Hnos Barranco S.Com.",
@@ -998,7 +1074,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Restauración Pelayo y asociados S.L.",
@@ -1011,7 +1088,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Banco FA S.A.D",
@@ -1024,7 +1102,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Inmobiliaria Rodriguez S.Com.",
@@ -1037,7 +1116,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Goicoechea y Haro S.C.P",
@@ -1050,7 +1130,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Alimentación TJ S.L.N.E",
@@ -1063,7 +1144,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Talleres del Noroeste S.L.",
@@ -1076,7 +1158,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Fábrica Sala S.Coop.",
@@ -1089,7 +1172,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Gámez y asociados S.A.",
@@ -1102,7 +1186,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Desarrollo Juliá S.Com.",
@@ -1115,7 +1200,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Anselmo Antón Sanmiguel S.A.",
@@ -1128,7 +1214,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Guardia & Asociados S.Com.",
@@ -1141,7 +1228,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Alimentación Belda & Asociados S.Com.",
@@ -1154,7 +1242,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Industrias Pedrosa S.A.",
@@ -1167,7 +1256,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Grupo Osuna S.Coop.",
@@ -1180,7 +1270,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Pascual Berenguer Comas S.C.P",
@@ -1193,7 +1284,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Compañía Espinosa & Asociados S.L.",
@@ -1206,7 +1298,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Vera Pujadas Sanmiguel S.Coop.",
@@ -1219,7 +1312,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Pou y Bauzà S.Com.",
@@ -1232,7 +1326,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Hotel LF S.Com.",
@@ -1245,7 +1340,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Calderón y Mendez S.L.L.",
@@ -1258,7 +1354,8 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Logística Castellana S.A.",
@@ -1271,7 +1368,8 @@
         "address": "La Plata",
         "id_rol": "3",
         "latitud": -34.9215,
-        "longitud": -57.9545
+        "longitud": -57.9545,
+        "token": true
     },
     {
         "nombre": "Laboratorio Industrias MA S.L.L.",
@@ -1284,7 +1382,8 @@
         "address": "Buenos Aires",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     },
     {
         "nombre": "Laboratorio Distribuciones Castellana S.L.",
@@ -1297,6 +1396,7 @@
         "address": "Capital Federal",
         "id_rol": "3",
         "latitud": -34.6037,
-        "longitud": -58.3816
+        "longitud": -58.3816,
+        "token": true
     }
 ]

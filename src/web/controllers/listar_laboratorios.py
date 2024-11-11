@@ -1,9 +1,9 @@
 from flask import Flask, render_template, Blueprint, request, redirect, url_for
 from src.core.models.laboratorio import Laboratorio
 from src.core.models.database import db
-
+from src.web.controllers.utils import verificar_autenticacion
 bp = Blueprint('listar_laboratorios', __name__)
-
+@verificar_autenticacion
 @bp.route('/listar_laboratorios', methods=['GET', 'POST'])
 def listar_laboratorios():
     if request.method == 'POST':

@@ -4,9 +4,10 @@ from src.web.formularios.solicitar_turno import RegisterTurnoForm
 from src.core.models.laboratorio import Laboratorio
 from flask_login import current_user
 from src.core.models.turno import Turno
-
+from src.web.controllers.utils import verificar_autenticacion
 bp = Blueprint("registrar_turno", __name__)
 
+@verificar_autenticacion
 @bp.route('/registrar_turno/<int:laboratorio_id>', methods=['GET', 'POST'])
 def register_turno(laboratorio_id):
     form = RegisterTurnoForm()

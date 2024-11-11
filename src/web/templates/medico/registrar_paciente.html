@@ -56,16 +56,22 @@
         {{ form.historia(class="w-full p-3 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-shade focus:border-cyan-shade", accept=".pdf") }}
     </div>
          
-      <div class="mb-6">
-        <label class="block text-lg font-semibold text-gray-800">Antecedentes Familiares</label>
-        <div class="mt-2 space-y-2">
-            {% for id, nombre in form.patologias.choices %}
-                <div class="flex items-center">
-                    <input type="checkbox" name="patologias" value="{{ id }}" id="patologia_{{ id }}" class="w-5 h-5 border-gray-300 rounded form-checkbox text-cyan-shade focus:ring-cyan-shade">
-                    <label for="patologia_{{ id }}" class="ml-2 font-medium text-gray-900">{{ nombre }}</label>
-                </div>
-            {% endfor %}
-        </div>
+    <div class="mb-6">
+      <label class="block text-lg font-semibold text-gray-800">Antecedentes Familiares</label>
+      <div class="mt-2 space-y-2">
+          {% for id, nombre in form.patologias.choices %}
+              <div class="flex items-center mb-2">
+                  <input type="checkbox" name="patologias" value="{{ id }}" id="patologia_{{ id }}" 
+                         class="w-5 h-5 border-gray-300 rounded form-checkbox text-cyan-shade focus:ring-cyan-shade"
+                         onchange="toggleInput({{ id }})">
+                  <label for="patologia_{{ id }}" class="ml-2 font-medium text-gray-900">{{ nombre }}</label>
+              </div>
+              <input type="text" name="relacion_{{ id }}" placeholder="Parentesco" 
+                     id="input_{{ id }}"
+                     class="w-full mb-2 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg"
+                     style="display: none;">
+          {% endfor %}
+      </div>
     </div>
       <div>
         {{ form.submit(class="relative flex justify-center w-full px-4 py-2 text-base font-medium text-white transition duration-300 ease-in-out bg-indigo-500 border border-transparent rounded-md group hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade") }}
@@ -73,4 +79,16 @@
     </form>
   </div>
 </div>
+<script>
+  function toggleInput(id) {
+    const checkbox = document.getElementById('patologia_' + id);
+    const inputText = document.getElementById('input_' + id);
+    
+    if (checkbox.checked) {
+      inputText.style.display = 'block';
+    } else {
+      inputText.style.display = 'none';
+    }
+  }
+</script>
 {% endblock %}

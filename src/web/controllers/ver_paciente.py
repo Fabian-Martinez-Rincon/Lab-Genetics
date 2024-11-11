@@ -1,6 +1,8 @@
 from flask import render_template, request, Blueprint, abort, session, send_from_directory, current_app, flash
 from flask_login import current_user
-from src.core.models.usuario import Usuario
+from src.core.models.usuario import Usuario, antecedentes_usuarios
+from src.core.models.patologia import Patologia
+from src.core.models.database import db
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 import os
 bp = Blueprint('ver_paciente', __name__)
@@ -14,8 +16,13 @@ def ver_paciente(paciente_id):
     paciente = Usuario.query.filter_by(id=paciente_id, id_medico=id_medico).first()
     if not paciente:
         abort(404, description="Paciente no encontrado o no autorizado para ver este perfil.")
-
-    return render_template('medico/ver_paciente.html', paciente=paciente)
+    antecedentes = db.session.query(
+        Patologia.nombre,
+        antecedentes_usuarios.c.relacion
+    ).join(antecedentes_usuarios, Patologia.id == antecedentes_usuarios.c.patologia_id).filter(
+        antecedentes_usuarios.c.usuario_id == paciente.id
+    ).all()
+    return render_template('medico/ver_paciente.html', paciente=paciente, antecedentes=antecedentes)
 
 @bp.route('/descargar_historia/<int:paciente_id>', methods=['GET'])
 @verificar_autenticacion

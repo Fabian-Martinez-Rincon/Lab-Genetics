@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, session, flash, make_response
 from flask_login import login_user
 from src.core.models.laboratorio import Laboratorio
-from src.core.models.usuario import Usuario
+from src.core.models.usuario import Usuario, antecedentes_usuarios
+from src.core.models.patologia import Patologia
+from src.core.models.database import db
 from src.web.formularios.inicio_sesion import LoginForm
 from werkzeug.security import check_password_hash
 from flask import (
@@ -29,6 +31,9 @@ bp = Blueprint("root", __name__)
 def index_get():
     if not session.get('logged_in'):
         return redirect(url_for('root.login'))
+    if session.get('token') == False:
+        flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
+        return redirect(url_for('editar_perfil.editar_perfil', usuario_id=session['user_id']))
     try:
         todas_las_filiales = Laboratorio.query.all()
         return render_template("index.html", filiales=todas_las_filiales)
@@ -57,7 +62,10 @@ def login():
                 session['user_type'] = user_type
                 session['logged_in'] = True
                 session['rol_id'] = user.id_rol
-                
+                session['token'] = user.token
+                if user.token == False:
+                    flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
+                    return redirect(url_for('editar_perfil.editar_perfil', usuario_id=user.id))
                 flash('Inicio de sesión Exitoso', 'success')
                 return redirect(url_for('root.index_get'))
         else:
@@ -86,9 +94,18 @@ def perfil():
     if not session.get('user_id') or not session.get('user_type'):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
-    
+    if session['token'] == False:
+        flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
+        return redirect(url_for('editar_perfil.editar_perfil', usuario_id=session['user_id']))
+    antecedentes = []
     if session['user_type'] == 'usuario':
         user = Usuario.query.get(session['user_id'])
+        antecedentes = db.session.query(
+            Patologia.nombre,
+            antecedentes_usuarios.c.relacion
+        ).join(antecedentes_usuarios, Patologia.id == antecedentes_usuarios.c.patologia_id).filter(
+            antecedentes_usuarios.c.usuario_id == user.id
+        ).all()
     elif session['user_type'] == 'laboratorio':
         user = Laboratorio.query.get(session['user_id'])
     else:
@@ -96,7 +113,7 @@ def perfil():
         return redirect(url_for('root.index_get'))
 
     if user:
-        return render_template('/comunes/perfil.html', user=user)
+        return render_template('/comunes/perfil.html', user=user, antecedentes=antecedentes)
     else:
         flash('No se pudo encontrar el perfil del usuario.', 'error')
         return redirect(url_for('root.index_get'))

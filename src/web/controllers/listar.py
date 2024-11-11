@@ -63,6 +63,7 @@ def listar_turnos():
         .order_by(Turno.fecha.asc()).all()
     return render_template('owner/listar_turnos.html', turnos=mis_turnos)
 
+@verificar_autenticacion
 @bp.route('/listar_laboratorios_turnos', methods=['GET'])
 def listar_laboratorios():
     laboratorios = Laboratorio.query.filter_by(estado='ACTIVO').all()
