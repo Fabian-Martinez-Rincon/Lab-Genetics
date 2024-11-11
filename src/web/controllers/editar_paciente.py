@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, Blueprint, session, abort, request
 from src.core.models.database import db
 from src.core.models.patologia import Patologia
-from src.core.models.usuario import Usuario
+from src.core.models.usuario import Usuario, antecedentes_usuarios
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 
 bp = Blueprint('editar_paciente', __name__)
@@ -16,13 +16,25 @@ def editar_paciente(paciente_id):
         abort(404, description="Paciente no encontrado o no autorizado para ver este perfil")
     if request.method == 'POST':
         nueva_patologia_id = request.form.get('patologia')
-        # Verifica si la patología ya está asociada al paciente
-        if nueva_patologia_id and not any(patologia.id == int(nueva_patologia_id) for patologia in paciente.patologias):
+        relacion = request.form.get('relacion')
+        if nueva_patologia_id and relacion:
             nueva_patologia = Patologia.query.get(nueva_patologia_id)
-            if nueva_patologia:
+            if nueva_patologia and nueva_patologia not in paciente.patologias:
                 paciente.patologias.append(nueva_patologia)
                 db.session.commit()
+                db.session.execute(
+                    antecedentes_usuarios.update()
+                    .where(
+                        antecedentes_usuarios.c.usuario_id == paciente.id,
+                        antecedentes_usuarios.c.patologia_id == nueva_patologia.id
+                    )
+                    .values(relacion=relacion)
+                )
+                db.session.commit()
+        
         return redirect(url_for('ver_paciente.ver_paciente', paciente_id=paciente_id))
+    
+    # Obtener todas las patologías y excluir las ya asignadas al paciente
     todas_las_patologias = Patologia.query.all()
     patologias_existentes = {patologia.id for patologia in paciente.patologias}
     patologias_disponibles = [patologia for patologia in todas_las_patologias if patologia.id not in patologias_existentes]

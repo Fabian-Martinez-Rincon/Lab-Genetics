@@ -28,15 +28,15 @@
 
     {% if user.id_rol == 5 %}
       <p class="mb-2"><strong>Antecedentes familiares:</strong>
-        {% if user.patologias %}
-          <ul>
-            {% for patologia in user.patologias %}
-              <li>{{ patologia.nombre }}</li>  {# Asegúrate de que "nombre" es un atributo de tu modelo Patologia #}
-            {% endfor %}
-          </ul>
-        {% else %}
-          <span>No tiene antecedentes familiares registrados.</span>
-        {% endif %}
+        {% if antecedentes %}
+        <ul>
+          {% for patologia, relacion in antecedentes %}
+            <li>{{ patologia }} ({{ relacion }})</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        No hay antecedentes registrados
+      {% endif %}
       </p>
     {% endif %}
     

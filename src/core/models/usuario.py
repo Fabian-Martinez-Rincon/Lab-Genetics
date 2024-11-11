@@ -26,5 +26,6 @@ class Usuario(UserMixin, db.Model):
 # Tabla intermedia para la relación muchos a muchos entre Usuario y Antecedentes Familiares
 antecedentes_usuarios = db.Table('antecedentes_usuarios',
     db.Column('usuario_id', db.Integer, db.ForeignKey('usuarios.id'), primary_key=True),
-    db.Column('patologia_id', db.Integer, db.ForeignKey('patologias.id'), primary_key=True)
+    db.Column('patologia_id', db.Integer, db.ForeignKey('patologias.id'), primary_key=True), 
+    db.Column('relacion', db.String(50))
 )

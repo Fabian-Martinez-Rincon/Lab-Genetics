@@ -56,8 +56,8 @@
           <td class="px-4 py-2">
             {% if paciente.patologias %}
               <ul>
-                {% for patologia in paciente.patologias %}
-                  <li>{{ patologia.nombre }}</li>
+                {% for patologia, relacion in antecedentes %}
+                  <li>{{ patologia }} ({{ relacion }})</li>
                 {% endfor %}
               </ul>
             {% else %}

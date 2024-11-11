@@ -27,7 +27,10 @@
           {% endfor %}
         </select>
       </div>
-
+      <div class="mb-4">
+        <label for="relacion" class="block font-bold text-gray-700">Parentesco:</label>
+        <input type="text" name="relacion" id="relacion" class="block w-full mt-1" required>
+      </div>
       <!-- Botón para agregar la nueva patología -->
       <a href="{{ url_for('ver_paciente.ver_paciente', paciente_id=paciente.id) }}" 
       class="px-4 py-2 text-white bg-purple-900 rounded hover:bg-indigo-700">Cancelar</a>
