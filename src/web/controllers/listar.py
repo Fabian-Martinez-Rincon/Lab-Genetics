@@ -124,5 +124,51 @@ def detalle_estudio(estudio_id):
 
     return render_template('paciente/detalle_estudio.html', estudio=estudio, resultado=resultado)
 
+@bp.route('/ver_estudios_medico', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(4)
+def ver_estudios_medico():
+    id_usuario = session.get('user_id')
+    
+    usuario = Usuario.query.get(id_usuario)
+    if not usuario:
+        flash('Usuario no encontrado.', 'error')
+        return redirect(url_for('root.index_get'))
+    
+    estudios = usuario.estudios_como_medico
+
+    for estudio in estudios:
+        estado_actual = db.session.query(HistorialEstado.estado)\
+            .filter(HistorialEstado.estudio_id == estudio.id)\
+            .order_by(HistorialEstado.fecha_hora.desc())\
+            .first()
+        
+        estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
+
+    return render_template('medico/ver_estudios_medico.html', estudios=estudios)
+
+@bp.route('/detalle_estudio_medico/<estudio_id>', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(4)
+def detalle_estudio_medico(estudio_id):
+    estudio = Estudio.query.get(estudio_id)
+    if not estudio:
+        flash('Estudio no encontrado.', 'error')
+        return redirect(url_for('medico/ver_estudios_medico.html'))
+    
+    # Obtener el estado actual del estudio
+    estado_actual = db.session.query(HistorialEstado.estado)\
+        .filter(HistorialEstado.estudio_id == estudio.id)\
+        .order_by(HistorialEstado.fecha_hora.desc())\
+        .first()
+    estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
+
+    # Obtener el resultado relacionado
+    resultado = None
+    if estudio.id_resultado:
+        resultado = db.session.query(Resultado).get(estudio.id_resultado)
+
+    return render_template('medico/detalle_estudio.html', estudio=estudio, resultado=resultado)
+
 
 
