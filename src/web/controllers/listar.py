@@ -124,6 +124,8 @@ def detalle_estudio(estudio_id):
 
     return render_template('paciente/detalle_estudio.html', estudio=estudio, resultado=resultado)
 
+from sqlalchemy import or_
+
 @bp.route('/ver_estudios_medico', methods=['GET'])
 @verificar_autenticacion
 @verificar_rol(4)
@@ -135,8 +137,15 @@ def ver_estudios_medico():
         flash('Usuario no encontrado.', 'error')
         return redirect(url_for('root.index_get'))
     
-    estudios = usuario.estudios_como_medico
+    # Obtener el parámetro de búsqueda
+    estudio_id = request.args.get('estudio_id', '')
 
+    # Filtrar estudios por ID con coincidencias parciales
+    estudios = usuario.estudios_como_medico
+    if estudio_id:
+        estudios = [estudio for estudio in estudios if estudio_id in str(estudio.id)]
+
+    # Obtener el estado actual de cada estudio
     for estudio in estudios:
         estado_actual = db.session.query(HistorialEstado.estado)\
             .filter(HistorialEstado.estudio_id == estudio.id)\
@@ -146,6 +155,8 @@ def ver_estudios_medico():
         estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
 
     return render_template('medico/ver_estudios_medico.html', estudios=estudios)
+
+
 
 @bp.route('/detalle_estudio_medico/<estudio_id>', methods=['GET'])
 @verificar_autenticacion
@@ -171,4 +182,33 @@ def detalle_estudio_medico(estudio_id):
     return render_template('medico/detalle_estudio.html', estudio=estudio, resultado=resultado)
 
 
+@bp.route('/ver_estudios_paciente/<int:paciente_id>', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(4)
+def ver_estudios_paciente(paciente_id):
+    # Verificar que el médico tenga acceso al paciente
+    id_medico = session.get('user_id')
+    paciente = Usuario.query.filter_by(id=paciente_id, id_medico=id_medico).first()
+    if not paciente:
+        flash('Paciente no encontrado o no autorizado para ver este perfil.', 'error')
+        return redirect(url_for('root.index_get'))
+
+    # Obtener el parámetro de búsqueda para coincidencias parciales de ID
+    estudio_id = request.args.get('estudio_id', '')
+
+    # Filtrar estudios del paciente específico por coincidencias parciales en el ID
+    estudios = paciente.estudios_como_paciente
+    if estudio_id:
+        estudios = [estudio for estudio in estudios if estudio_id in str(estudio.id)]
+
+    # Obtener el estado actual de cada estudio
+    for estudio in estudios:
+        estado_actual = db.session.query(HistorialEstado.estado)\
+            .filter(HistorialEstado.estudio_id == estudio.id)\
+            .order_by(HistorialEstado.fecha_hora.desc())\
+            .first()
+        
+        estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
+
+    return render_template('paciente/ver_estudios_paciente.html', paciente=paciente, estudios=estudios)
 
