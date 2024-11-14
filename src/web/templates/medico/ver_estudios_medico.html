@@ -1,0 +1,40 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Mis Estudios</title>
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8">
+  <div class="w-full max-w-4xl space-y-8">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold text-indigo-700">Mis Estudios</h1>
+      <p class="mt-2 text-lg text-gray-700">Aquí puedes ver el historial de tus estudios médicos registrados.</p>
+    </div>
+    
+    {% if estudios %}
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for estudio in estudios %}
+          <a href="{{ url_for('listar.detalle_estudio_medico', estudio_id=estudio.id) }}" 
+             class="p-6 transition-all bg-white rounded-xl border border-indigo-200 shadow-md hover:shadow-2xl hover:border-indigo-400 transform hover:-translate-y-1 duration-300">
+            <h2 class="mb-4 text-xl font-semibold text-indigo-700">ID Estudio: {{ estudio.id }}</h2>
+            <p class="text-gray-600"><strong>Tipo de Estudio:</strong> 
+              <span class="text-indigo-600">{{ "Sospecha Familiar" if estudio.tipo_estudio == "familiar" else "Sospecha Puntual" }}</span>
+            </p>
+            <p class="mt-2 text-gray-600"><strong>Fecha de Solicitud:</strong> 
+              <span class="text-indigo-600">{{ estudio.fecha_solicitud.strftime('%d/%m/%Y') }}</span>
+            </p>
+            <p class="mt-2 text-gray-600"><strong>Estado:</strong> 
+              <span class="text-indigo-600">{{ estudio.estado_nombre }}</span>
+            </p>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-center">
+        <p class="text-lg text-gray-600">No tienes estudios registrados en el sistema.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
