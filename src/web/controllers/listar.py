@@ -8,6 +8,7 @@ from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 from src.core.models.laboratorio import Laboratorio
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
+from src.core.models.resultado import Resultado
 
 """
 ## Roles
@@ -69,6 +70,14 @@ def listar_laboratorios():
     laboratorios = Laboratorio.query.filter_by(estado='ACTIVO').all()
     return render_template('owner/listar_laboratorios_turnos.html', laboratorios=laboratorios)
 
+
+"""
+Tenes que agarrar el último estado del historial_esatdo de un ID de estudio y si esta en estado "APROBADO" Lo listas. 
+A partir de ahí tiene que haber un botón de solicitar turno que a partir de ese ID de 
+estudio elige Laboratorio de extracción, fecha y Horario
+
+> Esto lo dejo para despues, de momento los vamos a listar asi nomas
+"""
 @bp.route('/mis_estudios', methods=['GET'])
 @verificar_autenticacion
 @verificar_rol(5)
@@ -91,6 +100,29 @@ def mis_estudios():
         estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
 
     return render_template('paciente/mis_estudios.html', estudios=estudios)
+
+@bp.route('/detalle_estudio/<estudio_id>', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(5)
+def detalle_estudio(estudio_id):
+    estudio = Estudio.query.get(estudio_id)
+    if not estudio:
+        flash('Estudio no encontrado.', 'error')
+        return redirect(url_for('paciente.mis_estudios'))
+    
+    # Obtener el estado actual del estudio
+    estado_actual = db.session.query(HistorialEstado.estado)\
+        .filter(HistorialEstado.estudio_id == estudio.id)\
+        .order_by(HistorialEstado.fecha_hora.desc())\
+        .first()
+    estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
+
+    # Obtener el resultado relacionado
+    resultado = None
+    if estudio.id_resultado:
+        resultado = db.session.query(Resultado).get(estudio.id_resultado)
+
+    return render_template('paciente/detalle_estudio.html', estudio=estudio, resultado=resultado)
 
 
 

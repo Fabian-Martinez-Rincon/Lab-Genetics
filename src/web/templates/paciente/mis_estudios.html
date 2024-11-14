@@ -15,51 +15,19 @@
     {% if estudios %}
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {% for estudio in estudios %}
-          <div class="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
+          <a href="{{ url_for('listar.detalle_estudio', estudio_id=estudio.id) }}" 
+             class="p-6 transition-all bg-white rounded-xl border border-indigo-200 shadow-md hover:shadow-2xl hover:border-indigo-400 transform hover:-translate-y-1 duration-300">
             <h2 class="mb-4 text-xl font-semibold text-indigo-700">ID Estudio: {{ estudio.id }}</h2>
-            {% if estudio.tipo_estudio == "familiar" %}
-              <p class="text-gray-700"><strong>Tipo de Estudio:</strong> Sospecha Familiar</p>
-            {% else %}
-            <p class="text-gray-700"><strong>Tipo de Estudio:</strong> Sospecha Puntual</p>
-            {% endif %}
-            <p class="text-gray-700"><strong>Fecha de Solicitud:</strong> {{ estudio.fecha_solicitud.strftime('%d/%m/%Y') }}</p>
-            {% if estudio.tipo_estudio != 'familiar' %}
-            <p class="text-gray-700"><strong>Síntomas:</strong> {{ estudio.sintomas or 'No especificado' }}</p>
-            {% endif %}
-            <p class="text-gray-700"><strong>Listado de Genes:</strong> {{ estudio.listado_genes or 'No especificado' }}</p>
-
-            {% if estudio.patologias %}
-            <p class="text-gray-700"><strong>Patologías:</strong>  
-                <ul>
-                  {% for patologia in estudio.patologias %}
-                    <li>{{ patologia.nombre }}</li>  
-                  {% endfor %}
-                </ul>
-              {% endif %}
+            <p class="text-gray-600"><strong>Tipo de Estudio:</strong> 
+              <span class="text-indigo-600">{{ "Sospecha Familiar" if estudio.tipo_estudio == "familiar" else "Sospecha Puntual" }}</span>
             </p>
-            {% if estudio.comprobante_path %}
-            <p class="text-gray-700">
-              <strong>Comprobante:</strong> 
-                <a href="{{ estudio.comprobante_path }}" class="text-indigo-600 underline hover:text-indigo-800" target="_blank">Ver Comprobante</a>
+            <p class="mt-2 text-gray-600"><strong>Fecha de Solicitud:</strong> 
+              <span class="text-indigo-600">{{ estudio.fecha_solicitud.strftime('%d/%m/%Y') }}</span>
             </p>
-            {% endif %}
-            {% if estudio.fecha_ingreso_central %}
-            <p class="text-gray-700"><strong>Fecha de Ingreso a Central:</strong> {{ estudio.fecha_ingreso_central.strftime('%d/%m/%Y')   }}</p>
-            {% endif %}
-            <p class="text-gray-700"><strong>Estado:</strong> {{ estudio.estado_nombre }}</p>
-            {% if estudio.genes_adicionales %}
-              <p class="text-gray-700"><strong>Genes Adicionales Solicitados:</strong> {{ estudio.genes_adicionales }}</p>
-            {% endif %}
-            {% if estudio.hallazgos_secundarios %}
-              <p class="text-gray-700"><strong>Se solicitaron Hallazgos Secundarios</strong> </p>
-            {% endif %}
-            {% if estudio.id_resultado %}
-            <p class="text-gray-700"><strong>Resultado:</strong> 
-             
-                {{ estudio.id_resultado }}
+            <p class="mt-2 text-gray-600"><strong>Estado:</strong> 
+              <span class="text-indigo-600">{{ estudio.estado_nombre }}</span>
             </p>
-            {% endif %}
-          </div>
+          </a>
         {% endfor %}
       </div>
     {% else %}
@@ -70,4 +38,3 @@
   </div>
 </div>
 {% endblock %}
-
