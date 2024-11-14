@@ -11,6 +11,12 @@
       <h1 class="text-4xl font-bold text-indigo-700">Mis Estudios</h1>
       <p class="mt-2 text-lg text-gray-700">Aquí puedes ver el historial de tus estudios médicos registrados.</p>
     </div>
+
+    <!-- Campo para filtrar por ID -->
+    <form method="GET" action="{{ url_for('listar.ver_estudios_medico') }}" class="mb-4">
+      <input type="text" name="estudio_id" placeholder="Buscar por ID de Estudio" class="p-2 border rounded-md" value="{{ request.args.get('estudio_id', '') }}">
+      <button type="submit" class="px-4 py-2 ml-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Buscar</button>
+    </form>
     
     {% if estudios %}
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
