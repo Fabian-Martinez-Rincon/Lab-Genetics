@@ -101,6 +101,29 @@ def mis_estudios():
 
     return render_template('paciente/mis_estudios.html', estudios=estudios)
 
+@bp.route('/detalle_estudio/<estudio_id>', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(5)
+def detalle_estudio(estudio_id):
+    estudio = Estudio.query.get(estudio_id)
+    if not estudio:
+        flash('Estudio no encontrado.', 'error')
+        return redirect(url_for('paciente.mis_estudios'))
+    
+    # Obtener el estado actual del estudio
+    estado_actual = db.session.query(HistorialEstado.estado)\
+        .filter(HistorialEstado.estudio_id == estudio.id)\
+        .order_by(HistorialEstado.fecha_hora.desc())\
+        .first()
+    estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
+
+    # Obtener el resultado relacionado
+    resultado = None
+    if estudio.id_resultado:
+        resultado = db.session.query(Resultado).get(estudio.id_resultado)
+
+    return render_template('paciente/detalle_estudio.html', estudio=estudio, resultado=resultado)
+
 @bp.route('/ver_estudios_medico', methods=['GET'])
 @verificar_autenticacion
 @verificar_rol(4)
