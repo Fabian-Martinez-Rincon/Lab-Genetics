@@ -21,6 +21,13 @@ def eliminar_y_agregar(entidad, datos):
         # Si hay 'fecha_nacimiento', conviértela a datetime
         if 'fecha_nacimiento' in data:
             data['fecha_nacimiento'] = datetime.fromisoformat(data['fecha_nacimiento'])
+
+        # Manejar la creación del ID para `Estudio`
+        if entidad == Estudio:
+            apellido_paciente = db.session.query(Usuario).filter_by(id=data["id_paciente"]).first().apellido
+            data["id"] = Estudio().generar_id(apellido_paciente)  # Genera el ID basado en el apellido del paciente
+            data["fecha_solicitud"] = datetime.fromisoformat(data["fecha_solicitud"])
+            data["fecha_ingreso_central"] = datetime.strptime(data["fecha_ingreso_central"], "%Y-%m-%d").date()
         db.session.add(entidad(**data))
 
 def seed_db():
@@ -33,7 +40,7 @@ def seed_db():
             Resultado: 'resultados.json',
             Presupuesto: 'presupuestos.json',
             Pedido: 'pedidos.json',
-            #Estudio: 'estudios.json',
+            Estudio: 'estudios.json',
             #Turno: 'turnos.json',
             Patologia: 'patologias.json'
         }
