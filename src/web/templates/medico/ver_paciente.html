@@ -68,7 +68,7 @@
       </table>
       
       <div class="flex justify-around mt-6 space-x-4">
-        <a href="#" 
+        <a href="{{ url_for('listar.ver_estudios_paciente', paciente_id=paciente.id) }}" 
            class="px-4 py-2 text-white transition duration-300 ease-in-out bg-indigo-800 rounded hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-cyan-shade focus:ring-offset-2">
            Ver Estudios
         </a>

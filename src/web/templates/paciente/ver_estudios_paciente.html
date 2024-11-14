@@ -1,19 +1,19 @@
 {% extends "_layouts/app.html" %}
 
 {% block head %}
-<title>Mis Estudios</title>
+<title>Estudios del Paciente</title>
 {% endblock %}
 
 {% block content %}
 <div class="flex flex-col items-center justify-center px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8">
   <div class="w-full max-w-4xl space-y-8">
     <div class="text-center">
-      <h1 class="text-4xl font-bold text-indigo-700">Mis Estudios</h1>
-      <p class="mt-2 text-lg text-gray-700">Aquí puedes ver el historial de tus estudios médicos registrados.</p>
+      <h1 class="text-4xl font-bold text-indigo-700">Estudios de {{ paciente.nombre }} {{ paciente.apellido }}</h1>
+      <p class="mt-2 text-lg text-gray-700">Aquí puedes ver el historial de estudios médicos del paciente.</p>
     </div>
 
     <!-- Campo para filtrar por ID -->
-    <form method="GET" action="{{ url_for('listar.ver_estudios_medico') }}" class="mb-4">
+    <form method="GET" action="{{ url_for('listar.ver_estudios_paciente', paciente_id=paciente.id) }}" class="mb-4">
       <input type="text" name="estudio_id" placeholder="Buscar por ID de Estudio" class="p-2 border rounded-md" value="{{ request.args.get('estudio_id', '') }}">
       <button type="submit" class="px-4 py-2 ml-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Buscar</button>
     </form>
@@ -38,7 +38,7 @@
       </div>
     {% else %}
       <div class="text-center">
-        <p class="text-lg text-gray-600">No tienes estudios registrados en el sistema.</p>
+        <p class="text-lg text-gray-600">No hay estudios registrados para este paciente.</p>
       </div>
     {% endif %}
   </div>
