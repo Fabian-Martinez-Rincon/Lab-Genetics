@@ -9,6 +9,7 @@ from src.core.models.laboratorio import Laboratorio
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
 from src.core.models.resultado import Resultado
+from src.core.models.presupuesto import Presupuesto
 
 """
 ## Roles
@@ -169,6 +170,35 @@ def detalle_estudio_medico(estudio_id):
         resultado = db.session.query(Resultado).get(estudio.id_resultado)
 
     return render_template('medico/detalle_estudio.html', estudio=estudio, resultado=resultado)
+
+
+@bp.route('/presupuestos_para_generar', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(2)
+def presupuestos_para_generar():
+    estudios = Estudio.query \
+        .join(HistorialEstado, Estudio.id == HistorialEstado.estudio_id) \
+        .outerjoin(Usuario, Estudio.id_paciente == Usuario.id) \
+        .filter(HistorialEstado.estado == 'Solicitado') \
+        .add_columns(
+            Estudio.fecha_solicitud, Estudio.sintomas, Estudio.listado_genes, HistorialEstado.estado.label('estado_nombre'),
+            Usuario.dni, Usuario.nombre, Usuario.apellido
+        ) \
+        .order_by(Estudio.fecha_solicitud.desc()).all()
+    return render_template('administrador/presupuestos_para_generar.html', estudios=estudios)
+
+@bp.route('/presupuestos_a_confirmar', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(2)
+def presupuestos_a_confirmar():
+    presupuestos = Presupuesto.query \
+        .add_columns(
+            Presupuesto.fecha_vencimiento,
+            Presupuesto.montoFinal,
+            Presupuesto.Detalle,
+        ) \
+        .order_by(Presupuesto.fecha_vencimiento.desc()).all()
+    return render_template('administrador/presupuestos_a_confirmar.html', presupuestos=presupuestos)
 
 
 
