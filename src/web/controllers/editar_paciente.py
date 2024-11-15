@@ -31,7 +31,7 @@ def editar_paciente(paciente_id):
                     .values(relacion=relacion)
                 )
                 db.session.commit()
-        
+        flash('Antecedente Familiar agregado exitosamente.', 'success')
         return redirect(url_for('ver_paciente.ver_paciente', paciente_id=paciente_id))
     
     # Obtener todas las patologías y excluir las ya asignadas al paciente

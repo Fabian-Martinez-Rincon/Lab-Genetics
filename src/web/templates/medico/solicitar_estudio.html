@@ -8,6 +8,7 @@
     </h1>
     
     <form action="{{ url_for('solicitar_estudio.solicitar_estudio', paciente_id=paciente.id) }}" method="POST">
+      <!-- Campo de selección de tipo de estudio -->
       <div class="mb-2">
         <label for="tipo_estudio" class="block font-bold text-gray-700">Tipo de Estudio:</label>
         <select name="tipo_estudio" id="tipo_estudio" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" required>
@@ -19,16 +20,28 @@
         </select>
       </div>
 
+      <!-- Campo de Síntomas -->
       <div class="mb-2" id="sintomas_section" style="display: none;">
         <label for="sintomas" class="block font-bold text-gray-700">Síntomas:</label>
         <div class="flex">
-          <input type="text" id="sintomas_input" placeholder="Escriba un síntoma aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" autocomplete="off" oninput="this.value = this.value.toUpperCase(); sugerirSintomas(this.value)" style="text-transform: uppercase;">
+          <input type="text" id="sintomas_input" placeholder="Escriba un síntoma aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" autocomplete="off" oninput="sugerirSintomas(this.value)">
           <button type="button" id="agregar_sintoma" class="px-4 py-2 ml-2 text-white bg-green-500 rounded hover:bg-green-600" onclick="agregarSintoma()">Agregar</button>
         </div>
-        <div id="sugerencias" class="mt-1 bg-white border border-gray-300 rounded"></div>
-        <textarea name="sintomas" id="sintomas" placeholder="Síntomas seleccionados" class="w-full mt-2 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" rows="4" readonly style="text-transform: uppercase;"></textarea>
+        <div id="sugerencias_sintomas" class="mt-1 bg-white border border-gray-300 rounded"></div>
+        <textarea name="sintomas" id="sintomas" placeholder="Síntomas seleccionados" class="w-full mt-2 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" rows="4" readonly></textarea>
       </div>
-      
+
+      <!-- Campo de Patología -->
+      <div class="mb-4" id="patologia_section" style="display: none;">
+        <label for="patologia" class="block font-bold text-gray-700">Patología a Evaluar:</label>
+        <select name="patologia" id="patologia" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
+          {% for patologia in patologias %}
+            <option value="{{ patologia.id }}">{{ patologia.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Campo de Antecedentes Familiares -->
       <div class="mb-2" id="antecedentes_section" style="display: none;">
         <label class="block font-bold text-gray-700">Antecedentes Familiares:</label>
         <div class="mt-2 space-y-2">
@@ -41,9 +54,15 @@
         </div>
       </div>
 
+      <!-- Campo de Genes Adicionales -->
       <div class="mb-2">
         <label for="genes_adicionales" class="block font-bold text-gray-700">Solicitar Genes Adicionales:</label>
-        <input type="text" name="genes_adicionales" id="genes_adicionales" placeholder="Escriba los genes aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
+        <div class="flex">
+          <input type="text" id="genes_adicionales_input" placeholder="Escriba un gen aquí" class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" autocomplete="off" oninput="sugerirGenes(this.value)">
+          <button type="button" id="agregar_gen" class="px-4 py-2 ml-2 text-white bg-green-500 rounded hover:bg-green-600" onclick="agregarGen()">Agregar</button>
+        </div>
+        <div id="sugerencias_genes" class="mt-1 bg-white border border-gray-300 rounded"></div>
+        <textarea name="genes_adicionales" id="genes_adicionales" placeholder="Genes adicionales seleccionados" class="w-full mt-2 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" rows="4" readonly></textarea>
       </div>
 
       <div class="mb-2">
@@ -57,49 +76,54 @@
 </div>
 
 <script>
-    const sintomas = {{ sintomas_lista | tojson }};
+  const sintomas = {{ sintomas_lista | tojson }};
+  const genes = {{ adicionales_lista | tojson }};
 
-    function sugerirSintomas(input) {
-        const sugerencias = document.getElementById('sugerencias');
-        sugerencias.innerHTML = ''; 
+  function sugerirSintomas(input) {
+      const sugerencias = document.getElementById('sugerencias_sintomas');
+      sugerencias.innerHTML = ''; 
 
-        if (input.length > 0) {
-            const sintomasCoincidentes = sintomas.filter(sintoma =>
-                sintoma.toLowerCase().includes(input.toLowerCase())
-            );
+      if (input.length > 0) {
+          const sintomasCoincidentes = sintomas.filter(sintoma =>
+              sintoma.toLowerCase().includes(input.toLowerCase())
+          );
 
-            sintomasCoincidentes.forEach(sintoma => {
-                const div = document.createElement('div');
-                div.className = 'p-2 hover:bg-gray-200 cursor-pointer';
-                div.textContent = sintoma; 
-                div.onclick = () => seleccionarSintoma(sintoma);
-                sugerencias.appendChild(div);
-            });
-        }
-    }
+          sintomasCoincidentes.forEach(sintoma => {
+              const div = document.createElement('div');
+              div.className = 'p-2 hover:bg-gray-200 cursor-pointer';
+              div.textContent = sintoma; 
+              div.onclick = () => seleccionarSintoma(sintoma);
+              sugerencias.appendChild(div);
+          });
+      }
+  }
 
-    function seleccionarSintoma(sintoma) {
-        const input = document.getElementById('sintomas_input');
-        input.value = sintoma.toUpperCase(); 
-        document.getElementById('sugerencias').innerHTML = ''; 
-    }
+  function seleccionarSintoma(sintoma) {
+      document.getElementById('sintomas_input').value = sintoma.toUpperCase();
+      document.getElementById('sugerencias_sintomas').innerHTML = ''; 
+  }
 
-    function agregarSintoma() {
-        const input = document.getElementById('sintomas_input');
-        const sintomasTextArea = document.getElementById('sintomas');
+  function agregarSintoma() {
+      const input = document.getElementById('sintomas_input');
+      const sintomasTextArea = document.getElementById('sintomas');
 
-        if (input.value.trim() !== '') {
-            sintomasTextArea.value += (sintomasTextArea.value ? ', ' : '') + input.value.trim().toUpperCase(); 
-            input.value = ''; 
-            document.getElementById('sugerencias').innerHTML = ''; 
-        }
-    }
+      if (input.value.trim() !== '') {
+          sintomasTextArea.value += (sintomasTextArea.value ? ', ' : '') + input.value.trim().toUpperCase(); 
+          input.value = ''; 
+          document.getElementById('sugerencias_sintomas').innerHTML = ''; 
+      }
+  }
 
-    document.getElementById('tipo_estudio').addEventListener('change', function() {
-        const tipoEstudio = this.value;
-        document.getElementById('sintomas_section').style.display = tipoEstudio === 'puntual' ? 'block' : 'none';
-        document.getElementById('antecedentes_section').style.display = tipoEstudio === 'familiar' ? 'block' : 'none';
-    });
+  document.getElementById('tipo_estudio').addEventListener('change', function() {
+      const tipoEstudio = this.value;
+
+      // Mostrar secciones si el tipo de estudio es "puntual"
+      const isPuntual = tipoEstudio === 'puntual';
+      document.getElementById('sintomas_section').style.display = isPuntual ? 'block' : 'none';
+      document.getElementById('patologia_section').style.display = isPuntual ? 'block' : 'none';
+      
+      // Mostrar seccion de antecedentes si el tipo de estudio es "familiar"
+      document.getElementById('antecedentes_section').style.display = tipoEstudio === 'familiar' ? 'block' : 'none';
+  });
 </script>
-
 {% endblock %}

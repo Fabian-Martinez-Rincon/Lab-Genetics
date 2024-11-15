@@ -21,9 +21,14 @@ class Estudio(db.Model):
     # Historial de estados
     historial = db.relationship("HistorialEstado", backref="estudio_relacion", cascade="all, delete-orphan")
     patologias = db.relationship('Patologia', secondary='estudios_patologias', back_populates='estudios')
-    def generar_id(self, apellido):
-        numero = f"{len(Estudio.query.filter_by(id_paciente=self.id_paciente).all()) + 1:03d}"
-        return f"{apellido[:3].upper()}{numero}"
+    
+    @classmethod
+    def generar_id(cls, apellido, nombre, id_paciente):
+        apellido_abrev = apellido[:3].upper()
+        nombre_abrev = nombre[:3].upper()
+        numero = f"{len(cls.query.filter_by(id_paciente=id_paciente).all()) + 1:03d}"
+        return f"{apellido_abrev}_{nombre_abrev}_{numero}"
+
 
    # Tabla intermedia para la relación muchos a muchos entre Estudios y Patologias
     estudios_patologias = db.Table('estudios_patologias',
