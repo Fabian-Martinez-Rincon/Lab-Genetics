@@ -1,0 +1,46 @@
+{% extends "_layouts/app.html" %} 
+{% block head %}
+<title>Lab-Genetics - Presupuestos Solicitados</title>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+      Presupuestos Solicitados
+    </h1>
+    <p class="mb-4 text-base md:text-lg text-zinc-500">
+      A continuación se muestra un listado de estudios en estado "SOLICITADO" con opción para generar presupuesto.
+    </p>
+
+    <div class="w-full overflow-x-auto">
+      <table class="w-full text-left table-auto border-collapse">
+        <thead>
+          <tr class="bg-indigo-500 text-white">
+            <th class="px-4 py-2">ID Estudio</th>
+            <th class="px-4 py-2">Tipo de Estudio</th>
+            <th class="px-4 py-2">Fecha de Solicitud</th>
+            <th class="px-4 py-2">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for estudio in estudios %}
+          <tr class="bg-very-light-yellow-green text-black">
+            <td class="px-4 py-2">{{ estudio.id }}</td>
+            <td class="px-4 py-2">{{ estudio.tipo_estudio }}</td>
+            <td class="px-4 py-2">{{ estudio.fecha_solicitud.strftime('%Y-%m-%d') }}</td>
+            <td class="px-4 py-2">
+              <a href="{{ url_for('administrador.generar_presupuesto', estudio_id=estudio.id) }}" 
+                 class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
+                Generar Presupuesto
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+{% endblock %}
+

@@ -13,6 +13,7 @@ from src.web.controllers import (
     editar_paciente,
     ver_paciente,
     solicitar_estudio,
+    administrador,
 )
 
 _blueprints = (
@@ -29,6 +30,7 @@ _blueprints = (
     editar_paciente.bp,
     ver_paciente.bp,
     solicitar_estudio.bp,
+    administrador.bp,
 )
 
 def init_app(app: flask.Flask):
