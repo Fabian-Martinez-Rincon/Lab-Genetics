@@ -40,7 +40,7 @@ def seed_db():
             Resultado: 'resultados.json',
             Presupuesto: 'presupuestos.json',
             Pedido: 'pedidos.json',
-            Estudio: 'estudios.json',
+            #Estudio: 'estudios.json',
             #Turno: 'turnos.json',
             Patologia: 'patologias.json'
         }
@@ -49,8 +49,8 @@ def seed_db():
             datos = cargar_datos(archivo)
             eliminar_y_agregar(entidad, datos)
 
-        historial_datos = cargar_datos('historial_estados.json')
-        eliminar_y_agregar_historial(HistorialEstado, historial_datos)
+        #historial_datos = cargar_datos('historial_estados.json')
+        #eliminar_y_agregar_historial(HistorialEstado, historial_datos)
 
         db.session.commit()
     except Exception as e:

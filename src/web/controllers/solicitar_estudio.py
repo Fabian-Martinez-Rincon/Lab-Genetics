@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from src.core.models.usuario import Usuario
+from src.core.models.usuario import Usuario, antecedentes_usuarios
 from src.core.models.estudio import Estudio
 from src.core.models.patologia import Patologia
 from src.core.models.historialEstado import HistorialEstado
@@ -32,22 +32,24 @@ def verificar_sospecha_familiar(form, paciente):
         return False
     patologias = Patologia.query.filter(Patologia.id.in_(patologias_ids)).all()
     for patologia in patologias:
-        if (verificar_estudio_existente(paciente, patologia)):
-            flash(f'Ya tiene solicitado un estudio para la patología {patologia.nombre} que aún no se ha finalizado.', 'error')
+        if (verificar_estudio_existente(paciente, patologia.id)):
+            flash(f'Ya tiene solicitado un estudio para las patologías seleccionadas que aún no se ha finalizado.', 'error')
             return False
     return True
 
 def verificar_sospecha_puntual(form, paciente, api):
     sintomas = request.form.get('sintomas')
-    patologia = request.form.get('patologia')
-    if not sintomas or not patologia:
+    patologia_id = request.form.get('patologia')
+    if not sintomas or not patologia_id:
         flash('Por favor, ingrese síntomas y la patologia a evaluar para el estudio puntual.', 'error')
         return False
     sintomas_lista_ingresados = [sintoma.strip().lower() for sintoma in sintomas.split(',')]  
-    if (api.confirmar_diagnostico(patologia, sintomas_lista_ingresados) == False):
+    patologia = Patologia.query.filter_by(id=patologia_id).first()
+    if (api.confirmar_diagnostico(patologia.nombre, sintomas_lista_ingresados) == False):
+        print('ENTROOOOOOOOOOOOOOOOOOOOOOOOOOO', patologia.nombre, sintomas_lista_ingresados)
         flash(f'Los sintomas ingresados no son cardinales a la patologia seleccionada.', 'error')
         return False
-    if (verificar_estudio_existente(paciente, patologia)):
+    if (verificar_estudio_existente(paciente, patologia.id)):
         flash(f'Ya tiene solicitado un estudio para la patología seleccionada que aún no se ha finalizado.', 'error')
         return False
     return True
@@ -101,6 +103,10 @@ def solicitar_estudio(paciente_id):
     sintomas_lista = api.obtener_lista_sintomas()
     adicionales_lista = api.obtener_lista_genes()
     patologias = Patologia.query.all()
+    antecedentes = db.session.query(Patologia, antecedentes_usuarios.c.relacion).join(
+        antecedentes_usuarios, Patologia.id == antecedentes_usuarios.c.patologia_id
+    ).filter(antecedentes_usuarios.c.usuario_id == paciente_id).all()
+    
     if not sintomas_lista or not adicionales_lista:
         flash('Error al obtener la lista de síntomas o lista de genes adicionales.', 'error')
     if request.method == 'POST':
@@ -110,16 +116,17 @@ def solicitar_estudio(paciente_id):
         if tipo_estudio == 'familiar':
             if verificar_sospecha_familiar(request.form, paciente):
                 patologias = request.form.getlist('patologias')
+                print('AAAAAAAAAAAAAAAAAAA',patologias)
                 if (generar_estudio(paciente.id, tipo_estudio, hallazgos_secundarios, patologias, adicionales, id_medico, api)):
                     return redirect(url_for('ver_paciente.ver_paciente', paciente_id=paciente_id))
-            return render_template('medico/solicitar_estudio.html', paciente=paciente, sintomas_lista=sintomas_lista, adicionales_lista=adicionales_lista, patologias=patologias)
+            return render_template('medico/solicitar_estudio.html', paciente=paciente, sintomas_lista=sintomas_lista, adicionales_lista=adicionales_lista, patologias=patologias, antecedentes=antecedentes)
         else:
             if verificar_sospecha_puntual(request.form, paciente, api):
                 patologias = request.form.get('patologia')
                 if (generar_estudio(paciente.id, tipo_estudio, hallazgos_secundarios, patologias, adicionales, id_medico, api)):
                     return redirect(url_for('ver_paciente.ver_paciente', paciente_id=paciente_id))
-            return render_template('medico/solicitar_estudio.html', paciente=paciente, sintomas_lista=sintomas_lista, adicionales_lista=adicionales_lista, patologias=patologias)
-    return render_template('medico/solicitar_estudio.html', paciente=paciente, sintomas_lista=sintomas_lista, adicionales_lista=adicionales_lista, patologias=patologias)
+            return render_template('medico/solicitar_estudio.html', paciente=paciente, sintomas_lista=sintomas_lista, adicionales_lista=adicionales_lista, patologias=patologias, antecedentes=antecedentes)
+    return render_template('medico/solicitar_estudio.html', paciente=paciente, sintomas_lista=sintomas_lista, adicionales_lista=adicionales_lista, patologias=patologias, antecedentes=antecedentes)
 
 
 
