@@ -1,5 +1,7 @@
 [
-    {"nombre":"pendiente"}, 
-    {"nombre":"cancelado"},
-    {"nombre":"finalizado"}
+    {"nombre":"PENDIENTE"}, 
+    {"nombre":"PAGADO"},
+    {"nombre":"ACEPTADO"},
+    {"nombre":"RECHAZADO"},
+    {"nombre":"CANCELADO"}
 ]
