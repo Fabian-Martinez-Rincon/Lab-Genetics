@@ -9,6 +9,7 @@ from src.core.models.laboratorio import Laboratorio
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
 from src.core.models.resultado import Resultado
+from src.core.models.presupuesto import Presupuesto
 
 """
 ## Roles
@@ -211,4 +212,29 @@ def ver_estudios_paciente(paciente_id):
         estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
 
     return render_template('paciente/ver_estudios_paciente.html', paciente=paciente, estudios=estudios)
+
+@bp.route('/presupuesto_estudio/<estudio_id>', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(5)
+def presupuesto_estudio(estudio_id):
+    # Obtener el estudio
+    estudio = Estudio.query.get(estudio_id)
+    if not estudio:
+        flash('Estudio no encontrado.', 'error')
+        return redirect(url_for('paciente.mis_estudios'))
+
+    # Obtener el presupuesto relacionado con el estudio
+    presupuesto = Presupuesto.query.get(estudio.id_presupuesto)
+    
+    if not presupuesto:
+        flash('Presupuesto no disponible para este estudio.', 'error')
+        return redirect(url_for('paciente.mis_estudios'))
+
+    # Renderizar la plantilla con el presupuesto y su comprobante
+    return render_template(
+        'administrador/presupuesto_estudio.html',
+        estudio=estudio,
+        presupuesto=presupuesto,
+        comprobante_path=presupuesto.comprobante_path
+    )
 

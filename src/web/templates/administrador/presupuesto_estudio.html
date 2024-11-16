@@ -1,0 +1,38 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Presupuesto del Estudio</title>
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+  <div class="w-full max-w-2xl p-8 bg-white rounded-xl shadow-xl transform transition-all duration-300 hover:shadow-2xl">
+    <h1 class="text-4xl font-extrabold text-indigo-700 mb-6 text-center">Presupuesto del Estudio</h1>
+
+    <div class="space-y-4 text-gray-800">
+      <p class="text-lg"><strong class="text-indigo-600">ID Estudio:</strong> {{ estudio.id }}</p>
+      <p class="text-lg"><strong class="text-indigo-600">Fecha de Vencimiento:</strong> {{ presupuesto.fecha_vencimiento.strftime('%d/%m/%Y') }}</p>
+      <p class="text-lg"><strong class="text-indigo-600">Detalle:</strong> {{ presupuesto.Detalle }}</p>
+      <p class="text-lg"><strong class="text-indigo-600">Monto Final:</strong> {{ presupuesto.montoFinal | round(2) }}</p>
+    </div>
+
+    {% if presupuesto.comprobante_path %}
+      <div class="mt-4">
+        <p class="text-lg"><strong class="text-indigo-600">Comprobante:</strong></p>
+        <a href="{{ presupuesto.comprobante_path }}" target="_blank" class="text-indigo-600 underline hover:text-indigo-800">
+          Ver Comprobante
+        </a>
+      </div>
+    {% else %}
+      <p class="text-lg mt-4 text-red-600"><strong>Comprobante no disponible.</strong></p>
+    {% endif %}
+
+    <div class="mt-8 text-center">
+      <a href="{{ url_for('listar.detalle_estudio', estudio_id=estudio.id) }}" 
+         class="inline-block bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg transition duration-300">
+        Volver al Estudio
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
