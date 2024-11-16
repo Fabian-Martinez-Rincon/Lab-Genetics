@@ -8,6 +8,8 @@
 
 ---
 
+> Que proyecto mas maravilloso :/
+
 Marco de indagación para generar “Prototipo de solución”:
 
 > “Un laboratorio que centraliza muestras biológicas (de otros laboratorios) para mandarlas a analizarlas al exterior quiere digitalizar su funcionamiento ya que actualmente no cuentan con un soporte digital”
