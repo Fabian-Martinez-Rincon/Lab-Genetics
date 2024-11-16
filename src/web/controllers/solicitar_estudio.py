@@ -3,6 +3,7 @@ from src.core.models.usuario import Usuario, antecedentes_usuarios
 from src.core.models.estudio import Estudio
 from src.core.models.patologia import Patologia
 from src.core.models.historialEstado import HistorialEstado
+from src.core.models.notificacion import Notificacion
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 from datetime import datetime
 from src.core.models.database import db
@@ -85,6 +86,7 @@ def generar_estudio(paciente_id, tipo_estudio, hallazgos_secundarios, patologias
     db.session.add(historial)
     db.session.add(estudio)
     db.session.commit()
+    Notificacion.send_mail(paciente.id, f"Se le ha solicitado un estudio de tipo {tipo_estudio}.")
     flash('Estudio solicitado exitosamente.', 'success')
     return True
 

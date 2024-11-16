@@ -14,6 +14,8 @@
       <p class="text-lg"><strong class="text-indigo-600">Fecha de Vencimiento:</strong> {{ presupuesto.fecha_vencimiento.strftime('%d/%m/%Y') }}</p>
       <p class="text-lg"><strong class="text-indigo-600">Detalle:</strong> {{ presupuesto.Detalle.replace('\n', '<br>') | safe }}</p>
       <p class="text-lg"><strong class="text-indigo-600">Monto Final:</strong> {{ presupuesto.montoFinal | round(2) }}</p>
+      <p class="text-lg"><strong class="text-indigo-600">Estado:</strong> {{ presupuesto.estado.nombre }}</p>
+      {% if presupuesto.id_estado == 4 %} <p class="text-lg"><strong class="text-indigo-600">Observaciones:</strong> {{ presupuesto.observaciones }}</p> {% endif %}
     </div>
 
     {% if presupuesto.comprobante_path %}
@@ -24,26 +26,77 @@
        </a> </p>
       </div>
     {% endif %}
-    {% if (presupuesto.id_estado == 1) or (presupuesto.id_estado == 4) %}
-      <form action="{{ url_for('listar.presupuesto_estudio', estudio_id=estudio.id) }}" method="post" enctype="multipart/form-data">
-        <div class="mt-4">
-          <label for="comprobante" class="text-lg text-indigo-600"><strong class="text-indigo-600">Subir Comprobante(Imagen o PDF):</strong></label>
-          <input type="file" name="comprobante" id="comprobante" class="block w-full mt-2">
+    {% if session.get('rol_id') == 5%}
+        {% if (presupuesto.id_estado == 1) or (presupuesto.id_estado == 4) %}
+          <form action="{{ url_for('listar.presupuesto_estudio', estudio_id=estudio.id) }}" method="post" enctype="multipart/form-data">
+            <div class="mt-4">
+              <label for="comprobante" class="text-lg text-indigo-600"><strong class="text-indigo-600">Subir Comprobante(Imagen o PDF):</strong></label>
+              <input type="file" name="comprobante" id="comprobante" class="block w-full mt-2">
+            </div>
+
+            <div class="mt-8 text-center">
+              <button type="submit" class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
+                Guardar Comprobante
+              </button>
+        {% else %}   
+            <div class="mt-8 text-center">
+        {% endif %}
+        <a href="{{ url_for('listar.detalle_estudio', estudio_id=estudio.id) }}" 
+          class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
+          Volver al Estudio
+        </a>
+        {% elif (session.get('rol_id') == 2) and presupuesto.comprobante_path and (presupuesto.id_estado == 2) %}
+        <form action="{{ url_for('verificar_pago.verificar_pago', estudio_id=estudio.id) }}" method="post" id="form_pago">
+          <label for="observaciones" class="text-lg text-indigo-600">
+            <strong class="text-indigo-600">Observaciones:</strong>
+          </label>
+          <textarea 
+            id="observaciones" 
+            name="observaciones" 
+            class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-500">
+          </textarea>
         </div>
-
-        <div class="mt-8 text-center">
-          <button type="submit" class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
-            Guardar Comprobante
+        <input type="hidden" id="accion" name="accion" value="">
+      
+          <button 
+            type="submit" 
+            class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-red-600 rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg" 
+            onclick="rechazarPago(event)">
+            Rechazar Pago
           </button>
-    {% else %}   
-        <div class="mt-8 text-center">
-    {% endif %}
-
-    
-      <a href="{{ url_for('listar.detalle_estudio', estudio_id=estudio.id) }}" 
-         class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
-        Volver al Estudio
-      </a>
+      
+          <button 
+            type="submit" 
+            class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg" 
+            onclick="aceptarPago(event)">
+            Aceptar Pago
+          </button>
+        </form>
+        <script>
+          function rechazarPago(event) {
+            event.preventDefault();
+            document.getElementById('accion').value = 'rechazar';
+            document.getElementById('observaciones').disabled = false; 
+            const form = document.getElementById('form_pago');
+            if (form) {
+                form.submit(); 
+            } else {
+                console.error("Formulario no encontrado.");
+            }
+          }
+          function aceptarPago(event) {
+            event.preventDefault();
+            document.getElementById('accion').value = 'aceptar';
+            document.getElementById('observaciones').disabled = true; 
+            const form = document.getElementById('form_pago');
+            if (form) {
+                form.submit(); 
+            } else {
+                console.error("Formulario no encontrado.");
+            }
+          }
+        </script>
+      {% endif %}      
     </div>
   </div>
 </div>

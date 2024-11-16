@@ -3,6 +3,7 @@ from src.core.models.database import db
 from src.core.models.patologia import Patologia
 from src.core.models.usuario import Usuario, antecedentes_usuarios
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
+from src.core.models.notificacion import Notificacion
 
 bp = Blueprint('editar_paciente', __name__)
 
@@ -32,7 +33,7 @@ def editar_paciente(paciente_id):
                     .values(relacion=relacion)
                 )
                 db.session.commit()
-                
+                Notificacion.send_mail(paciente.id, f"Se le ha agregado un nuevo antecedente familiar: {nueva_patologia.nombre}")
                 flash('Antecedente Familiar agregado exitosamente.', 'success')
                 return redirect(url_for('ver_paciente.ver_paciente', paciente_id=paciente_id))
 
