@@ -31,7 +31,7 @@
             <td class="px-4 py-2">{{ estudio.fecha_solicitud.strftime('%Y-%m-%d') }}</td>
             <td class="px-4 py-2">
               <a href="{{ url_for('administrador.generar_presupuesto', estudio_id=estudio.id) }}" 
-                 class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
+                 class="text-indigo-500 hover:underline">
                 Generar Presupuesto
               </a>
             </td>
