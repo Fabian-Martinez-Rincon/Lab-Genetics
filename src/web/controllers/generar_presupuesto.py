@@ -44,7 +44,6 @@ def generar_presupuesto(estudio_id):
                 adicionales=estudio.genes_adicionales,
                 hallazgos=estudio.hallazgos_secundarios
             ) + detalle_monto
-        print(detalle)
         presupuesto = Presupuesto(
             fecha_vencimiento=fecha_vencimiento,
             Detalle= detalle,

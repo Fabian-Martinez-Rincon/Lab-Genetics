@@ -46,7 +46,6 @@ def verificar_sospecha_puntual(form, paciente, api):
     sintomas_lista_ingresados = [sintoma.strip().lower() for sintoma in sintomas.split(',')]  
     patologia = Patologia.query.filter_by(id=patologia_id).first()
     if (api.confirmar_diagnostico(patologia.nombre, sintomas_lista_ingresados) == False):
-        print('ENTROOOOOOOOOOOOOOOOOOOOOOOOOOO', patologia.nombre, sintomas_lista_ingresados)
         flash(f'Los sintomas ingresados no son cardinales a la patologia seleccionada.', 'error')
         return False
     if (verificar_estudio_existente(paciente, patologia.id)):
@@ -116,7 +115,6 @@ def solicitar_estudio(paciente_id):
         if tipo_estudio == 'familiar':
             if verificar_sospecha_familiar(request.form, paciente):
                 patologias = request.form.getlist('patologias')
-                print('AAAAAAAAAAAAAAAAAAA',patologias)
                 if (generar_estudio(paciente.id, tipo_estudio, hallazgos_secundarios, patologias, adicionales, id_medico, api)):
                     return redirect(url_for('ver_paciente.ver_paciente', paciente_id=paciente_id))
             return render_template('medico/solicitar_estudio.html', paciente=paciente, sintomas_lista=sintomas_lista, adicionales_lista=adicionales_lista, patologias=patologias, antecedentes=antecedentes)

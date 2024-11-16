@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, request, redirect, url_for, session, flash
+from flask import Flask, render_template, Blueprint, request, redirect, url_for, session, flash, current_app
 from src.core.models.database import db
 from src.core.models.usuario import Usuario
 from src.core.models.rol import Rol
@@ -10,6 +10,8 @@ from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
 from src.core.models.resultado import Resultado
 from src.core.models.presupuesto import Presupuesto
+from werkzeug.utils import secure_filename
+import os
 
 """
 ## Roles
@@ -213,7 +215,24 @@ def ver_estudios_paciente(paciente_id):
 
     return render_template('paciente/ver_estudios_paciente.html', paciente=paciente, estudios=estudios)
 
-@bp.route('/presupuesto_estudio/<estudio_id>', methods=['GET'])
+
+def cargar_comprobante(comprobante, estudio_id):
+    ruta_comprobante = None  
+    _, extension = os.path.splitext(comprobante.filename)
+    extension = extension.lower()
+    if extension in ['.jpg', '.png', '.pdf']:
+        nombre_archivo = f"{secure_filename(estudio_id)}{extension}"
+        ruta_carpeta = 'comprobante'  
+        carpeta_absoluta = os.path.join(current_app.config['UPLOAD_FOLDER'], ruta_carpeta)
+        os.makedirs(carpeta_absoluta, exist_ok=True)
+        ruta_comprobante_absoluta = os.path.join(carpeta_absoluta, nombre_archivo)
+        comprobante.save(ruta_comprobante_absoluta)
+        ruta_comprobante = os.path.join(ruta_carpeta, nombre_archivo).replace("\\", "/")
+    else:
+        flash('El archivo debe ser una imagen o un pdf', 'error')              
+    return ruta_comprobante
+
+@bp.route('/presupuesto_estudio/<estudio_id>', methods=['GET', 'POST'])
 @verificar_autenticacion
 @verificar_rol(5)
 def presupuesto_estudio(estudio_id):
@@ -229,7 +248,24 @@ def presupuesto_estudio(estudio_id):
     if not presupuesto:
         flash('Presupuesto no disponible para este estudio.', 'error')
         return redirect(url_for('listar.mis_estudios'))
-
+    
+    if request.method == 'POST':
+        # Actualizar el comprobante del presupuesto
+        comprobante = request.files.get('comprobante')
+        if comprobante:
+            ruta = cargar_comprobante(comprobante, estudio_id)
+            if ruta :
+                presupuesto.comprobante_path = ruta
+                presupuesto.id_estado = 2
+                db.session.commit()
+                flash('Comprobante actualizado correctamente.', 'success')
+                redirect(url_for('listar.presupuesto_estudio', estudio_id=estudio_id))
+            else:
+                redirect(url_for('listar.presupuesto_estudio', estudio_id=estudio_id))
+        else:
+            flash('No se ha seleccionado un archivo.', 'error')
+            redirect(url_for('listar.presupuesto_estudio', estudio_id=estudio_id))
+            
     # Renderizar la plantilla con el presupuesto y su comprobante
     return render_template(
         'administrador/presupuesto_estudio.html',
