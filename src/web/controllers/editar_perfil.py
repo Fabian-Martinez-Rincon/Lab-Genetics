@@ -3,6 +3,7 @@ from src.core.models.usuario import Usuario
 from src.web.formularios.editar_perfil import EditarPerfilForm
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session, Blueprint, flash, redirect, url_for, render_template
+from src.core.models.notificacion import Notificacion
 
 bp = Blueprint("editar_perfil", __name__)
 
@@ -28,6 +29,7 @@ def editar_perfil():
                 usuario_actual.token = True
                 session['token'] = True
             db.session.commit()
+            Notificacion.send_mail(usuario_actual.id, "Se ha actualizado su contraseña.")
             flash('¡Perfil actualizado correctamente!', 'success')
             return redirect(url_for('root.perfil', usuario_id=usuario_actual.id))
         else:

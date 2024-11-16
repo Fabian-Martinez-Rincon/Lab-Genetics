@@ -53,7 +53,7 @@ def login():
             user_type = 'usuario'
         
         if user:
-            if user.estado != 'ACTIVO':
+            if user.estado != 'ACTIVO' and user_type == 'usuario':
                 flash('Tu cuenta está inactiva. Por favor, contacta con soporte.', 'error')
                 return redirect(url_for('root.index_get'))
             if check_password_hash(user.password, form.password.data):

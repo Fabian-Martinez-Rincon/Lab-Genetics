@@ -2,6 +2,7 @@ from flask import render_template, request, Blueprint, flash, redirect, url_for,
 from src.core.models.usuario import Usuario
 from src.core.models.database import db
 from src.web.controllers.utils import verificar_autenticacion, verificar_rol
+from src.core.models.notificacion import Notificacion
 bp = Blueprint('reasignar', __name__)
 
 @bp.route('/reasignar', methods=['GET', 'POST'])
@@ -20,6 +21,7 @@ def reasignar():
         try:
             paciente.id_medico = id_medico_nuevo
             db.session.commit()
+            Notificacion.send_mail(paciente.id, f"Ha sido reasignado a un nuevo médico.")
             flash('Paciente reasignado exitosamente.', 'success')
             return redirect(url_for('root.index_get'))
         except Exception as e:

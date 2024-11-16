@@ -10,6 +10,7 @@ from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
 from src.core.models.resultado import Resultado
 from src.core.models.presupuesto import Presupuesto
+from src.core.models.notificacion import Notificacion
 from werkzeug.utils import secure_filename
 import os
 
@@ -45,6 +46,10 @@ def listar_usuarios():
         if usuario:
             usuario.estado = nuevo_estado
             db.session.commit()
+            if nuevo_estado == 'INACTIVO':
+                Notificacion.send_mail(usuario.id, f"Su cuenta ha sido desactivada por el Administrador General. Ante cualquier duda, contacte al soporte.")
+            else:
+                Notificacion.send_mail(usuario.id, f"Su cuenta ha sido reactivada por el Administrador General. ¡Bienvenido de vuelta!")
 
         return redirect(url_for('listar.listar_usuarios'))
 
@@ -273,4 +278,3 @@ def presupuesto_estudio(estudio_id):
         presupuesto=presupuesto,
         comprobante_path=presupuesto.comprobante_path
     )
-

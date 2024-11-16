@@ -5,6 +5,7 @@ from src.core.models.estudio import Estudio
 from src.web.controllers.utils import verificar_autenticacion, verificar_rol
 from datetime import datetime, timedelta
 from src.core.models.historialEstado import HistorialEstado
+from src.core.models.notificacion import Notificacion
 bp = Blueprint("generar_presupuesto", __name__)
 
 def generar_detalle_precio(precio_base, precio_adicionales, precio_hallazos, supera_5_genes, hallazgos):
@@ -54,6 +55,7 @@ def generar_presupuesto(estudio_id):
         db.session.commit()
         estudio.id_presupuesto = presupuesto.id
         estudio.historial.append(HistorialEstado(estado="PRESUPUESTADO"))
+        Notificacion.send_mail(estudio.id_paciente, "Se ha generado un presupuesto para su estudio.")
         db.session.commit()
         flash('Presupuesto generado exitosamente.', 'success')
         return redirect(url_for('administrador.presupuestos_solicitados'))
