@@ -1,0 +1,40 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Mis Presupuestos</title>
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8">
+  <div class="w-full max-w-4xl space-y-8">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold text-indigo-700">Mis Presupuestos</h1>
+      <p class="mt-2 text-lg text-gray-700">Aquí puedes ver todos los presupuestos asociados a tus estudios.</p>
+    </div>
+    
+    {% if presupuestos %}
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for item in presupuestos %}
+          <a href="{{ url_for('presupuesto.detalle_presupuesto', presupuesto_id=item.presupuesto.id) }}" 
+             class="p-6 transition-all bg-white rounded-xl border border-indigo-200 shadow-md hover:shadow-2xl hover:border-indigo-400 transform hover:-translate-y-1 duration-300">
+            <h2 class="mb-4 text-xl font-semibold text-indigo-700">ID Estudio: {{ item.id_estudio }}</h2>
+            <p class="text-gray-600"><strong>Fecha de Vencimiento:</strong> 
+              <span class="text-indigo-600">{{ item.presupuesto.fecha_vencimiento.strftime('%d/%m/%Y') }}</span>
+            </p>
+            <p class="mt-2 text-gray-600"><strong>Monto Final:</strong> 
+              <span class="text-indigo-600">${{ item.presupuesto.montoFinal | round(2) }}</span>
+            </p>
+            <p class="mt-2 text-gray-600"><strong>Estado:</strong> 
+              <span class="text-indigo-600">{{ item.estado_nombre }}</span>
+            </p>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-center">
+        <p class="text-lg text-gray-600">No tienes presupuestos registrados en el sistema.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

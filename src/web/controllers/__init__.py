@@ -15,6 +15,7 @@ from src.web.controllers import (
     solicitar_estudio,
     administrador,
     generar_presupuesto,
+    acciones_presupuesto
 )
 
 _blueprints = (
@@ -33,6 +34,7 @@ _blueprints = (
     solicitar_estudio.bp,
     administrador.bp,
     generar_presupuesto.bp,
+    acciones_presupuesto.bp
 )
 
 def init_app(app: flask.Flask):
