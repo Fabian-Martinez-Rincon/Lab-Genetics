@@ -15,13 +15,12 @@ class Estudio(db.Model):
     fecha_ingreso_central = db.Column(db.Date, nullable=True)
     id_resultado = db.Column(db.Integer, db.ForeignKey("resultados.id"), nullable=True)
     id_presupuesto = db.Column(db.Integer, db.ForeignKey("presupuestos.id"), nullable=True)
-    comprobante_path = db.Column(db.String(255), nullable=True) #Hay que decidir si va a ser una foto o PDF
     # Clave foránea para vincular con Pedido
     id_pedido = db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=True)
     # Historial de estados
     historial = db.relationship("HistorialEstado", backref="estudio_relacion", cascade="all, delete-orphan")
     patologias = db.relationship('Patologia', secondary='estudios_patologias', back_populates='estudios')
-    
+    presupuesto = db.relationship('Presupuesto', backref=db.backref('estudios'))
     @classmethod
     def generar_id(cls, apellido, nombre, id_paciente):
         apellido_abrev = apellido[:3].upper()
