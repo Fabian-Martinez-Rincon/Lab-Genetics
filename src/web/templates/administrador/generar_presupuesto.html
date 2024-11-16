@@ -1,0 +1,130 @@
+{% extends "_layouts/app.html" %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center px-4 py-8 bg-very-light-yellow-green sm:px-6 lg:px-8">
+  <div class="w-full max-w-4xl">
+    <!-- Título del Estudio -->
+    <h3 class="mb-8 text-3xl font-extrabold text-center text-indigo-800 sm:text-4xl lg:text-5xl">
+      Generar Presupuesto para el Estudio #{{ estudio.id }}
+    </h3>
+
+    <!-- Detalles del Estudio -->
+    <div class="p-6 text-gray-700 border rounded-lg shadow-lg bg-gray-50">
+      <h2 class="mb-4 text-2xl font-semibold text-center text-gray-800">
+        Detalles del Estudio
+      </h2>
+      <div class="space-y-4">
+        <!-- Patologías -->
+        <div>
+          <strong class="block text-lg font-medium">Patologías a Estudiar:</strong>
+          <ul class="ml-4 list-disc list-inside">
+            {% for patologia in estudio.patologias %}
+            <li>{{ patologia.nombre }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Genes Pertenecientes -->
+        <div>
+          <strong class="block text-lg font-medium">Listado de Genes Pertenecientes a la(s) Patología(s):</strong>
+          <p class="text-gray-600">{{ estudio.listado_genes }}</p>
+        </div>
+
+        {% if estudio.hallazgos_secundarios %}
+        <!-- Hallazgos Secundarios -->
+        <div>
+          <strong class="block text-lg font-medium">Se solicitaron hallazgos secundarios.</strong>
+        </div>
+        {% endif %}
+
+        {% if estudio.genes_adicionales %}
+        <!-- Genes Adicionales -->
+        <div>
+          <strong class="block text-lg font-medium">Genes Adicionales Solicitados:</strong>
+          <p class="text-gray-600">{{ estudio.genes_adicionales }}</p>
+        </div>
+        {% endif %}
+
+        {% if mas_5_genes %}
+        <!-- Más de 5 Genes -->
+        <div>
+          <strong class="block text-lg font-medium">Se solicitó evaluar más de 5 genes.</strong>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form class="mt-6" action="{{ url_for('generar_presupuesto.generar_presupuesto', estudio_id=estudio.id) }}" method="POST">
+      <!-- Fecha de Vencimiento -->
+      <div class="mb-4">
+        <label for="fecha_vencimiento" class="block text-lg font-bold text-gray-700">Fecha de Vencimiento:</label>
+        <input 
+          type="date" 
+          id="fecha_vencimiento" 
+          name="fecha_vencimiento" 
+          class="w-full px-3 py-2 text-gray-900 border rounded-md focus:ring-cyan-shade focus:border-cyan-shade sm:text-lg" 
+          min="{{ (now() + timedelta(days=1)).strftime('%Y-%m-%d') }}" 
+          required>
+      </div>
+
+      <!-- Precio Base -->
+      <div class="mb-4">
+        <label for="precio_base" class="block text-lg font-bold text-gray-700">Precio Base (USD):</label>
+        <input 
+          type="number" 
+          id="precio_base" 
+          name="precio_base" 
+          class="w-full px-3 py-2 text-gray-900 border rounded-md focus:ring-cyan-shade focus:border-cyan-shade sm:text-lg" 
+          min="0" 
+          placeholder="Ej: 500" 
+          required>
+      </div>
+
+      {% if mas_5_genes %}
+      <!-- Precio por Genes Adicionales -->
+      <div class="mb-4">
+        <label for="precio_adicionales" class="block text-lg font-bold text-gray-700">Precio por Gen Adicional (USD):</label>
+        <input 
+          type="number" 
+          id="precio_adicionales" 
+          name="precio_adicionales" 
+          class="w-full px-3 py-2 text-gray-900 border rounded-md focus:ring-cyan-shade focus:border-cyan-shade sm:text-lg" 
+          min="0" 
+          placeholder="Ej: 30" 
+          required>
+      </div>
+      {% endif %}
+
+      {% if estudio.hallazgos_secundarios %}
+      <!-- Precio por Hallazgos Secundarios -->
+      <div class="mb-4">
+        <label for="precio_hallazgos" class="block text-lg font-bold text-gray-700">Precio por Hallazgos Secundarios (USD):</label>
+        <input 
+          type="number" 
+          id="precio_hallazgos" 
+          name="precio_hallazgos" 
+          class="w-full px-3 py-2 text-gray-900 border rounded-md focus:ring-cyan-shade focus:border-cyan-shade sm:text-lg" 
+          min="0" 
+          placeholder="Ej: 200" 
+          required>
+      </div>
+      {% endif %}
+
+      <!-- Botones -->
+      <div class="flex justify-center gap-4 mt-6">
+        <button 
+          type="submit" 
+          class="px-6 py-3 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-700">
+          Generar Presupuesto
+        </button>
+        <a 
+          href="{{ url_for('administrador.presupuestos_solicitados') }}" 
+          class="px-6 py-3 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-700">
+          Volver
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

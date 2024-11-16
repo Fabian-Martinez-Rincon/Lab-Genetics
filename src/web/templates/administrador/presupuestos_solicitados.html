@@ -9,14 +9,15 @@
     <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
       Presupuestos Solicitados
     </h1>
+    {% if estudios %}
     <p class="mb-4 text-base md:text-lg text-zinc-500">
       A continuación se muestra un listado de estudios en estado "SOLICITADO" con opción para generar presupuesto.
     </p>
 
     <div class="w-full overflow-x-auto">
-      <table class="w-full text-left table-auto border-collapse">
+      <table class="w-full text-left border-collapse table-auto">
         <thead>
-          <tr class="bg-indigo-500 text-white">
+          <tr class="text-white bg-indigo-500">
             <th class="px-4 py-2">ID Estudio</th>
             <th class="px-4 py-2">Tipo de Estudio</th>
             <th class="px-4 py-2">Fecha de Solicitud</th>
@@ -25,12 +26,12 @@
         </thead>
         <tbody>
           {% for estudio in estudios %}
-          <tr class="bg-very-light-yellow-green text-black">
+          <tr class="text-black bg-very-light-yellow-green">
             <td class="px-4 py-2">{{ estudio.id }}</td>
             <td class="px-4 py-2">{{ estudio.tipo_estudio }}</td>
             <td class="px-4 py-2">{{ estudio.fecha_solicitud.strftime('%Y-%m-%d') }}</td>
             <td class="px-4 py-2">
-              <a href="{{ url_for('administrador.generar_presupuesto', estudio_id=estudio.id) }}" 
+              <a href="{{ url_for('generar_presupuesto.generar_presupuesto', estudio_id=estudio.id) }}" 
                  class="text-indigo-500 hover:underline">
                 Generar Presupuesto
               </a>
@@ -40,6 +41,9 @@
         </tbody>
       </table>
     </div>
+    {% else %}
+      <p class="mb-4 text-base text-green-600 md:text-lg"><strong>No se Solicitaron Presupuestos.<strong></p>
+    {% endif %}
   </section>
 </main>
 {% endblock %}

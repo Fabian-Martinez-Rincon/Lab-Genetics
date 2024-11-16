@@ -221,14 +221,14 @@ def presupuesto_estudio(estudio_id):
     estudio = Estudio.query.get(estudio_id)
     if not estudio:
         flash('Estudio no encontrado.', 'error')
-        return redirect(url_for('paciente.mis_estudios'))
+        return redirect(url_for('listar.mis_estudios'))
 
     # Obtener el presupuesto relacionado con el estudio
     presupuesto = Presupuesto.query.get(estudio.id_presupuesto)
     
     if not presupuesto:
         flash('Presupuesto no disponible para este estudio.', 'error')
-        return redirect(url_for('paciente.mis_estudios'))
+        return redirect(url_for('listar.mis_estudios'))
 
     # Renderizar la plantilla con el presupuesto y su comprobante
     return render_template(
