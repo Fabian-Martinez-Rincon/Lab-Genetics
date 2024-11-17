@@ -1,0 +1,123 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Solicitar Turno</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+  <div class="w-full max-w-2xl p-8 transition-all duration-300 transform bg-white shadow-xl rounded-xl hover:shadow-2xl">
+    <h1 class="mb-6 text-4xl font-extrabold text-center text-indigo-700">Solicitar Turno Para el estudio: {{ id_estudio }}</h1>
+
+    <form method="POST" action="{{ url_for('solicitar_turno.solicitar_turno', id_estudio=id_estudio) }}">
+      <div class="mb-4">
+        <label for="address" class="block font-bold text-gray-700">Selecciona una Localidad:</label>
+        <select name="address" id="address" class="w-full text-gray-900 border border-gray-300 rounded" required>
+          <option value="" disabled selected>Selecciona una localidad</option>
+          {% for addres in address %}
+            <option value="{{ addres }}">{{ addres }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="laboratorio_id" class="block font-bold text-gray-700">Selecciona un laboratorio:</label>
+        <select name="laboratorio_id" id="laboratorio_id" class="w-full text-gray-900 border border-gray-300 rounded" required>
+          <option value="" disabled selected>Primero selecciona una Localidad</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="fecha" class="block font-bold text-gray-700">Selecciona una fecha:</label>
+        <input type="date" name="fecha" id="fecha" required min="{{ min_fecha }}">
+      </div>
+
+      <div class="mb-4">
+        <label for="hora" class="block font-bold text-gray-700">Selecciona una hora:</label>
+        <select name="hora" id="hora" class="w-full text-gray-900 border border-gray-300 rounded" required>
+          <option value="" disabled selected>Primero selecciona una fecha</option>
+        </select>
+      </div>
+
+      <div class="mt-8 text-center">
+      <a href="{{ url_for('listar.detalle_estudio', estudio_id=id_estudio) }}" 
+          class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-purple-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
+          Volver al Estudio
+      </a>
+      <button type="submit" class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">Solicitar Turno</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+<script>
+$(document).ready(function () {
+  $('#address').change(function () {
+    const address = $(this).val();
+    $.ajax({
+      url: "{{ url_for('solicitar_turno.get_laboratorios') }}",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ address }),
+      success: function (data) {
+        $('#laboratorio_id').empty().append('<option value="" disabled selected>Selecciona un laboratorio</option>');
+        data.forEach(lab => {
+          $('#laboratorio_id').append(`<option value="${lab.id}">${lab.nombre} (${lab.direccion})</option>`);
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud de laboratorios:", error);
+      }
+    });
+
+    $('#hora').empty().append('<option value="" disabled selected>Primero selecciona una fecha</option>');
+  });
+
+  $('#laboratorio_id').change(function () {
+    $('#hora').empty().append('<option value="" disabled selected>Primero selecciona una fecha</option>');
+  });
+
+  $('#fecha').change(function () {
+    const laboratorio_id = $('#laboratorio_id').val();
+    const fecha = $(this).val();
+    const diaSemana = new Date(fecha).getDay(); // 0 = Domingo, 6 = Sábado
+
+    if (diaSemana === 5 || diaSemana === 6) {
+      alert("No se pueden elegir turnos los sábados o domingos. Por favor selecciona otra fecha.");
+      $(this).val(''); // Limpiar el campo si la fecha es inválida
+      return;
+    }
+
+    if (!laboratorio_id) {
+      alert("Por favor selecciona un laboratorio antes de elegir una fecha.");
+      return;
+    }
+
+    $.ajax({
+      url: "{{ url_for('solicitar_turno.get_horarios_ocupados') }}",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ laboratorio_id, fecha }),
+      success: function (data) {
+        $('#hora').empty().append('<option value="" disabled selected>Selecciona una hora</option>');
+
+        for (let i = 8; i < 16; i++) {
+          [0, 15, 30, 45].forEach(min => {
+            const hora = `${String(i).padStart(2, '0')}:${String(min).padStart(2, '0')}`;
+            if (!data.includes(hora)) {
+              $('#hora').append(`<option value="${hora}">${hora}</option>`);
+            }
+          });
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud de horarios:", error);
+      }
+    });
+  });
+});
+</script>
+{% endblock %}
+
+

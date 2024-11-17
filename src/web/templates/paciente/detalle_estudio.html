@@ -65,9 +65,8 @@
     {% endif %}
 
     <div class="mt-8 text-center">
-      {% if estado_pago_aceptado %}
-      {# {{ url_for('solicitar_turno.solicitar_turno', estudio_id=estudio.id) }}#}
-      <a href="" 
+      {% if estado_pago_aceptado or estado_turno_cancelado %}
+      <a href="{{ url_for('solicitar_turno.solicitar_turno', id_estudio=estudio.id) }}" 
          class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg">
         Solicitar Turno
       </a>

@@ -9,3 +9,4 @@ class Turno(db.Model):
     estado = db.Column(db.Integer, db.ForeignKey("estados.id"), nullable=False)
     fecha = db.Column(db.Date, nullable=False)
     hora = db.Column(db.Time, nullable=False)
+    estado_interno = db.Column(db.String(255), nullable=False) #OCUPADO - LIBRE 

@@ -128,7 +128,7 @@ def detalle_estudio(estudio_id):
 
     # Verificar si el estado actual es "PAGO ACEPTADO"
     estado_pago_aceptado = estado_actual.estado == "PAGO ACEPTADO" if estado_actual else False
-
+    estado_turno_cancelado = estado_actual.estado == "TURNO CANCELADO" if estado_actual else False
     # Obtener el historial de estados ordenado por fecha descendente
     historial_estados = db.session.query(HistorialEstado)\
         .filter(HistorialEstado.estudio_id == estudio.id)\
@@ -144,7 +144,7 @@ def detalle_estudio(estudio_id):
         estudio=estudio, 
         resultado=resultado, 
         historial_estados=historial_estados,
-        estado_pago_aceptado=estado_pago_aceptado
+        estado_pago_aceptado=estado_pago_aceptado, estado_turno_cancelado=estado_turno_cancelado
     )
 
 
@@ -341,6 +341,9 @@ def cancelar_turno(turno_id):
 
     # Cambiar estado a CANCELADO
     turno.estado = 5
+    turno.estado_interno = 'LIBRE'
+    estudio = Estudio.query.filter_by(id = turno.id_estudio).first()
+    estudio.historial.append(HistorialEstado(estado="TURNO CANCELADO"))
     db.session.commit()
     flash('Turno cancelado exitosamente.', 'success')
     return redirect(url_for('listar.mis_turnos'))
