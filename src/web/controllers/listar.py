@@ -126,6 +126,9 @@ def detalle_estudio(estudio_id):
         .first()
     estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
 
+    # Verificar si el estado actual es "PAGO ACEPTADO"
+    estado_pago_aceptado = estado_actual.estado == "PAGO ACEPTADO" if estado_actual else False
+
     # Obtener el historial de estados ordenado por fecha descendente
     historial_estados = db.session.query(HistorialEstado)\
         .filter(HistorialEstado.estudio_id == estudio.id)\
@@ -140,7 +143,8 @@ def detalle_estudio(estudio_id):
         'paciente/detalle_estudio.html', 
         estudio=estudio, 
         resultado=resultado, 
-        historial_estados=historial_estados
+        historial_estados=historial_estados,
+        estado_pago_aceptado=estado_pago_aceptado
     )
 
 
