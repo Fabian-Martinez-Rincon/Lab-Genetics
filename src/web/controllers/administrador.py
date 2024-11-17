@@ -56,3 +56,53 @@ def presupuestos_solicitados():
 #     # Generar un nuevo registro de presupuesto o actualizar uno existente
 #     flash('Presupuesto generado exitosamente.', 'success')
 #     return redirect(url_for('administrador.mis_estudios_solicitados'))
+
+
+@bp.route('/presupuestos_pagados', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(2)
+def presupuestos_pagados():
+    from src.core.models.presupuesto import Presupuesto
+    from src.core.models.estado import Estado
+    from src.core.models.estudio import Estudio
+
+    # Obtén el ID del estado "PAGADO"
+    estado_pagado = Estado.query.filter_by(nombre="PAGADO").first()
+    if not estado_pagado:
+        flash('El estado "PAGADO" no está configurado.', 'error')
+        return redirect(url_for('administrador.presupuestos_solicitados'))
+    
+    # Consulta los presupuestos con el estado "PAGADO"
+    presupuestos = Presupuesto.query.filter_by(id_estado=estado_pagado.id).all()
+
+    # Agrega el ID del estudio relacionado a cada presupuesto
+    presupuestos_con_estudios = []
+    for presupuesto in presupuestos:
+        estudio = Estudio.query.filter_by(id_presupuesto=presupuesto.id).first()
+        presupuestos_con_estudios.append({
+            'id': presupuesto.id,
+            'detalle': presupuesto.Detalle,
+            'monto_final': presupuesto.montoFinal,
+            'comprobante_path': presupuesto.comprobante_path,
+            'id_estudio': estudio.id if estudio else None  # ID del estudio relacionado, si existe
+        })
+
+    return render_template(
+        'administrador/presupuestos_pagados.html',
+        presupuestos=presupuestos_con_estudios
+    )
+
+
+# @bp.route('/presupuestos/<int:presupuesto_id>', methods=['GET'])
+# @verificar_autenticacion
+# @verificar_rol(2)
+# def detalle_presupuesto(presupuesto_id):
+#     from src.core.models.presupuesto import Presupuesto
+
+#     # Obtén el presupuesto por ID
+#     presupuesto = Presupuesto.query.get(presupuesto_id)
+#     if not presupuesto:
+#         flash('El presupuesto no existe.', 'error')
+#         return redirect(url_for('administrador.presupuestos_pagados'))
+    
+#     return render_template('administrador/detalle_presupuesto.html', presupuesto=presupuesto)
