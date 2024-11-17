@@ -125,12 +125,24 @@ def detalle_estudio(estudio_id):
         .first()
     estudio.estado_nombre = estado_actual.estado if estado_actual else 'Desconocido'
 
+    # Obtener el historial de estados ordenado por fecha descendente
+    historial_estados = db.session.query(HistorialEstado)\
+        .filter(HistorialEstado.estudio_id == estudio.id)\
+        .order_by(HistorialEstado.fecha_hora.desc()).all()
+
     # Obtener el resultado relacionado
     resultado = None
     if estudio.id_resultado:
         resultado = db.session.query(Resultado).get(estudio.id_resultado)
 
-    return render_template('paciente/detalle_estudio.html', estudio=estudio, resultado=resultado)
+    return render_template(
+        'paciente/detalle_estudio.html', 
+        estudio=estudio, 
+        resultado=resultado, 
+        historial_estados=historial_estados
+    )
+
+
 
 from sqlalchemy import or_
 
