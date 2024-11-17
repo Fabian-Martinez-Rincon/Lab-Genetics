@@ -1,0 +1,65 @@
+{% extends "_layouts/app.html" %}
+{% block head %}
+<title>Lab-Genetics - Presupuestos Pagados</title>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+      Presupuestos Pagados
+    </h1>
+    {% if presupuestos %}
+    <p class="mb-4 text-base md:text-lg text-zinc-500">
+      A continuación se muestra un listado de presupuestos que se encuentran en estado "PAGADO".
+    </p>
+
+    <div class="w-full overflow-x-auto">
+      <table class="w-full text-left border-collapse table-auto">
+        <thead>
+          <tr class="text-white bg-indigo-500">
+            <th class="px-4 py-2">ID Estudio</th>
+            <th class="px-4 py-2">Monto Final</th>
+            <th class="px-4 py-2">Comprobante</th>
+            <th class="px-4 py-2">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for presupuesto in presupuestos %}
+          <tr class="text-black bg-very-light-yellow-green">
+            <td class="px-4 py-2">
+              {% if presupuesto.id_estudio %}
+                {{ presupuesto.id_estudio }}
+              {% else %}
+              <span class="text-gray-500">Sin Estudio</span>
+              {% endif %}
+            </td>
+            <td class="px-4 py-2">${{ presupuesto.monto_final | round(2) }}</td>
+            <td class="px-4 py-2">
+              {% if presupuesto.comprobante_path %}
+              <a href="{{ url_for('static', filename=presupuesto.comprobante_path) }}" 
+                 class="text-indigo-500 hover:underline" target="_blank">
+                Ver Comprobante
+              </a>
+              {% else %}
+              <span class="text-red-500">Sin Comprobante</span>
+              {% endif %}
+            </td>
+            <td class="px-4 py-2">
+              <a href="{{ url_for('listar.presupuesto_estudio', estudio_id=presupuesto.id_estudio) }}"
+                 class="text-indigo-500 hover:underline">
+                 Ver Detalle
+              </a>
+              
+          </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="mb-4 text-base text-green-600 md:text-lg"><strong>No hay presupuestos en estado "PAGADO".</strong></p>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}
