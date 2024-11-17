@@ -35,7 +35,7 @@ def verificar_pago(estudio_id):
             mail = f"El pago de su estudio ha sido rechazado. Motivo: {observaciones}"
         Notificacion.send_mail(estudio.id_paciente, mail)
         
-        return redirect(url_for('verificar_pago.verificar_pago', estudio_id=estudio_id))
+        return redirect(url_for('administrador.presupuestos_pagados'))
     return render_template(
         'administrador/presupuesto_estudio.html',
         estudio=estudio,
