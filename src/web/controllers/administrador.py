@@ -107,3 +107,37 @@ def presupuestos_pagados():
 #         return redirect(url_for('administrador.presupuestos_pagados'))
     
 #     return render_template('administrador/detalle_presupuesto.html', presupuesto=presupuesto)
+
+@bp.route('/presupuestos_aceptados', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(2)
+def presupuestos_aceptados():
+    from src.core.models.presupuesto import Presupuesto
+    from src.core.models.estado import Estado
+    from src.core.models.estudio import Estudio
+
+    # Obtén el ID del estado "ACEPTADO"
+    estado_aceptado = Estado.query.filter_by(nombre="ACEPTADO").first()
+    if not estado_aceptado:
+        flash('El estado "ACEPTADO" no está configurado.', 'error')
+        return redirect(url_for('administrador.presupuestos_solicitados'))
+    
+    # Consulta los presupuestos con el estado "ACEPTADO"
+    presupuestos = Presupuesto.query.filter_by(id_estado=estado_aceptado.id).all()
+
+    # Agrega el ID del estudio relacionado a cada presupuesto
+    presupuestos_con_estudios = []
+    for presupuesto in presupuestos:
+        estudio = Estudio.query.filter_by(id_presupuesto=presupuesto.id).first()
+        presupuestos_con_estudios.append({
+            'id': presupuesto.id,
+            'detalle': presupuesto.Detalle,
+            'monto_final': presupuesto.montoFinal,
+            'comprobante_path': presupuesto.comprobante_path,
+            'id_estudio': estudio.id if estudio else None  # ID del estudio relacionado, si existe
+        })
+
+    return render_template(
+        'administrador/presupuestos_aceptados.html',
+        presupuestos=presupuestos_con_estudios
+    )
