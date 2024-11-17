@@ -11,7 +11,7 @@
         "fecha_solicitud": "2024-10-20T14:00:00",
         "fecha_ingreso_central": "2024-10-21",
         "id_resultado": 1,
-        "id_presupuesto": 10,
+        "id_presupuesto": 100,
         "id_pedido": 1,
         "historial": [], 
         "patologias": []
