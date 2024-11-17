@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, redirect, url_for, session, flash
 from src.core.models.usuario import Usuario
-from src.web.controllers.utils import verificar_rol, verificar_autenticacion
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos
 from src.core.models.presupuesto import Presupuesto
 from src.core.models.estudio import Estudio
 from src.core.models.estado import Estado
@@ -9,6 +9,7 @@ bp = Blueprint('presupuesto', __name__)
 
 @bp.route('/mis_presupuestos', methods=['GET'])
 @verificar_autenticacion
+@actualizar_presupuestos_vencidos
 @verificar_rol(5)
 def mis_presupuestos():
     id_usuario = session.get('user_id')
@@ -37,6 +38,7 @@ def mis_presupuestos():
 
 @bp.route('/detalle_presupuesto/<int:presupuesto_id>', methods=['GET'])
 @verificar_autenticacion
+@actualizar_presupuestos_vencidos
 @verificar_rol(5)
 def detalle_presupuesto(presupuesto_id):
     presupuesto = Presupuesto.query.get(presupuesto_id)

@@ -4,7 +4,7 @@ from src.core.models.usuario import Usuario
 from src.core.models.rol import Rol
 from src.core.models.turno import Turno
 from src.core.models.estado import Estado
-from src.web.controllers.utils import verificar_rol, verificar_autenticacion
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos
 from src.core.models.laboratorio import Laboratorio
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
@@ -88,6 +88,7 @@ estudio elige Laboratorio de extracción, fecha y Horario
 """
 @bp.route('/mis_estudios', methods=['GET'])
 @verificar_autenticacion
+@actualizar_presupuestos_vencidos
 @verificar_rol(5)
 def mis_estudios():
     id_usuario = session.get('user_id')
@@ -136,6 +137,7 @@ from sqlalchemy import or_
 
 @bp.route('/ver_estudios_medico', methods=['GET'])
 @verificar_autenticacion
+@actualizar_presupuestos_vencidos
 @verificar_rol(4)
 def ver_estudios_medico():
     id_usuario = session.get('user_id')
@@ -192,6 +194,7 @@ def detalle_estudio_medico(estudio_id):
 
 @bp.route('/ver_estudios_paciente/<int:paciente_id>', methods=['GET'])
 @verificar_autenticacion
+@actualizar_presupuestos_vencidos
 @verificar_rol(4)
 def ver_estudios_paciente(paciente_id):
     # Verificar que el médico tenga acceso al paciente
@@ -239,6 +242,7 @@ def cargar_comprobante(comprobante, estudio_id):
 
 @bp.route('/presupuesto_estudio/<estudio_id>', methods=['GET', 'POST'])
 @verificar_autenticacion
+@actualizar_presupuestos_vencidos
 @verificar_rol(5)
 def presupuesto_estudio(estudio_id):
     # Obtener el estudio

@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, flash, redirect, url_for
 from src.core.models.database import db
-from src.web.controllers.utils import verificar_rol, verificar_autenticacion
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos
 from src.core.models.estudio import Estudio
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import func
@@ -10,6 +10,7 @@ bp = Blueprint('administrador', __name__)
 
 @bp.route('/presupuestos_solicitados', methods=['GET'])
 @verificar_autenticacion
+@actualizar_presupuestos_vencidos
 @verificar_rol(2)
 def presupuestos_solicitados():
     # Subconsulta para obtener la última fecha por estudio_id

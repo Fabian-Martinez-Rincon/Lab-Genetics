@@ -23,7 +23,7 @@
       </p>      
       <p class="text-lg"><strong class="text-indigo-600">Monto Final:</strong> {{ presupuesto.montoFinal | round(2) }}</p>
       <p class="text-lg"><strong class="text-indigo-600">Estado:</strong> {{ presupuesto.estado.nombre }}</p>
-      {% if presupuesto.id_estado == 4 %} <p class="text-lg"><strong class="text-indigo-600">Observaciones:</strong> {{ presupuesto.observaciones }}</p> {% endif %}
+      {% if presupuesto.observaciones %} <p class="text-lg"><strong class="text-indigo-600">Observaciones:</strong> {{ presupuesto.observaciones }}</p> {% endif %}
     </div>
 
     {% if presupuesto.comprobante_path %}
@@ -63,7 +63,7 @@
             <textarea 
               id="observaciones" 
               name="observaciones" 
-              class="w-full p-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-500 resize-none" 
+              class="w-full p-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-none focus:outline-none focus:ring focus:ring-indigo-500" 
               rows="4" 
               placeholder="Escribe tus observaciones aquí..."></textarea>
           </div>

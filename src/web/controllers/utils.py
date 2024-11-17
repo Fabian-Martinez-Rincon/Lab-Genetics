@@ -2,6 +2,11 @@ from flask import session, flash, redirect, url_for
 from functools import wraps
 from src.core.models.usuario import Usuario
 from src.core.models.laboratorio import Laboratorio
+from datetime import datetime
+from src.core.models.presupuesto import Presupuesto
+from src.core.models.estudio import Estudio
+from src.core.models.historialEstado import HistorialEstado
+from src.core.models.database import db
 
 def verificar_autenticacion(f):
     """
@@ -66,3 +71,23 @@ def verificar_rol(rol_permitido):
             return f(*args, **kwargs)
         return decorated_function
     return decorator
+
+def actualizar_presupuestos_vencidos(f):
+    """
+    Decorador para verificar presupuestos vencidos y actualizar su estado.
+    """
+    @wraps(f)
+    def wrapped_function(*args, **kwargs):
+        fecha_actual = datetime.now().date()
+        presupuestos_vencidos = Presupuesto.query.filter(
+            Presupuesto.fecha_vencimiento < fecha_actual,
+            Presupuesto.id_estado != 2, Presupuesto.id_estado != 3, Presupuesto.id_estado != 5  
+        ).all()
+
+        for presupuesto in presupuestos_vencidos:
+            presupuesto.id_estado = 5  # Presupuesto vencido / cancelado  
+            estudio = Estudio.query.filter_by(id_presupuesto=presupuesto.id).first()
+            estudio.historial.append(HistorialEstado(estado="PRESUPUESTO VENCIDO"))
+        db.session.commit()
+        return f(*args, **kwargs)
+    return wrapped_function
