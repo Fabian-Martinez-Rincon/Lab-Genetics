@@ -65,17 +65,27 @@
     {% endif %}
 
     <div class="mt-8 text-center">
+      {% if estado_pago_aceptado %}
+      {# {{ url_for('solicitar_turno.solicitar_turno', estudio_id=estudio.id) }}#}
+      <a href="" 
+         class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg">
+        Solicitar Turno
+      </a>
+      {% endif %}
+      
       {% if estudio.id_presupuesto %}
       <a href="{{ url_for('listar.presupuesto_estudio', estudio_id=estudio.id) }}" 
          class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-green-700 hover:shadow-lg">
         Mirar Presupuesto
       </a>
       {% endif %}
+      
       <a href="{{ url_for('listar.mis_estudios') }}" 
          class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
         Volver a Mis Estudios
       </a>
     </div>
+    
   </div>
 </div>
 {% endblock %}
