@@ -54,56 +54,56 @@
           Volver al Estudio
         </a>
         {% elif (session.get('rol_id') == 2) and presupuesto.comprobante_path and (presupuesto.id_estado == 2) %}
-        <form action="{{ url_for('verificar_pago.verificar_pago', estudio_id=estudio.id) }}" method="post" id="form_pago">
-          <label for="observaciones" class="text-lg text-indigo-600">
-            <strong class="text-indigo-600">Observaciones:</strong>
-          </label>
-          <textarea 
-            id="observaciones" 
-            name="observaciones" 
-            class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-500">
-          </textarea>
-        </div>
-        <input type="hidden" id="accion" name="accion" value="">
-      
-          <button 
-            type="submit" 
-            class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-red-600 rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg" 
-            onclick="rechazarPago(event)">
-            Rechazar Pago
-          </button>
-      
-          <button 
-            type="submit" 
-            class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg" 
-            onclick="aceptarPago(event)">
-            Aceptar Pago
-          </button>
+        <form action="{{ url_for('verificar_pago.verificar_pago', estudio_id=estudio.id) }}" method="post" id="form_pago" class="mt-8 space-y-4">
+          <!-- Observaciones -->
+          <div>
+            <label for="observaciones" class="block text-lg font-medium text-indigo-600">
+              Observaciones:
+            </label>
+            <textarea 
+              id="observaciones" 
+              name="observaciones" 
+              class="w-full p-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-500 resize-none" 
+              rows="4" 
+              placeholder="Escribe tus observaciones aquí..."></textarea>
+          </div>
+          
+          <!-- Campo oculto para la acción -->
+          <input type="hidden" id="accion" name="accion" value="">
+        
+          <!-- Botones de acción -->
+          <div class="flex justify-between">
+            <button 
+              type="submit" 
+              class="inline-block px-6 py-3 font-semibold text-white transition duration-300 bg-red-600 rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg" 
+              onclick="rechazarPago(event)">
+              Rechazar Pago
+            </button>
+            <button 
+              type="submit" 
+              class="inline-block px-6 py-3 font-semibold text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-green-700 hover:shadow-lg" 
+              onclick="aceptarPago(event)">
+              Aceptar Pago
+            </button>
+          </div>
         </form>
+        
         <script>
           function rechazarPago(event) {
             event.preventDefault();
             document.getElementById('accion').value = 'rechazar';
-            document.getElementById('observaciones').disabled = false; 
-            const form = document.getElementById('form_pago');
-            if (form) {
-                form.submit(); 
-            } else {
-                console.error("Formulario no encontrado.");
-            }
+            document.getElementById('observaciones').disabled = false;
+            document.getElementById('form_pago').submit();
           }
+        
           function aceptarPago(event) {
             event.preventDefault();
             document.getElementById('accion').value = 'aceptar';
-            document.getElementById('observaciones').disabled = true; 
-            const form = document.getElementById('form_pago');
-            if (form) {
-                form.submit(); 
-            } else {
-                console.error("Formulario no encontrado.");
-            }
+            document.getElementById('observaciones').disabled = true;
+            document.getElementById('form_pago').submit();
           }
         </script>
+        
       {% endif %}      
     </div>
   </div>
