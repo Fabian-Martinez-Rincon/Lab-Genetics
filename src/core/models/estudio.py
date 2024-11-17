@@ -15,6 +15,7 @@ class Estudio(db.Model):
     fecha_ingreso_central = db.Column(db.Date, nullable=True)
     id_resultado = db.Column(db.Integer, db.ForeignKey("resultados.id"), nullable=True)
     id_presupuesto = db.Column(db.Integer, db.ForeignKey("presupuestos.id"), nullable=True)
+    consentimiento_path  = db.Column(db.String(255), nullable=True)
     # Clave foránea para vincular con Pedido
     id_pedido = db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=True)
     # Historial de estados

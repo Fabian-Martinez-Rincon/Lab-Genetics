@@ -1,12 +1,30 @@
-from flask import render_template, redirect, url_for, flash, Blueprint, request, jsonify
+from flask import render_template, redirect, url_for, flash, Blueprint, request, jsonify, current_app
 from src.core.models.laboratorio import Laboratorio
 from src.core.models.turno import Turno
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
 from src.core.models.database import db
 from datetime import datetime
-
+from src.core.models.notificacion import Notificacion
+import os
+from werkzeug.utils import secure_filename
 bp = Blueprint('solicitar_turno', __name__)
+
+def cargar_consentimiento(consentimiento, estudio_id):
+    ruta_consentimiento = None  
+    _, extension = os.path.splitext(consentimiento.filename)
+    extension = extension.lower()
+    if extension in ['.pdf']:
+        nombre_archivo = f"{secure_filename(estudio_id)}{extension}"
+        ruta_carpeta = 'consentimiento'  
+        carpeta_absoluta = os.path.join(current_app.config['UPLOAD_FOLDER'], ruta_carpeta)
+        os.makedirs(carpeta_absoluta, exist_ok=True)
+        ruta_consentimiento_absoluta = os.path.join(carpeta_absoluta, nombre_archivo)
+        consentimiento.save(ruta_consentimiento_absoluta)
+        ruta_consentimiento = os.path.join(ruta_carpeta, nombre_archivo).replace("\\", "/")
+    else:
+        flash('El consentimiento debe ser un pdf', 'error')              
+    return ruta_consentimiento
 
 @bp.route('/solicitar_turno/<id_estudio>', methods=['GET', 'POST'])
 def solicitar_turno(id_estudio):
@@ -42,7 +60,14 @@ def solicitar_turno(id_estudio):
         if (turno_existente)and(turno_existente.estado_interno=="OCUPADO"):
             flash("Este turno ya está ocupado. Por favor, elige otro.", "error")
             return redirect(url_for('solicitar_turno.solicitar_turno', id_estudio=id_estudio))
-
+        consentimiento = request.files.get('consentimiento')
+        if consentimiento:
+            ruta = cargar_consentimiento(consentimiento, estudio.id)
+            if ruta:
+                estudio.consentimiento_path = ruta
+                db.session.commit()
+            else:
+                return redirect(url_for('solicitar_turno.solicitar_turno', id_estudio=id_estudio))
         nuevo_turno = Turno(
             id_paciente=estudio.id_paciente,
             id_laboratorio=laboratorio_id,
@@ -56,7 +81,8 @@ def solicitar_turno(id_estudio):
         db.session.add(nuevo_turno)
         estudio.historial.append(HistorialEstado(estado="ESPERANDO EXTRACCION"))
         db.session.commit()
-
+        detalle= f"Se ha solicitado un turno para el estudio {estudio.id} en el laboratorio {Laboratorio.query.filter_by(id=laboratorio_id).first().nombre} el día {fecha_seleccionada} a las {hora_seleccionada}."
+        Notificacion.send_mail(estudio.id_paciente, detalle)
         flash("¡Turno solicitado con éxito!", "success")
         return redirect(url_for('listar.detalle_estudio', estudio_id=id_estudio))
 
