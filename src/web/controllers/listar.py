@@ -298,3 +298,49 @@ def presupuesto_estudio(estudio_id):
         presupuesto=presupuesto,
         comprobante_path=presupuesto.comprobante_path
     )
+
+
+@bp.route('/mis_turnos', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(5)
+def mis_turnos():
+    id_usuario = session.get('user_id')
+    
+    usuario = Usuario.query.get(id_usuario)
+    if not usuario:
+        flash('Usuario no encontrado.', 'error')
+        return redirect(url_for('root.index_get'))
+    
+    turnos = usuario.turnos  # Relación definida en el modelo Usuario
+
+    for turno in turnos:
+        # Obtener el estado como nombre
+        estado = Estado.query.get(turno.estado)
+        turno.estado_nombre = estado.nombre if estado else 'Desconocido'
+        
+        # Obtener detalles del estudio relacionado
+        estudio = Estudio.query.get(turno.id_estudio)
+        turno.estudio_id = estudio.id if estudio else 'Desconocido'
+        turno.estudio_tipo = estudio.tipo_estudio if estudio else 'Desconocido'
+        turno.estudio_fecha = estudio.fecha_solicitud.strftime('%d/%m/%Y') if estudio else 'Desconocido'
+
+    return render_template('paciente/mis_turnos.html', turnos=turnos)
+
+@bp.route('/cancelar_turno/<int:turno_id>', methods=['POST'])
+@verificar_autenticacion
+@verificar_rol(5)
+def cancelar_turno(turno_id):
+    turno = Turno.query.get(turno_id)
+    if not turno:
+        flash('Turno no encontrado.', 'error')
+        return redirect(url_for('listar.mis_turnos'))
+    
+    if turno.estado == 5:  # Si ya está cancelado
+        flash('El turno ya está cancelado.', 'info')
+        return redirect(url_for('listar.mis_turnos'))
+
+    # Cambiar estado a CANCELADO
+    turno.estado = 5
+    db.session.commit()
+    flash('Turno cancelado exitosamente.', 'success')
+    return redirect(url_for('listar.mis_turnos'))

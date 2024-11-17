@@ -25,7 +25,7 @@ def eliminar_y_agregar(entidad, datos):
         # Manejar la creación del ID para `Estudio`
         if entidad == Estudio:
             apellido_paciente = db.session.query(Usuario).filter_by(id=data["id_paciente"]).first().apellido
-            data["id"] = Estudio().generar_id(apellido_paciente)  # Genera el ID basado en el apellido del paciente
+            #data["id"] = Estudio().generar_id(apellido_paciente)  # Genera el ID basado en el apellido del paciente
             data["fecha_solicitud"] = datetime.fromisoformat(data["fecha_solicitud"])
             data["fecha_ingreso_central"] = datetime.strptime(data["fecha_ingreso_central"], "%Y-%m-%d").date()
         db.session.add(entidad(**data))
@@ -38,10 +38,10 @@ def seed_db():
             Laboratorio: 'laboratorios.json',
             Estado: 'estados.json',
             Resultado: 'resultados.json',
-            #Presupuesto: 'presupuestos.json',
+            Presupuesto: 'presupuestos.json',
             Pedido: 'pedidos.json',
-            #Estudio: 'estudios.json',
-            #Turno: 'turnos.json',
+            Estudio: 'estudios.json',
+            Turno: 'turnos.json',
             Patologia: 'patologias.json'
         }
 
@@ -49,8 +49,8 @@ def seed_db():
             datos = cargar_datos(archivo)
             eliminar_y_agregar(entidad, datos)
 
-        #historial_datos = cargar_datos('historial_estados.json')
-        #eliminar_y_agregar_historial(HistorialEstado, historial_datos)
+        historial_datos = cargar_datos('historial_estados.json')
+        eliminar_y_agregar_historial(HistorialEstado, historial_datos)
 
         db.session.commit()
     except Exception as e:

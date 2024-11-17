@@ -1,34 +1,10 @@
-[
-    {
-        "id_paciente": 5,
-        "id_laboratorio": 3,
-        "id_estudio": 1,
-        "fecha": "2024-10-01",
-        "hora": "08:00:00",
-        "estado": 1
-    },
-    {
-        "id_paciente": 5,
-        "id_laboratorio": 3,
-        "id_estudio": 1,
-        "fecha": "2024-10-02",
-        "hora": "09:00:00",
-        "estado": 1
-    },
-    {
-        "id_paciente": 5,
-        "id_laboratorio": 3,
-        "id_estudio": 1,
-        "fecha": "2024-10-03",
-        "hora": "10:00:00",
-        "estado": 1
-    },
-    {
-        "id_paciente": 5,
-        "id_laboratorio": 3,
-        "id_estudio": 1,
-        "fecha": "2024-10-04",
-        "hora": "11:00:00",
-        "estado": 1
-    }
+[{
+    "id": 200,
+    "id_paciente": 5,
+    "id_laboratorio": 3,
+    "id_estudio": "VAL_ENC_001",
+    "estado": 1,
+    "fecha": "2024-11-20",
+    "hora": "10:00:00"
+}
 ]
