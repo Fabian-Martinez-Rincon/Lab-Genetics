@@ -10,7 +10,7 @@
   <div class="w-full max-w-2xl p-8 transition-all duration-300 transform bg-white shadow-xl rounded-xl hover:shadow-2xl">
     <h1 class="mb-6 text-4xl font-extrabold text-center text-indigo-700">Solicitar Turno Para el estudio: {{ id_estudio }}</h1>
 
-    <form method="POST" action="{{ url_for('solicitar_turno.solicitar_turno', id_estudio=id_estudio) }}">
+    <form method="POST" action="{{ url_for('solicitar_turno.solicitar_turno', id_estudio=id_estudio) }}" enctype="multipart/form-data">
       <div class="mb-4">
         <label for="address" class="block font-bold text-gray-700">Selecciona una Localidad:</label>
         <select name="address" id="address" class="w-full text-gray-900 border border-gray-300 rounded" required>
@@ -39,7 +39,15 @@
           <option value="" disabled selected>Primero selecciona una fecha</option>
         </select>
       </div>
-
+     
+      <div class="mb-4">
+        <label for="consentimiento" class="text-lg text-indigo-600"><strong class="text-indigo-600">Subir Consentimiento(PDF):</strong></label>
+        <input type="file" name="consentimiento" id="consentimiento" class="block w-full mt-2" accept=".pdf" required>
+      </div>
+      <div class="mb-4">
+        <a href="/static/consentimiento/CI.pdf" 
+                 class="text-lg text-indigo-600 hover:underline" target="_blank"><strong "text-lg text-indigo-600">Ver Modelo Consentimiento</strong></a>
+        </div> 
       <div class="mt-8 text-center">
       <a href="{{ url_for('listar.detalle_estudio', estudio_id=id_estudio) }}" 
           class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-purple-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">

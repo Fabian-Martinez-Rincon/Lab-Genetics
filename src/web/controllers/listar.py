@@ -4,7 +4,7 @@ from src.core.models.usuario import Usuario
 from src.core.models.rol import Rol
 from src.core.models.turno import Turno
 from src.core.models.estado import Estado
-from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos, actualizar_turnos_vencidos
 from src.core.models.laboratorio import Laboratorio
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
@@ -59,6 +59,7 @@ def listar_usuarios():
 
 @bp.route('/listar_turnos')
 @verificar_autenticacion
+@actualizar_turnos_vencidos
 @verificar_rol(3)
 def listar_turnos():
     # Consulta que incluye el nombre del estado y el usuario asociado al turno
@@ -89,6 +90,7 @@ estudio elige Laboratorio de extracción, fecha y Horario
 @bp.route('/mis_estudios', methods=['GET'])
 @verificar_autenticacion
 @actualizar_presupuestos_vencidos
+@actualizar_turnos_vencidos
 @verificar_rol(5)
 def mis_estudios():
     id_usuario = session.get('user_id')
@@ -112,12 +114,13 @@ def mis_estudios():
 
 @bp.route('/detalle_estudio/<estudio_id>', methods=['GET'])
 @verificar_autenticacion
+@actualizar_turnos_vencidos
 @verificar_rol(5)
 def detalle_estudio(estudio_id):
     estudio = Estudio.query.get(estudio_id)
     if not estudio:
         flash('Estudio no encontrado.', 'error')
-        return redirect(url_for('paciente.mis_estudios'))
+        return redirect(url_for('listar.mis_estudios'))
     
     # Obtener el estado actual del estudio
     estado_actual = db.session.query(HistorialEstado.estado)\
@@ -154,6 +157,7 @@ from sqlalchemy import or_
 @bp.route('/ver_estudios_medico', methods=['GET'])
 @verificar_autenticacion
 @actualizar_presupuestos_vencidos
+@actualizar_turnos_vencidos
 @verificar_rol(4)
 def ver_estudios_medico():
     id_usuario = session.get('user_id')
@@ -211,6 +215,7 @@ def detalle_estudio_medico(estudio_id):
 @bp.route('/ver_estudios_paciente/<int:paciente_id>', methods=['GET'])
 @verificar_autenticacion
 @actualizar_presupuestos_vencidos
+@actualizar_turnos_vencidos
 @verificar_rol(4)
 def ver_estudios_paciente(paciente_id):
     # Verificar que el médico tenga acceso al paciente
@@ -302,6 +307,7 @@ def presupuesto_estudio(estudio_id):
 
 @bp.route('/mis_turnos', methods=['GET'])
 @verificar_autenticacion
+@actualizar_turnos_vencidos
 @verificar_rol(5)
 def mis_turnos():
     id_usuario = session.get('user_id')
@@ -345,5 +351,6 @@ def cancelar_turno(turno_id):
     estudio = Estudio.query.filter_by(id = turno.id_estudio).first()
     estudio.historial.append(HistorialEstado(estado="TURNO CANCELADO"))
     db.session.commit()
+    Notificacion.send_mail(estudio.id_paciente, f"Ha cancelado el turno para el estudio {estudio.id}. exitosamente. Recuerde que puede solicitar un nuevo turno en cualquier momento.")
     flash('Turno cancelado exitosamente.', 'success')
     return redirect(url_for('listar.mis_turnos'))

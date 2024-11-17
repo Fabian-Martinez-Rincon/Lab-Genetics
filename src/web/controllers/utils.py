@@ -7,7 +7,8 @@ from src.core.models.presupuesto import Presupuesto
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
 from src.core.models.database import db
-
+from src.core.models.notificacion import Notificacion
+from src.core.models.turno import Turno
 def verificar_autenticacion(f):
     """
     Decorador que verifica si el usuario ha iniciado sesión.
@@ -88,6 +89,29 @@ def actualizar_presupuestos_vencidos(f):
             presupuesto.id_estado = 5  # Presupuesto vencido / cancelado  
             estudio = Estudio.query.filter_by(id_presupuesto=presupuesto.id).first()
             estudio.historial.append(HistorialEstado(estado="PRESUPUESTO VENCIDO"))
+            Notificacion.send_mail(estudio.id_paciente, f"El presupuesto {presupuesto.id} para el estudio {estudio.id} ha vencido.")
+        db.session.commit()
+        return f(*args, **kwargs)
+    return wrapped_function
+
+def actualizar_turnos_vencidos(f):
+    """
+    Decorador para verificar turnos vencidos y actualizar su estado.
+    """
+    @wraps(f)
+    def wrapped_function(*args, **kwargs):
+        fecha_actual = datetime.now().date()
+        turnos_vencidos = Turno.query.filter(
+            Turno.fecha < fecha_actual,
+            Turno.estado != 5 , Turno.estado_interno != "LIBRE"
+        ).all()
+
+        for turno in turnos_vencidos:
+            turno.estado = 5  # Presupuesto vencido / cancelado  
+            turno.estado_interno = "LIBRE"
+            estudio = Estudio.query.filter_by(id=turno.id_estado).first()
+            estudio.historial.append(HistorialEstado(estado="TURNO CANCELADO"))
+            Notificacion.send_mail(estudio.id_paciente, f"El Turno para el estudio {estudio.id} ha vencido.")
         db.session.commit()
         return f(*args, **kwargs)
     return wrapped_function
