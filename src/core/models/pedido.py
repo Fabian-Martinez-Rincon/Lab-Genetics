@@ -7,4 +7,4 @@ class Pedido(db.Model):
     id_laboratorio = db.Column(db.Integer, db.ForeignKey("laboratorios.id"), nullable=False)
     estado = db.Column(db.String(50), nullable=False) #Pendiente, En proceso, Finalizado, Cancelado
     observaciones = db.Column(db.String(255), nullable=True) #Observaciones del Cancelado/Rechazado
-    
+    fecha = db.Column(db.Date, nullable=False)
