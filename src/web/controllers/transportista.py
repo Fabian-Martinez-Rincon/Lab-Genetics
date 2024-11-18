@@ -15,7 +15,7 @@ bp = Blueprint('transportista', __name__)
 @verificar_rol(6)  # Asegúrate de que solo roles específicos puedan acceder
 def listar_pedidos_pendientes():
     # Filtrar pedidos en estado "Pendiente"
-    pedidos_pendientes = Pedido.query.filter_by(estado='Pendiente').order_by(Pedido.fecha.asc()).all()
+    pedidos_pendientes = Pedido.query.filter_by(estado='PENDIENTE').order_by(Pedido.fecha.asc()).all()
 
     return render_template('laboratorio/listar_pedidos_pendientes.html', pedidos=pedidos_pendientes)
 

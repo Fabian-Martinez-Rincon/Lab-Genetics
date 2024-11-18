@@ -39,7 +39,7 @@ def seed_db():
             Estado: 'estados.json',
             Resultado: 'resultados.json',
             #Presupuesto: 'presupuestos.json',
-            Pedido: 'pedidos.json',
+            #Pedido: 'pedidos.json',
             #Estudio: 'estudios.json',
             #Turno: 'turnos.json',
             Patologia: 'patologias.json'

@@ -18,17 +18,21 @@ def confirmar_turno(turno_id):
     if not turno:
         flash('Turno no encontrado.', 'error')
         return redirect(url_for('listar.listar_turnos'))
+    if turno.fecha != datetime.now().date():
+        flash('Solamente puedes confirmar los turnos del dia', 'error')
+        return redirect(url_for('listar.listar_turnos'))
     turno.estado = 3
     turno.estado_interno = "FINALIZADO"
-    estudio = Estudio.query.filter_by(id=turno.id_estado).first()
+    estudio = Estudio.query.filter_by(id=turno.id_estudio).first()
     estudio.historial.append(HistorialEstado(estado="ESPERANDO ENVIO A CENTRAL"))
-    Notificacion.send_mail(estudio.id_paciente, f"El Turno para el estudio {estudio.id} ha sido confirmado.")
+    Notificacion.send_mail(estudio.id_paciente, f"Se ha confirmado la extraccion para el estudio: {estudio.id}. El estudio se encuentra en espera de ser enviado a la central.")
     fecha_mañana = turno.fecha + timedelta(days=1)
     pedido_mañana = Pedido.query.filter_by(id_laboratorio=turno.id_laboratorio, fecha=fecha_mañana).first()
     if not pedido_mañana:
         pedido_mañana = Pedido(id_laboratorio=turno.id_laboratorio, fecha=fecha_mañana, estado="PENDIENTE")
         db.session.add(pedido_mañana)
     pedido_mañana.estudios.append(estudio)
-    transportista = Usuario.query.filter_by(id_rol=6).first()
     db.session.commit()
+    flash('Turno confirmado correctamente.', 'success')
+    return redirect(url_for('listar.listar_turnos'))
     

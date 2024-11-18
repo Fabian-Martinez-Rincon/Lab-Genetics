@@ -18,6 +18,7 @@ from src.web.controllers import (
     acciones_presupuesto,
     verificar_pago,
     solicitar_turno,
+    confirmar_turno,
     transportista
 )
 
@@ -40,6 +41,7 @@ _blueprints = (
     acciones_presupuesto.bp,
     verificar_pago.bp,
     solicitar_turno.bp,
+    confirmar_turno.bp,
     transportista.bp
 )
 

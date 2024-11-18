@@ -47,7 +47,7 @@
     </div>
 
     <div class="w-full responsive-table">
-      <table class="w-full text-left border-collapse table-auto border">
+      <table class="w-full text-left border border-collapse table-auto">
         <thead class="table-header">
           <tr class="text-white bg-indigo-500">
             <th class="px-4 py-2">Fecha</th>
@@ -61,7 +61,7 @@
         </thead>
         <tbody>
           {% for turno in turnos %}
-          <tr class="bg-gray-100 even:bg-white hover:bg-gray-200 table-row">
+          <tr class="table-row bg-gray-100 even:bg-white hover:bg-gray-200">
             <td class="px-6 py-4 text-gray-700">
               <strong class="block md:hidden">Fecha:</strong> {{ turno.fecha or "No asignada" }}
             </td>
@@ -90,14 +90,14 @@
             </td>
             <td class="px-6 py-4">
               <strong class="block md:hidden">Acción:</strong>
-              {% if turno.fecha == current_date %}
-              <form method="POST" action="" onsubmit="setTimeout(() => { location.reload(); }, 1000);">
-                <button 
-                  type="submit" 
-                  class="w-full px-4 py-2 font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
-                  Actualizar
+              {% if turno.fecha == current_date%}
+              
+              <form action="{{ url_for('confirmar_turno.confirmar_turno', turno_id=turno.id) }}" method="POST" class="inline">
+                <button type="submit" class="w-full px-4 py-2 font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
+                  Confirmar Turno
                 </button>
               </form>
+              
               {% else %}
               <span class="text-gray-500">No Disponible</span>
               {% endif %}

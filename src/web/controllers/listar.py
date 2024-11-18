@@ -66,15 +66,11 @@ from datetime import date
 def listar_turnos():
     # Filtrar turnos únicamente en estado "PENDIENTE" y ordenarlos por fecha y hora
     turnos_pendientes = Turno.query \
-        .join(Estado, Turno.estado == Estado.id) \
-        .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
-        .outerjoin(Estudio, Turno.id_estudio == Estudio.id) \
-        .filter(Estado.nombre == 'PENDIENTE') \
-        .add_columns(
-            Turno.fecha, Turno.hora, Turno.id_estudio, Estado.nombre.label('estado_nombre'),
-            Usuario.dni, Usuario.nombre, Usuario.apellido, Estudio.consentimiento_path.label('consentimiento_path')
-        ) \
-        .order_by(Turno.fecha.asc(), Turno.hora.asc()).all()
+    .join(Estado, Turno.estado == Estado.id) \
+    .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
+    .outerjoin(Estudio, Turno.id_estudio == Estudio.id) \
+    .filter(Estado.nombre == 'PENDIENTE') \
+    .order_by(Turno.fecha.asc(), Turno.hora.asc()).all()
 
     current_date = date.today()
 
