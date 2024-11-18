@@ -74,8 +74,7 @@ def listar_turnos():
             Turno.fecha, Turno.hora, Turno.id_estudio, Estado.nombre.label('estado_nombre'),
             Usuario.dni, Usuario.nombre, Usuario.apellido, Estudio.consentimiento_path.label('consentimiento_path')
         ) \
-        .order_by(Turno.fecha.asc(), Turno.hora.asc())  # Ordenar por fecha ASC y hora ASC
-        .all()
+        .order_by(Turno.fecha.asc(), Turno.hora.asc()).all()
 
     current_date = date.today()
 
