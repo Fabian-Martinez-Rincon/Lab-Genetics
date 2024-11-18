@@ -1,13 +1,42 @@
 {% extends "_layouts/app.html" %}
-{% import "_macros/table.html" as Table %}
-
 {% block head %}
 <title>Lab-Genetics - Lista de Turnos</title>
+<style>
+  /* Estilos para la tabla responsiva */
+  @media screen and (max-width: 768px) {
+    .responsive-table {
+      display: block;
+      overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
+      white-space: nowrap; /* Mantiene el contenido en una sola línea */
+    }
+    .responsive-table table {
+      width: 100%; /* Asegura que ocupe todo el ancho */
+    }
+  }
+
+  /* Alternativa para mostrar contenido como tarjetas en dispositivos muy pequeños */
+  @media screen and (max-width: 576px) {
+    .table-row {
+      display: block;
+      border-bottom: 1px solid #e5e7eb; /* Línea divisoria entre "filas" */
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .table-row div {
+      margin: 0.5rem 0;
+    }
+
+    .table-header {
+      display: none; /* Ocultamos los encabezados de tabla en pantallas pequeñas */
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <main class="flex flex-col items-center min-h-screen">
-  <section class="w-full max-w-4xl px-4 py-12 text-center">
+  <section class="w-full max-w-6xl px-4 py-12 text-center">
     <div>
       <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
         Turnos solicitados
@@ -17,23 +46,66 @@
       </p>
     </div>
 
-    <div class="w-full overflow-x-auto">
-      {% call Table.Table() %}
-      {{ Table.TableHeader(("Fecha", "Hora", "ID Estudio", "Estado", "DNI", "Nombre", "Apellido")) }}
-      <tbody>
-        {% for turno in turnos %}
-        <tr class="bg-gray-100 even:bg-white hover:bg-gray-200">
-          <td class="px-6 py-4 text-gray-700">{{ turno.fecha or "No asignada" }}</td>
-          <td class="px-6 py-4 text-gray-700">{{ turno.hora }}</td>
-          <td class="px-6 py-4 text-gray-700">{{ turno.id_estudio }}</td>
-          <td class="px-6 py-4 text-gray-700">{{ turno.estado_nombre }}</td>
-          <td class="px-6 py-4 text-gray-700">{{ turno.dni or "No asignado" }}</td>
-          <td class="px-6 py-4 text-gray-700">{{ turno.nombre or "No asignado" }}</td>
-          <td class="px-6 py-4 text-gray-700">{{ turno.apellido or "No asignado" }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      {% endcall %}
+    <div class="w-full responsive-table">
+      <table class="w-full text-left border-collapse table-auto border">
+        <thead class="table-header">
+          <tr class="text-white bg-indigo-500">
+            <th class="px-4 py-2">Fecha</th>
+            <th class="px-4 py-2">Hora</th>
+            <th class="px-4 py-2">ID Estudio</th>
+            <th class="px-4 py-2">DNI</th>
+            <th class="px-4 py-2">Nombre</th>
+            <th class="px-4 py-2">Consentimiento</th>
+            <th class="px-4 py-2">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for turno in turnos %}
+          <tr class="bg-gray-100 even:bg-white hover:bg-gray-200 table-row">
+            <td class="px-6 py-4 text-gray-700">
+              <strong class="block md:hidden">Fecha:</strong> {{ turno.fecha or "No asignada" }}
+            </td>
+            <td class="px-6 py-4 text-gray-700">
+              <strong class="block md:hidden">Hora:</strong> {{ turno.hora }}
+            </td>
+            <td class="px-6 py-4 text-gray-700">
+              <strong class="block md:hidden">ID Estudio:</strong> {{ turno.id_estudio }}
+            </td>
+            <td class="px-6 py-4 text-gray-700">
+              <strong class="block md:hidden">DNI:</strong> {{ turno.dni or "No asignado" }}
+            </td>
+            <td class="px-6 py-4 text-gray-700">
+              <strong class="block md:hidden">Nombre:</strong> {{ turno.nombre or "No asignado" }} {{ turno.apellido }}
+            </td>
+            <td class="px-6 py-4">
+              <strong class="block md:hidden">Consentimiento:</strong>
+              {% if turno.consentimiento_path %}
+              <a href="{{ url_for('static', filename=turno.consentimiento_path) }}" 
+                 class="text-indigo-500 hover:underline" target="_blank">
+                Ver Consentimiento
+              </a>
+              {% else %}
+              <span class="text-gray-500">Sin Consentimiento</span>
+              {% endif %}
+            </td>
+            <td class="px-6 py-4">
+              <strong class="block md:hidden">Acción:</strong>
+              {% if turno.fecha == current_date %}
+              <form method="POST" action="" onsubmit="setTimeout(() => { location.reload(); }, 1000);">
+                <button 
+                  type="submit" 
+                  class="w-full px-4 py-2 font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg">
+                  Actualizar
+                </button>
+              </form>
+              {% else %}
+              <span class="text-gray-500">No Disponible</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </section>
 </main>
