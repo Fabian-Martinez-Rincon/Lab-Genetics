@@ -1,22 +1,8 @@
 [
     {
-        "id_laboratorio": 1,
-        "estado": "Pendiente",
-        "observaciones": "Cliente solicita urgencia en la entrega de resultados."
-    },
-    {
         "id_laboratorio": 2,
-        "estado": "En proceso",
-        "observaciones": "Se requieren análisis adicionales debido a resultados preliminares inesperados."
-    },
-    {
-        "id_laboratorio": 3,
-        "estado": "Finalizado",
-        "observaciones": null
-    },
-    {
-        "id_laboratorio": 4,
-        "estado": "Cancelado",
-        "observaciones": "Cancelación por solicitud del cliente debido a cambio de planes."
+        "estado": "PENDIENTE",
+        "observaciones": "Se requieren análisis adicionales debido a resultados preliminares inesperados.",
+        "fecha": "2024-11-15"
     }
 ]
