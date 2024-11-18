@@ -17,7 +17,8 @@ from src.web.controllers import (
     generar_presupuesto,
     acciones_presupuesto,
     verificar_pago,
-    solicitar_turno
+    solicitar_turno,
+    confirmar_turno
 )
 
 _blueprints = (
@@ -38,7 +39,8 @@ _blueprints = (
     generar_presupuesto.bp,
     acciones_presupuesto.bp,
     verificar_pago.bp,
-    solicitar_turno.bp
+    solicitar_turno.bp,
+    confirmar_turno.bp
 )
 
 def init_app(app: flask.Flask):
