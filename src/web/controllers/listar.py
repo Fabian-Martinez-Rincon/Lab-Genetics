@@ -64,7 +64,7 @@ from datetime import date
 @actualizar_turnos_vencidos
 @verificar_rol(3)
 def listar_turnos():
-    # Filtrar turnos únicamente en estado "PENDIENTE"
+    # Filtrar turnos únicamente en estado "PENDIENTE" y ordenarlos por fecha y hora
     turnos_pendientes = Turno.query \
         .join(Estado, Turno.estado == Estado.id) \
         .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
@@ -74,11 +74,13 @@ def listar_turnos():
             Turno.fecha, Turno.hora, Turno.id_estudio, Estado.nombre.label('estado_nombre'),
             Usuario.dni, Usuario.nombre, Usuario.apellido, Estudio.consentimiento_path.label('consentimiento_path')
         ) \
-        .order_by(Turno.fecha.asc()).all()
+        .order_by(Turno.fecha.asc(), Turno.hora.asc())  # Ordenar por fecha ASC y hora ASC
+        .all()
 
     current_date = date.today()
 
     return render_template('owner/listar_turnos.html', turnos=turnos_pendientes, current_date=current_date)
+
 
 
 
