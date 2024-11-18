@@ -22,7 +22,6 @@
             <th class="px-4 py-2">ID</th>
             <th class="px-4 py-2">Fecha</th>
             <th class="px-4 py-2">Estado</th>
-            <th class="px-4 py-2">Observaciones</th>
             <th class="px-4 py-2">Acción</th>
           </tr>
         </thead>
@@ -32,7 +31,6 @@
             <td class="px-6 py-4 text-gray-700">{{ pedido.id }}</td>
             <td class="px-6 py-4 text-gray-700">{{ pedido.fecha.strftime('%d/%m/%Y') }}</td>
             <td class="px-6 py-4 text-gray-700">{{ pedido.estado }}</td>
-            <td class="px-6 py-4 text-gray-700">{{ pedido.observaciones or "No especificadas" }}</td>
             <td class="px-6 py-4">
               <a href="{{ url_for('transportista.detalle_pedido', pedido_id=pedido.id) }}" 
                  class="text-indigo-500 hover:underline">
