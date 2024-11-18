@@ -9,8 +9,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.607938,
+        "longitud": -58.380293,
         "token": true
     },
     {
@@ -23,8 +23,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.923444,
+        "longitud": -57.955882,
         "token": true
     },
     {
@@ -37,8 +37,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.914067,
+        "longitud": -57.953553,
         "token": true
     },
     {
@@ -51,8 +51,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.922378,
+        "longitud": -57.961562,
         "token": true
     },
     {
@@ -65,8 +65,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.921519,
+        "longitud": -57.956727,
         "token": true
     },
     {
@@ -79,8 +79,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.930033,
+        "longitud": -57.950074,
         "token": true
     },
     {
@@ -93,8 +93,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.59757,
+        "longitud": -58.379066,
         "token": true
     },
     {
@@ -107,8 +107,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.607936,
+        "longitud": -58.372763,
         "token": true
     },
     {
@@ -121,8 +121,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.602302,
+        "longitud": -58.378546,
         "token": true
     },
     {
@@ -135,8 +135,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.610669,
+        "longitud": -58.374067,
         "token": true
     },
     {
@@ -149,8 +149,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.597872,
+        "longitud": -58.381305,
         "token": true
     },
     {
@@ -163,8 +163,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.602468,
+        "longitud": -58.388078,
         "token": true
     },
     {
@@ -177,8 +177,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.927155,
+        "longitud": -57.946426,
         "token": true
     },
     {
@@ -191,8 +191,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.603214,
+        "longitud": -58.385742,
         "token": true
     },
     {
@@ -205,8 +205,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.925504,
+        "longitud": -57.958396,
         "token": true
     },
     {
@@ -219,8 +219,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.597904,
+        "longitud": -58.381485,
         "token": true
     },
     {
@@ -233,8 +233,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.91514,
+        "longitud": -57.956667,
         "token": true
     },
     {
@@ -247,8 +247,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.600353,
+        "longitud": -58.389485,
         "token": true
     },
     {
@@ -261,8 +261,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.916121,
+        "longitud": -57.956527,
         "token": true
     },
     {
@@ -275,8 +275,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.611778,
+        "longitud": -58.391084,
         "token": true
     },
     {
@@ -289,8 +289,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.920137,
+        "longitud": -57.957669,
         "token": true
     },
     {
@@ -303,8 +303,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.595787,
+        "longitud": -58.384291,
         "token": true
     },
     {
@@ -317,8 +317,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.606326,
+        "longitud": -58.375194,
         "token": true
     },
     {
@@ -331,8 +331,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.917678,
+        "longitud": -57.944692,
         "token": true
     },
     {
@@ -345,8 +345,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.922149,
+        "longitud": -57.947257,
         "token": true
     },
     {
@@ -359,8 +359,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.606809,
+        "longitud": -58.372204,
         "token": true
     },
     {
@@ -373,8 +373,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.918885,
+        "longitud": -57.957319,
         "token": true
     },
     {
@@ -387,8 +387,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.610474,
+        "longitud": -58.383327,
         "token": true
     },
     {
@@ -401,8 +401,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.599893,
+        "longitud": -58.390569,
         "token": true
     },
     {
@@ -415,8 +415,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.929963,
+        "longitud": -57.963478,
         "token": true
     },
     {
@@ -429,8 +429,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.60545,
+        "longitud": -58.388423,
         "token": true
     },
     {
@@ -443,8 +443,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.911533,
+        "longitud": -57.959222,
         "token": true
     },
     {
@@ -457,8 +457,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.604812,
+        "longitud": -58.375219,
         "token": true
     },
     {
@@ -471,8 +471,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.928072,
+        "longitud": -57.962325,
         "token": true
     },
     {
@@ -485,8 +485,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.6009,
+        "longitud": -58.375371,
         "token": true
     },
     {
@@ -499,8 +499,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.922742,
+        "longitud": -57.945546,
         "token": true
     },
     {
@@ -513,8 +513,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.613429,
+        "longitud": -58.377433,
         "token": true
     },
     {
@@ -527,8 +527,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.599191,
+        "longitud": -58.379781,
         "token": true
     },
     {
@@ -541,8 +541,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.600713,
+        "longitud": -58.381141,
         "token": true
     },
     {
@@ -555,8 +555,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.915481,
+        "longitud": -57.957045,
         "token": true
     },
     {
@@ -569,8 +569,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.612151,
+        "longitud": -58.378654,
         "token": true
     },
     {
@@ -583,8 +583,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.608166,
+        "longitud": -58.391199,
         "token": true
     },
     {
@@ -597,8 +597,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.595678,
+        "longitud": -58.379936,
         "token": true
     },
     {
@@ -611,8 +611,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.922563,
+        "longitud": -57.948866,
         "token": true
     },
     {
@@ -625,8 +625,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.608548,
+        "longitud": -58.387854,
         "token": true
     },
     {
@@ -639,8 +639,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.612032,
+        "longitud": -58.388911,
         "token": true
     },
     {
@@ -653,8 +653,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.930344,
+        "longitud": -57.956111,
         "token": true
     },
     {
@@ -667,8 +667,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.930361,
+        "longitud": -57.945921,
         "token": true
     },
     {
@@ -681,8 +681,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.60438,
+        "longitud": -58.388248,
         "token": true
     },
     {
@@ -695,8 +695,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.913783,
+        "longitud": -57.961521,
         "token": true
     },
     {
@@ -709,8 +709,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.594821,
+        "longitud": -58.381171,
         "token": true
     },
     {
@@ -723,8 +723,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.920857,
+        "longitud": -57.957932,
         "token": true
     },
     {
@@ -737,8 +737,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.602996,
+        "longitud": -58.375052,
         "token": true
     },
     {
@@ -751,8 +751,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.921437,
+        "longitud": -57.953018,
         "token": true
     },
     {
@@ -765,8 +765,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.597716,
+        "longitud": -58.383296,
         "token": true
     },
     {
@@ -779,8 +779,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.597571,
+        "longitud": -58.372421,
         "token": true
     },
     {
@@ -793,8 +793,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.594952,
+        "longitud": -58.39022,
         "token": true
     },
     {
@@ -807,8 +807,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.599235,
+        "longitud": -58.384599,
         "token": true
     },
     {
@@ -821,8 +821,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.596465,
+        "longitud": -58.389839,
         "token": true
     },
     {
@@ -835,8 +835,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.916229,
+        "longitud": -57.949951,
         "token": true
     },
     {
@@ -849,8 +849,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.610465,
+        "longitud": -58.383282,
         "token": true
     },
     {
@@ -863,8 +863,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.607265,
+        "longitud": -58.389705,
         "token": true
     },
     {
@@ -877,8 +877,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.598334,
+        "longitud": -58.378878,
         "token": true
     },
     {
@@ -891,8 +891,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.604191,
+        "longitud": -58.381081,
         "token": true
     },
     {
@@ -905,8 +905,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.604936,
+        "longitud": -58.387406,
         "token": true
     },
     {
@@ -919,8 +919,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.914804,
+        "longitud": -57.951022,
         "token": true
     },
     {
@@ -933,8 +933,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.595828,
+        "longitud": -58.380869,
         "token": true
     },
     {
@@ -947,8 +947,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.605099,
+        "longitud": -58.389162,
         "token": true
     },
     {
@@ -961,8 +961,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.91385,
+        "longitud": -57.947743,
         "token": true
     },
     {
@@ -975,8 +975,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.915864,
+        "longitud": -57.960326,
         "token": true
     },
     {
@@ -989,8 +989,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.611816,
+        "longitud": -58.377859,
         "token": true
     },
     {
@@ -1003,8 +1003,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.929074,
+        "longitud": -57.945691,
         "token": true
     },
     {
@@ -1017,8 +1017,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.600647,
+        "longitud": -58.375933,
         "token": true
     },
     {
@@ -1031,8 +1031,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.612749,
+        "longitud": -58.384898,
         "token": true
     },
     {
@@ -1045,8 +1045,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.607243,
+        "longitud": -58.372618,
         "token": true
     },
     {
@@ -1059,8 +1059,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.607903,
+        "longitud": -58.378941,
         "token": true
     },
     {
@@ -1073,8 +1073,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.604918,
+        "longitud": -58.382128,
         "token": true
     },
     {
@@ -1087,8 +1087,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.612287,
+        "longitud": -58.388103,
         "token": true
     },
     {
@@ -1101,8 +1101,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.596264,
+        "longitud": -58.385659,
         "token": true
     },
     {
@@ -1115,8 +1115,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.914906,
+        "longitud": -57.953167,
         "token": true
     },
     {
@@ -1129,8 +1129,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.596771,
+        "longitud": -58.383921,
         "token": true
     },
     {
@@ -1143,8 +1143,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.604987,
+        "longitud": -58.376303,
         "token": true
     },
     {
@@ -1157,8 +1157,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.919206,
+        "longitud": -57.963285,
         "token": true
     },
     {
@@ -1171,8 +1171,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.607959,
+        "longitud": -58.382365,
         "token": true
     },
     {
@@ -1185,8 +1185,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.597806,
+        "longitud": -58.383194,
         "token": true
     },
     {
@@ -1199,8 +1199,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.601409,
+        "longitud": -58.384882,
         "token": true
     },
     {
@@ -1213,8 +1213,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.925112,
+        "longitud": -57.950954,
         "token": true
     },
     {
@@ -1227,8 +1227,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.92674,
+        "longitud": -57.960524,
         "token": true
     },
     {
@@ -1241,8 +1241,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.595941,
+        "longitud": -58.3904,
         "token": true
     },
     {
@@ -1255,8 +1255,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.610398,
+        "longitud": -58.39154,
         "token": true
     },
     {
@@ -1269,8 +1269,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.923311,
+        "longitud": -57.964054,
         "token": true
     },
     {
@@ -1283,8 +1283,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.595477,
+        "longitud": -58.372551,
         "token": true
     },
     {
@@ -1297,8 +1297,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.601109,
+        "longitud": -58.38225,
         "token": true
     },
     {
@@ -1311,8 +1311,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.605256,
+        "longitud": -58.386549,
         "token": true
     },
     {
@@ -1325,8 +1325,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.605465,
+        "longitud": -58.377971,
         "token": true
     },
     {
@@ -1339,8 +1339,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.60525,
+        "longitud": -58.374585,
         "token": true
     },
     {
@@ -1353,8 +1353,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.603982,
+        "longitud": -58.379309,
         "token": true
     },
     {
@@ -1367,8 +1367,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "La Plata",
         "id_rol": "3",
-        "latitud": -34.9215,
-        "longitud": -57.9545,
+        "latitud": -34.919958,
+        "longitud": -57.957551,
         "token": true
     },
     {
@@ -1381,8 +1381,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Buenos Aires",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.602387,
+        "longitud": -58.37188,
         "token": true
     },
     {
@@ -1395,8 +1395,8 @@
         "password": "pbkdf2:sha256:600000$uDwGbS5fInlIt6Si$64c585bfc855e70949c81d9331be4f598882895420d97ded9fb44dbfdd11cd2d",
         "address": "Capital Federal",
         "id_rol": "3",
-        "latitud": -34.6037,
-        "longitud": -58.3816,
+        "latitud": -34.609488,
+        "longitud": -58.391527,
         "token": true
     }
 ]
