@@ -1,0 +1,49 @@
+{% extends "_layouts/app.html" %}
+{% block head %}
+<title>Pedidos Pendientes</title>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-6xl px-4 py-12 text-center">
+    <div>
+      <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+        Pedidos Pendientes
+      </h1>
+      <p class="mb-4 text-base text-gray-500 md:text-lg">
+        A continuación se muestra una lista de los pedidos en estado "Pendiente".
+      </p>
+    </div>
+
+    <div class="w-full overflow-x-auto">
+      <table class="w-full text-left border-collapse table-auto border">
+        <thead>
+          <tr class="text-white bg-indigo-500">
+            <th class="px-4 py-2">ID</th>
+            <th class="px-4 py-2">Fecha</th>
+            <th class="px-4 py-2">Estado</th>
+            <th class="px-4 py-2">Observaciones</th>
+            <th class="px-4 py-2">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pedido in pedidos %}
+          <tr class="bg-gray-100 even:bg-white hover:bg-gray-200">
+            <td class="px-6 py-4 text-gray-700">{{ pedido.id }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ pedido.fecha.strftime('%d/%m/%Y') }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ pedido.estado }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ pedido.observaciones or "No especificadas" }}</td>
+            <td class="px-6 py-4">
+              <a href="{{ url_for('transportista.detalle_pedido', pedido_id=pedido.id) }}" 
+                 class="text-indigo-500 hover:underline">
+                Ver Detalle
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+{% endblock %}
