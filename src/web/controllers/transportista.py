@@ -23,7 +23,7 @@ def listar_pedidos_pendientes():
 
 @bp.route('/detalle_pedido/<int:pedido_id>', methods=['GET'])
 @verificar_autenticacion
-@verificar_rol(6)  # Suponiendo que el rol 3 corresponde al laboratorio
+@verificar_rol(6)  # Rol correspondiente al transportista o laboratorio
 def detalle_pedido(pedido_id):
     # Obtener el pedido
     pedido = Pedido.query.get(pedido_id)
@@ -33,6 +33,9 @@ def detalle_pedido(pedido_id):
 
     # Obtener el laboratorio asociado
     laboratorio = Laboratorio.query.get(pedido.id_laboratorio)
+    if not laboratorio:
+        flash('Laboratorio no encontrado.', 'error')
+        return redirect(url_for('listar_pedidos'))
 
     # Preparar los estudios asociados al pedido
     estudios = pedido.estudios
