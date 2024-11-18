@@ -57,21 +57,31 @@ def listar_usuarios():
     return render_template('owner/listar_usuarios.html', usuarios=usuarios)
 
 
+from datetime import date
+
 @bp.route('/listar_turnos')
 @verificar_autenticacion
 @actualizar_turnos_vencidos
 @verificar_rol(3)
 def listar_turnos():
-    # Consulta que incluye el nombre del estado y el usuario asociado al turno
-    mis_turnos = Turno.query \
+    # Filtrar turnos únicamente en estado "PENDIENTE"
+    turnos_pendientes = Turno.query \
         .join(Estado, Turno.estado == Estado.id) \
         .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
+        .outerjoin(Estudio, Turno.id_estudio == Estudio.id) \
+        .filter(Estado.nombre == 'PENDIENTE') \
         .add_columns(
             Turno.fecha, Turno.hora, Turno.id_estudio, Estado.nombre.label('estado_nombre'),
-            Usuario.dni, Usuario.nombre, Usuario.apellido
+            Usuario.dni, Usuario.nombre, Usuario.apellido, Estudio.consentimiento_path.label('consentimiento_path')
         ) \
         .order_by(Turno.fecha.asc()).all()
-    return render_template('owner/listar_turnos.html', turnos=mis_turnos)
+
+    current_date = date.today()
+
+    return render_template('owner/listar_turnos.html', turnos=turnos_pendientes, current_date=current_date)
+
+
+
 
 @verificar_autenticacion
 @bp.route('/listar_laboratorios_turnos', methods=['GET'])
