@@ -14,6 +14,7 @@
         "id_presupuesto": 100,
         "id_pedido": 1,
         "historial": [], 
-        "patologias": []
+        "patologias": [],
+        "consentimiento_path": "path/to/file"
     }
 ]
