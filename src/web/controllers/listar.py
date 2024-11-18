@@ -66,15 +66,31 @@ from datetime import date
 def listar_turnos():
     # Filtrar turnos únicamente en estado "PENDIENTE" y ordenarlos por fecha y hora
     turnos_pendientes = Turno.query \
-    .join(Estado, Turno.estado == Estado.id) \
-    .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
-    .outerjoin(Estudio, Turno.id_estudio == Estudio.id) \
-    .filter(Estado.nombre == 'PENDIENTE') \
-    .order_by(Turno.fecha.asc(), Turno.hora.asc()).all()
+        .join(Estado, Turno.estado == Estado.id) \
+        .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
+        .outerjoin(Estudio, Turno.id_estudio == Estudio.id) \
+        .filter(Estado.nombre == 'PENDIENTE') \
+        .add_columns(
+            Turno.id.label('turno_id'),
+            Turno.fecha,
+            Turno.hora,
+            Turno.id_estudio,
+            Estado.nombre.label('estado_nombre'),
+            Usuario.dni.label('usuario_dni'),
+            Usuario.nombre.label('usuario_nombre'),
+            Usuario.apellido.label('usuario_apellido'),
+            Estudio.consentimiento_path.label('consentimiento_path')
+        ) \
+        .order_by(Turno.fecha.asc(), Turno.hora.asc()).all()
 
     current_date = date.today()
 
-    return render_template('owner/listar_turnos.html', turnos=turnos_pendientes, current_date=current_date)
+    return render_template(
+        'owner/listar_turnos.html',
+        turnos=turnos_pendientes,
+        current_date=current_date
+    )
+
 
 
 
