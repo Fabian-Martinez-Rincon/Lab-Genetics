@@ -1,10 +1,20 @@
 {% extends "_layouts/app.html" %}
+
 {% block head %}
 <title>Pedidos Pendientes</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<style>
+  #map {
+    height: 500px;
+    margin-top: 2rem;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <main class="flex flex-col items-center min-h-screen">
+  <!-- Tabla de Pedidos -->
   <section class="w-full max-w-6xl px-4 py-12 text-center">
     <div>
       <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
@@ -43,5 +53,128 @@
       </table>
     </div>
   </section>
+
+  <!-- Selector y Mapa -->
+  <section class="w-full max-w-6xl px-4 py-12 text-center">
+    <h2 class="mb-4 text-2xl font-semibold text-indigo-800 md:text-3xl lg:text-4xl">
+      Recorrido de Laboratorios Asociados
+    </h2>
+    <p class="mb-6 text-gray-500">Selecciona un punto inicial haciendo clic en el mapa o elige una opción predefinida.</p>
+
+    <!-- Selector del Punto Inicial -->
+    <div class="mb-4">
+      <label for="puntoInicial" class="block mb-2 text-lg font-medium text-gray-700">Seleccionar Punto Inicial:</label>
+      <select id="puntoInicial" class="px-4 py-2 border rounded-lg">
+        <option value="-34.6037,-58.3816">Buenos Aires</option>
+        {% for lab in laboratorios_json %}
+        <option value="{{ lab.latitud }},{{ lab.longitud }}">{{ lab.nombre }}</option>
+        {% endfor %}
+        <option value="manual">Seleccionar punto en el mapa</option>
+      </select>
+    </div>
+
+    <!-- Mapa -->
+    <div id="map" class="rounded-lg shadow-lg"></div>
+    <button id="updateMap" 
+            class="mt-4 px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">
+      Actualizar Mapa
+    </button>
+  </section>
 </main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Crear el mapa
+    var map = L.map('map').setView([-34.6037, -58.3816], 12); // Vista inicial (Buenos Aires)
+
+    // Agregar capa base de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Datos de laboratorios asociados a pedidos pendientes
+    var laboratorios = {{ laboratorios_json | tojson }};
+    var latLngs = [];
+    var markers = [];
+    var selectedPoint = null;
+
+    // Agregar marcadores para cada laboratorio
+    laboratorios.forEach(function (lab) {
+      if (lab.latitud && lab.longitud) {
+        var marker = L.marker([lab.latitud, lab.longitud])
+          .bindPopup(`
+            <b>${lab.nombre}</b><br>
+            Dirección: ${lab.direccion}<br>
+            Teléfono: ${lab.telefono}
+          `)
+          .addTo(map);
+        markers.push(marker);
+        latLngs.push([lab.latitud, lab.longitud]);
+      }
+    });
+
+    // Dibujar línea conectando los puntos
+    var polyline = L.polyline(latLngs, { color: 'green', weight: 4 }).addTo(map);
+
+    // Ajustar vista a todos los puntos
+    if (latLngs.length > 0) {
+      map.fitBounds(L.latLngBounds(latLngs));
+    }
+
+    // Habilitar selección de punto inicial al hacer clic en el mapa
+    map.on('click', function (e) {
+      if (selectedPoint) {
+        map.removeLayer(selectedPoint); // Eliminar marcador anterior
+      }
+      selectedPoint = L.marker(e.latlng, { draggable: true })
+        .bindPopup('Punto inicial seleccionado')
+        .addTo(map)
+        .openPopup();
+      document.getElementById('puntoInicial').value = 'manual';
+    });
+
+    // Actualizar el mapa según el punto inicial seleccionado
+    document.getElementById('updateMap').addEventListener('click', function () {
+      let puntoInicial;
+
+      const selectedValue = document.getElementById('puntoInicial').value;
+      if (selectedValue === 'manual' && selectedPoint) {
+        const latLng = selectedPoint.getLatLng();
+        puntoInicial = { lat: latLng.lat, lon: latLng.lng };
+      } else if (selectedValue !== 'manual') {
+        const [lat, lon] = selectedValue.split(',').map(Number);
+        puntoInicial = { lat, lon };
+      } else {
+        alert('Por favor selecciona un punto en el mapa o elige una opción válida.');
+        return;
+      }
+
+      // Reordenar laboratorios por distancia al nuevo punto inicial
+      laboratorios.sort(function (a, b) {
+        const distA = haversine(puntoInicial.lat, puntoInicial.lon, a.latitud, a.longitud);
+        const distB = haversine(puntoInicial.lat, puntoInicial.lon, b.latitud, b.longitud);
+        return distA - distB;
+      });
+
+      // Actualizar el mapa con los nuevos datos
+      polyline.remove();
+      latLngs = laboratorios.map(lab => [lab.latitud, lab.longitud]);
+      polyline = L.polyline(latLngs, { color: 'green', weight: 4 }).addTo(map);
+      map.fitBounds(L.latLngBounds(latLngs));
+    });
+  });
+
+  // Fórmula de Haversine
+  function haversine(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radio de la Tierra en km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+</script>
 {% endblock %}
