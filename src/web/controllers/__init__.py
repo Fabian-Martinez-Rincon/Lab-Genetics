@@ -19,7 +19,8 @@ from src.web.controllers import (
     verificar_pago,
     solicitar_turno,
     confirmar_turno,
-    transportista
+    transportista,
+    finalizar_jornada
 )
 
 _blueprints = (
@@ -42,7 +43,8 @@ _blueprints = (
     verificar_pago.bp,
     solicitar_turno.bp,
     confirmar_turno.bp,
-    transportista.bp
+    transportista.bp,
+    finalizar_jornada.bp
 )
 
 def init_app(app: flask.Flask):
