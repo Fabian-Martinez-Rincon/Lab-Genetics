@@ -109,7 +109,7 @@ def actualizar_turnos_vencidos(f):
         for turno in turnos_vencidos:
             turno.estado = 5  # Presupuesto vencido / cancelado  
             turno.estado_interno = "LIBRE"
-            estudio = Estudio.query.filter_by(id=turno.id_estado).first()
+            estudio = Estudio.query.filter_by(id=turno.id_estudio).first()
             estudio.historial.append(HistorialEstado(estado="TURNO CANCELADO"))
             Notificacion.send_mail(estudio.id_paciente, f"El Turno para el estudio {estudio.id} ha vencido.")
         db.session.commit()
