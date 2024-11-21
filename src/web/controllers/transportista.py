@@ -1,26 +1,51 @@
 from flask import render_template, Blueprint, flash, redirect, url_for
 from src.core.models.database import db
-from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos
-from src.core.models.estudio import Estudio
-from sqlalchemy.orm import aliased
-from sqlalchemy.sql import func
-from src.core.models.historialEstado import HistorialEstado
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 from src.core.models.pedido import Pedido
 from src.core.models.laboratorio import Laboratorio
 
 bp = Blueprint('transportista', __name__)
 
+from datetime import date
+
 @bp.route('/listar_pedidos_pendientes', methods=['GET'])
 @verificar_autenticacion
 @verificar_rol(6)  # Asegúrate de que solo roles específicos puedan acceder
 def listar_pedidos_pendientes():
-    # Filtrar pedidos en estado "Pendiente"
+    # Filtrar el pedido en estado 'EN PROCESO'
+    pedido_en_proceso = db.session.query(
+        Pedido.id, Pedido.estado, Pedido.fecha, Laboratorio.nombre, Laboratorio.direccion,
+        Laboratorio.telefono, Laboratorio.latitud, Laboratorio.longitud
+    ).join(Laboratorio, Pedido.id_laboratorio == Laboratorio.id).filter(
+        Pedido.estado == 'EN PROCESO'
+    ).first()
+
+    # Filtrar pedidos pendientes con fecha hasta hoy
+    hoy = date.today()
     pedidos_pendientes = db.session.query(
         Pedido.id, Pedido.estado, Pedido.fecha, Laboratorio.nombre, Laboratorio.direccion,
         Laboratorio.telefono, Laboratorio.latitud, Laboratorio.longitud
-    ).join(Laboratorio, Pedido.id_laboratorio == Laboratorio.id).filter(Pedido.estado == 'PENDIENTE').all()
+    ).join(Laboratorio, Pedido.id_laboratorio == Laboratorio.id).filter(
+        Pedido.estado == 'PENDIENTE',
+        Pedido.fecha <= hoy
+    ).order_by(Pedido.fecha.asc()).all()
 
-    # Convertir pedidos pendientes a JSON para el mapa
+    # Filtrar pedidos finalizados
+    pedidos_finalizados = db.session.query(
+        Pedido.id, Pedido.estado, Pedido.fecha, Laboratorio.nombre, Laboratorio.direccion,
+        Laboratorio.telefono, Laboratorio.latitud, Laboratorio.longitud
+    ).join(Laboratorio, Pedido.id_laboratorio == Laboratorio.id).filter(
+        Pedido.estado == 'FINALIZADO'
+    ).order_by(Pedido.fecha.asc()).all()
+
+    # Construir el listado final
+    pedidos = []
+    if pedido_en_proceso:
+        pedidos.append(pedido_en_proceso)
+    pedidos.extend(pedidos_pendientes)
+    pedidos.extend(pedidos_finalizados)
+
+    # Convertir pedidos a JSON para el mapa, excluyendo los FINALIZADOS
     laboratorios_json = [
         {
             'nombre': pedido.nombre,
@@ -29,13 +54,14 @@ def listar_pedidos_pendientes():
             'latitud': pedido.latitud,
             'longitud': pedido.longitud
         }
-        for pedido in pedidos_pendientes
+        for pedido in pedidos if pedido.estado != 'FINALIZADO'
     ]
 
     return render_template(
         'laboratorio/listar_pedidos_pendientes.html',
-        pedidos=pedidos_pendientes,
-        laboratorios_json=laboratorios_json
+        pedidos=pedidos,
+        laboratorios_json=laboratorios_json,
+        pedido_en_proceso=pedido_en_proceso
     )
 
 
@@ -67,55 +93,55 @@ def detalle_pedido(pedido_id):
         estudios=estudios
     )
 
-
-#from flask import render_template, jsonify
-
-import math
-
-def haversine(lat1, lon1, lat2, lon2):
-    """
-    Calcula la distancia entre dos puntos geográficos usando la fórmula de Haversine.
-    :param lat1, lon1: Coordenadas del primer punto
-    :param lat2, lon2: Coordenadas del segundo punto
-    :return: Distancia en kilómetros
-    """
-    R = 6371  # Radio de la Tierra en kilómetros
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = math.sin(dlat / 2) ** 2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    return R * c
-
-@bp.route('/recorrido_pedidos_pendientes', methods=['GET'])
+@bp.route('/comenzar_viaje/<int:pedido_id>', methods=['POST'])
 @verificar_autenticacion
-@verificar_rol(6)  # Rol correspondiente al transportista o usuario autorizado
-def recorrido_pedidos_pendientes():
-    # Consultar pedidos pendientes y unirlos con la información del laboratorio
-    pedidos_pendientes = db.session.query(
-        Pedido.id, Pedido.estado, Pedido.fecha, Laboratorio.nombre, Laboratorio.direccion,
-        Laboratorio.telefono, Laboratorio.latitud, Laboratorio.longitud
-    ).join(Laboratorio, Pedido.id_laboratorio == Laboratorio.id).filter(Pedido.estado == 'PENDIENTE').all()
+@verificar_rol(6)
+def comenzar_viaje(pedido_id):
+    pedido_en_proceso = Pedido.query.filter_by(estado='EN PROCESO').first()
+    if pedido_en_proceso:
+        flash(f'Ya tienes un pedido en estado "EN PROCESO" (Pedido #{pedido_en_proceso.id}). Finaliza ese viaje antes de comenzar otro.', 'error')
+        return redirect(url_for('transportista.listar_pedidos_pendientes'))
+    
+    pedido = Pedido.query.get(pedido_id)
+    if not pedido:
+        flash('Pedido no encontrado.', 'error')
+        return redirect(url_for('transportista.listar_pedidos_pendientes'))
 
-    # Punto de referencia (ejemplo: la ubicación actual del transportista)
-    punto_inicial = {'lat': -34.6037, 'lon': -58.3816}  # Buenos Aires, como ejemplo
+    if pedido.estado == 'PENDIENTE':
+        pedido.estado = 'EN PROCESO'
+        db.session.commit()
+        flash(f'El estado del pedido #{pedido.id} ha cambiado a "EN PROCESO".', 'success')
+    else:
+        flash('El pedido no está en estado "Pendiente".', 'error')
 
-    # Convertir los resultados a JSON y calcular distancias
-    laboratorios_json = [
-        {
-            'nombre': pedido.nombre,
-            'direccion': pedido.direccion,
-            'telefono': pedido.telefono,
-            'latitud': pedido.latitud,
-            'longitud': pedido.longitud,
-            'distancia': haversine(punto_inicial['lat'], punto_inicial['lon'], pedido.latitud, pedido.longitud)
-        }
-        for pedido in pedidos_pendientes
-    ]
+    return redirect(url_for('transportista.listar_pedidos_pendientes'))
 
-    # Ordenar los laboratorios por distancia al punto inicial
-    laboratorios_json.sort(key=lambda lab: lab['distancia'])
 
-    return render_template(
-        'laboratorio/recorrido_laboratorios.html',
-        laboratorios_json=laboratorios_json
-    )
+@bp.route('/empezar_jornada', methods=['POST'])
+@verificar_autenticacion
+@verificar_rol(6)
+def empezar_jornada():
+    flash("¡Jornada iniciada exitosamente!", "success")
+    return redirect(url_for('transportista.listar_pedidos_pendientes'))
+
+
+@bp.route('/terminar_jornada', methods=['POST'])
+@verificar_autenticacion
+@verificar_rol(6)
+def terminar_jornada():
+    flash("¡Jornada finalizada con éxito!", "success")
+    return redirect(url_for('transportista.listar_pedidos_pendientes'))
+
+@bp.route('/terminar_viaje/<int:pedido_id>', methods=['POST'])
+@verificar_autenticacion
+@verificar_rol(6)
+def terminar_viaje(pedido_id):
+    pedido = Pedido.query.get(pedido_id)
+    if not pedido or pedido.estado != 'EN PROCESO':
+        flash('No hay un viaje en curso para este pedido.', 'error')
+        return redirect(url_for('transportista.listar_pedidos_pendientes'))
+    
+    pedido.estado = 'FINALIZADO'
+    db.session.commit()
+    flash(f'El pedido #{pedido.id} ha sido finalizado.', 'success')
+    return redirect(url_for('transportista.listar_pedidos_pendientes'))
