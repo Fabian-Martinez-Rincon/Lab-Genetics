@@ -12,3 +12,4 @@ from src.core.models.estado import Estado
 from src.core.models.presupuesto import Presupuesto
 from src.core.models.pedido import Pedido
 from src.core.models.historialEstado import HistorialEstado
+from src.core.models.exterior import Exterior

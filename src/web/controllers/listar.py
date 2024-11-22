@@ -65,11 +65,15 @@ from datetime import date
 @verificar_rol(3)
 def listar_turnos():
     # Filtrar turnos únicamente en estado "PENDIENTE" y ordenarlos por fecha y hora
+    id_laboratorio = session.get('user_id')
     turnos_pendientes = Turno.query \
         .join(Estado, Turno.estado == Estado.id) \
         .outerjoin(Usuario, Turno.id_paciente == Usuario.id) \
         .outerjoin(Estudio, Turno.id_estudio == Estudio.id) \
-        .filter(Estado.nombre == 'PENDIENTE') \
+        .filter(
+            (Estado.nombre == 'PENDIENTE') & 
+            (Turno.id_laboratorio == id_laboratorio)
+        ) \
         .add_columns(
             Turno.id.label('turno_id'),
             Turno.fecha,
@@ -82,6 +86,7 @@ def listar_turnos():
             Estudio.consentimiento_path.label('consentimiento_path')
         ) \
         .order_by(Turno.fecha.asc(), Turno.hora.asc()).all()
+
 
     current_date = date.today()
 
