@@ -18,10 +18,12 @@ class Estudio(db.Model):
     consentimiento_path  = db.Column(db.String(255), nullable=True)
     # Clave foránea para vincular con Pedido
     id_pedido = db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=True)
+    id_exterior = db.Column(db.Integer, db.ForeignKey('exteriors.id'), nullable=True)
     # Historial de estados
     historial = db.relationship("HistorialEstado", backref="estudio_relacion", cascade="all, delete-orphan")
     patologias = db.relationship('Patologia', secondary='estudios_patologias', back_populates='estudios')
     presupuesto = db.relationship('Presupuesto', backref=db.backref('estudios'))
+
     @classmethod
     def generar_id(cls, apellido, nombre, id_paciente):
         apellido_abrev = apellido[:3].upper()

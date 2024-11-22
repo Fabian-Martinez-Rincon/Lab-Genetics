@@ -20,11 +20,11 @@
       </p>
       {% else %}
       <!-- Si está autenticado, mostramos las opciones -->
-        <p class="mb-4 text-base md:text-lg text-zinc-500 text-center">
+        <p class="mb-4 text-base text-center md:text-lg text-zinc-500">
           ¡Bienvenidx <span class="text-blue-500">{{ current_user.nombre}}</span> <span class="text-blue-500">{{ current_user.apellido}}</span> 😃! Selecciona una opción para continuar:
         </p>
         {% if session.rol_id == 1 %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto my-8 max-w-full px-4">
+        <div class="grid max-w-full grid-cols-1 gap-6 px-4 mx-auto my-8 sm:grid-cols-2 lg:grid-cols-3">
             <!-- Botón Registrar Transportista -->
             <a href='/registrar_transportista' class="flex items-center justify-center w-full px-6 py-4 text-white transition duration-500 bg-indigo-600 rounded-lg shadow-md hover:shadow-lg hover:bg-indigo-500">
                 <div class="flex flex-col items-center">
@@ -82,7 +82,7 @@
             </a>
         </div>
         {% elif session.rol_id == 2 %} <!-- Si el rol es 2, es el administrador general -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-auto my-8 max-w-full px-4">
+          <div class="grid max-w-full grid-cols-1 gap-6 px-4 mx-auto my-8 sm:grid-cols-2 md:grid-cols-3">
               <!-- Botón Generar Presupuesto -->
               <a href="/presupuestos_solicitados" class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
                   <div class="flex flex-col items-center">
@@ -116,12 +116,12 @@
               </button>
 
               <!-- Botón Espera de Envios -->
-              <button class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
+              <a href="/espera_envios" class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
                   <div class="flex flex-col items-center">
                       <img src="/static/img/accesibilidad/esperadeenvio.png" alt="Icono Espera de Envios" class="object-contain mb-3 w-14 h-14">
                       <span class="text-lg md:text-xl">Espera de Envios</span>
                   </div>
-              </button>
+              </a>
 
               <!-- Enviados al Exterior -->
               <button class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
@@ -141,7 +141,7 @@
           </div>
 
           {% elif session.rol_id == 3 %} <!-- Si el rol es 3, es el Laboratorio -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-auto my-8 max-w-full px-4">
+          <div class="grid max-w-full grid-cols-1 gap-6 px-4 mx-auto my-8 sm:grid-cols-2">
               <!-- Botón Turnos -->
               <a href="/listar_turnos" class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
                   <div class="flex flex-col items-center">
@@ -159,7 +159,7 @@
               </a>
           </div>
           {% elif session.rol_id == 4 %} <!-- Si el rol es 4, es el Médico -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-auto my-8 max-w-full px-4">
+          <div class="grid max-w-full grid-cols-1 gap-6 px-4 mx-auto my-8 sm:grid-cols-2 md:grid-cols-3">
               <!-- Botón Registrar Paciente -->
               <a href="/registrar_paciente" class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
                   <div class="flex flex-col items-center">
@@ -201,7 +201,7 @@
               </a>
           </div>
           {% elif session.rol_id == 5 %} <!-- Si el rol es 5, es el Paciente -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-auto my-8 max-w-full px-4">
+            <div class="grid max-w-full grid-cols-1 gap-6 px-4 mx-auto my-8 sm:grid-cols-2 md:grid-cols-3">
                 <!-- Botón Presupuesto -->
                 <a href="/mis_presupuestos" class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
                     <div class="flex flex-col items-center">
@@ -235,7 +235,7 @@
                 </a>
             </div>
             {% elif session.rol_id == 6 %} <!-- Si el rol es 6, es el Transportista -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-auto my-8 max-w-full px-4">
+            <div class="grid max-w-full grid-cols-1 gap-6 px-4 mx-auto my-8 sm:grid-cols-2">
                 <!-- Botón Pedidos -->
                 <a href="/listar_pedidos_pendientes" class="flex items-center justify-center w-full py-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500">
                     <div class="flex flex-col items-center">

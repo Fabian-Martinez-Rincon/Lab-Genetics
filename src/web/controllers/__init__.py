@@ -20,7 +20,8 @@ from src.web.controllers import (
     solicitar_turno,
     confirmar_turno,
     transportista,
-    finalizar_jornada
+    finalizar_jornada,
+    espera_envios
 )
 
 _blueprints = (
@@ -44,7 +45,8 @@ _blueprints = (
     solicitar_turno.bp,
     confirmar_turno.bp,
     transportista.bp,
-    finalizar_jornada.bp
+    finalizar_jornada.bp,
+    espera_envios.bp
 )
 
 def init_app(app: flask.Flask):
