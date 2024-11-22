@@ -37,13 +37,13 @@
       <div class="flex justify-center mb-4">
         <form action="{{ url_for('transportista.empezar_jornada') }}" method="POST" class="mr-2">
           <button type="submit"
-                  class="px-4 py-2 text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 transition duration-300">
+                  class="px-4 py-2 text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-green-700">
             Empezar Jornada
           </button>
         </form>
-        <form action="{{ url_for('transportista.terminar_jornada') }}" method="POST">
+        <form action="{{ url_for('finalizar_jornada.finalizar_jornada') }}" method="POST">
           <button type="submit"
-                  class="px-4 py-2 text-white bg-red-600 rounded-lg shadow-md hover:bg-red-700 transition duration-300">
+                  class="px-4 py-2 text-white transition duration-300 bg-red-600 rounded-lg shadow-md hover:bg-red-700">
             Terminar Jornada
           </button>
         </form>
@@ -54,7 +54,7 @@
     </div>
 
     <div class="w-full overflow-x-auto">
-      <table class="w-full text-left border-collapse table-auto border">
+      <table class="w-full text-left border border-collapse table-auto">
         <thead>
           <tr class="text-white bg-indigo-500">
             <th class="px-4 py-2">Fecha</th>
@@ -118,7 +118,7 @@
     <!-- Mapa -->
     <div id="map" class="rounded-lg shadow-lg"></div>
     <button id="updateMap" 
-            class="mt-4 px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">
+            class="px-4 py-2 mt-4 text-white transition duration-300 bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700">
       Actualizar Mapa
     </button>
     <!-- Selector del Punto Inicial -->
