@@ -16,7 +16,7 @@
 
     <!-- Información del Pedido -->
     <div class="px-8 py-6 space-y-6">
-      <div class=" gap-4 ">
+      <div class="gap-4">
         <div>
           <div class="flex items-center space-x-2">
             <p class="text-lg font-semibold text-gray-700">Estado:</p>
@@ -27,6 +27,18 @@
             <p class="text-lg font-semibold text-gray-700">Fecha:</p>
             <p class="text-gray-900">{{ pedido.fecha.strftime('%d/%m/%Y') }}</p>
           </div>
+
+          {% if pedido.observaciones %}
+          <div class="flex items-center space-x-2">
+            <p class="text-lg font-semibold text-gray-700">Observaciones:</p>
+            <p class="text-gray-900">{{ pedido.observaciones }}</p>
+          </div>
+          {% endif %}
+
+          <div class="flex items-center space-x-2">
+            <p class="text-lg font-semibold text-gray-700">Cantidad de Estudios a Retirar:</p>
+            <p class="text-gray-900">{{ pedido.estudios|length }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -34,7 +46,7 @@
     <!-- Información del Laboratorio -->
     <div class="px-8 py-6 bg-gray-100 rounded-lg">
       <h2 class="text-2xl font-semibold text-indigo-600 mb-4">🏥 Información del Laboratorio</h2>
-      <div class="grid ">
+      <div class="grid">
         <div class="flex items-center space-x-2">
           <p class="text-lg font-semibold text-gray-700">Nombre:</p>
           <p class="text-gray-900">{{ laboratorio.nombre }}</p>

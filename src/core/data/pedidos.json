@@ -1,32 +1,37 @@
 [
     {
         "id_laboratorio": 2,
-        "estado": "PENDIENTE",
+        "estado": "FINALIZADO",
         "observaciones": "Se requieren análisis adicionales debido a resultados preliminares inesperados.",
-        "fecha": "2024-11-15"
+        "fecha": "2024-11-15",
+        "fecha_ingreso_central": "2024-11-16"
     },
     {
         "id_laboratorio": 3,
         "estado": "PENDIENTE",
         "observaciones": "Se requieren análisis adicionales debido a resultados preliminares inesperados.",
-        "fecha": "2024-11-15"
+        "fecha": "2024-11-15",
+        "fecha_ingreso_central": null
     },
     {
         "id_laboratorio": 4,
         "estado": "PENDIENTE",
         "observaciones": "Se requieren análisis adicionales debido a resultados preliminares inesperados.",
-        "fecha": "2024-11-15"
+        "fecha": "2024-11-15",
+        "fecha_ingreso_central": null
     },
     {
         "id_laboratorio": 5,
         "estado": "PENDIENTE",
         "observaciones": "Se requieren análisis adicionales debido a resultados preliminares inesperados.",
-        "fecha": "2024-11-15"
+        "fecha": "2024-11-15",
+        "fecha_ingreso_central": null
     },
     {
         "id_laboratorio": 6,
         "estado": "PENDIENTE",
         "observaciones": "Se requieren análisis adicionales debido a resultados preliminares inesperados.",
-        "fecha": "2025-11-15"
+        "fecha": "2025-11-15",
+        "fecha_ingreso_central": null
     }
 ]
