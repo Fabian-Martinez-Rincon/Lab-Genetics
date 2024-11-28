@@ -167,3 +167,28 @@ class SnippetsAPI:
         except Exception as e:
             print(f"Ocurrió un error: {e}")
             return None
+
+    def sintomas_validos(self, patologia, sintomas):
+            """
+            Verifica si la lista de síntomas es válida con respecto a la patología.
+            Devuelve True si la lista de síntomas es par, False si es impar.
+            
+            :param patologia: Nombre de la patología
+            :param sintomas: Lista de síntomas
+            :return: Un diccionario con 'valido': True/False o un mensaje de error
+            """
+            url = f"{self.BASE_URL}/sintomas-validos/"
+            data = {
+                "patologia": patologia,
+                "sintomas": sintomas
+            }
+            try:
+                response = requests.post(url, json=data)
+                response.raise_for_status()
+                return response.json() 
+            except requests.exceptions.HTTPError as err:
+                print(f"Error en el endpoint síntomas válidos: {err}")
+                return {"error": str(err)}
+            except Exception as e:
+                print(f"Ocurrió un error: {e}")
+                return {"error": str(e)}
