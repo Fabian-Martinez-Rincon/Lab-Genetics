@@ -46,7 +46,7 @@ def verificar_sospecha_puntual(form, paciente, api):
         return False
     sintomas_lista_ingresados = [sintoma.strip().lower() for sintoma in sintomas.split(',')]  
     patologia = Patologia.query.filter_by(id=patologia_id).first()
-    if (api.confirmar_diagnostico(patologia.nombre, sintomas_lista_ingresados) == False):
+    if (api.sintomas_validos(patologia.nombre, sintomas_lista_ingresados) == False):
         flash(f'Los sintomas ingresados no son cardinales a la patologia seleccionada.', 'error')
         return False
     if (verificar_estudio_existente(paciente, patologia.id)):
