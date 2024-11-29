@@ -9,6 +9,13 @@ from src.core.models.historialEstado import HistorialEstado
 from src.core.models.database import db
 from src.core.models.notificacion import Notificacion
 from src.core.models.turno import Turno
+from src.core.models.exterior import Exterior
+from .api import SnippetsAPI 
+import csv
+import tempfile
+import requests
+import os
+
 def verificar_autenticacion(f):
     """
     Decorador que verifica si el usuario ha iniciado sesión.
@@ -113,5 +120,69 @@ def actualizar_turnos_vencidos(f):
             estudio.historial.append(HistorialEstado(estado="TURNO CANCELADO"))
             Notificacion.send_mail(estudio.id_paciente, f"El Turno para el estudio {estudio.id} ha vencido.")
         db.session.commit()
+        return f(*args, **kwargs)
+    return wrapped_function
+
+def enviar_estudios_automaticamente(f):
+    """
+    Decorador que verifica si hay 100 estudios esperando envío,
+    los procesa automáticamente y genera un archivo CSV con los IDs y las patologías.
+    Guarda el PDF recibido de la api en la carpeta static/enviados_exterior y actualiza la tabla Exterior.
+    """
+    @wraps(f)
+    def wrapped_function(*args, **kwargs):
+        print("Verificando si hay estudios para procesar automáticamente...")
+        estudios = Estudio.query \
+            .join(HistorialEstado, Estudio.id == HistorialEstado.estudio_id) \
+            .filter(HistorialEstado.estado == "ESPERANDO ENVIO AL EXTERIOR") \
+            .filter(Estudio.fecha_ingreso_central != None) \
+            .order_by(Estudio.fecha_ingreso_central.asc()) \
+            .limit(3) \
+            .all()
+        
+        if len(estudios) == 3:
+            csv_folder = os.path.join(os.getcwd(),'src', 'static', 'csv_files')  
+            os.makedirs(csv_folder, exist_ok=True) 
+            csv_file_path = os.path.join(csv_folder, 'estudios.csv')
+            with open(csv_file_path, 'w', newline='') as csv_file:
+                csv_writer = csv.writer(csv_file)
+                csv_writer.writerow(['code', 'pathology']) 
+                for estudio in estudios:
+                    if estudio.tipo_estudio == "familiar":
+                        for patologia in estudio.patologias:
+                            csv_writer.writerow([estudio.id, patologia.nombre])
+                    else:
+                        csv_writer.writerow([estudio.id, "N/A" if not estudio.patologias else estudio.patologias[0].nombre])
+
+            try:
+                api = SnippetsAPI()
+                pdf_content = api.crear_pdf(csv_file_path)
+                if not pdf_content:
+                    raise ValueError("No se pudo crear el PDF desde el endpoint.")
+                
+                exterior = Exterior(estado="ENVIADO AL EXTERIOR")
+                db.session.add(exterior)
+                db.session.flush()
+
+                pdf_folder = os.path.join(os.getcwd(),'src', 'static', 'enviados_exterior')
+                os.makedirs(pdf_folder, exist_ok=True)
+                pdf_path = os.path.join(pdf_folder, f"{exterior.id}.pdf")
+                with open(pdf_path, 'wb') as pdf_file:
+                    pdf_file.write(pdf_content)
+
+                exterior.enviados_path = pdf_path
+
+                for estudio in estudios:
+                    estudio.historial.append(HistorialEstado(estado="ENVIADO AL EXTERIOR"))
+                    Notificacion.send_mail(estudio.id_paciente, f"Su estudio {estudio.id} ha sido enviado al exterior.")
+                    exterior.estudios.append(estudio)
+
+                db.session.commit()
+                #flash(f'Estudios enviados y PDF guardado como {exterior.id}.pdf.', 'success')
+
+            except Exception as e:
+                db.session.rollback()
+                #flash(f"Error al procesar los estudios: {str(e)}", 'error')
+
         return f(*args, **kwargs)
     return wrapped_function

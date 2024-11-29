@@ -4,7 +4,7 @@ from src.core.models.usuario import Usuario
 from src.core.models.rol import Rol
 from src.core.models.turno import Turno
 from src.core.models.estado import Estado
-from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos, actualizar_turnos_vencidos
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos, actualizar_turnos_vencidos, enviar_estudios_automaticamente
 from src.core.models.laboratorio import Laboratorio
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
@@ -34,6 +34,7 @@ def filtrar_usuarios(roles_permitidos):
 @bp.route('/listar_usuarios', methods=['GET', 'POST'])
 @verificar_autenticacion
 @verificar_rol(1)
+@enviar_estudios_automaticamente
 def listar_usuarios():
     roles_permitidos = [2, 4, 6]
     
@@ -63,6 +64,7 @@ from datetime import date
 @verificar_autenticacion
 @actualizar_turnos_vencidos
 @verificar_rol(3)
+@enviar_estudios_automaticamente
 def listar_turnos():
     # Filtrar turnos únicamente en estado "PENDIENTE" y ordenarlos por fecha y hora
     id_laboratorio = session.get('user_id')
@@ -120,6 +122,7 @@ estudio elige Laboratorio de extracción, fecha y Horario
 @actualizar_presupuestos_vencidos
 @actualizar_turnos_vencidos
 @verificar_rol(5)
+@enviar_estudios_automaticamente
 def mis_estudios():
     id_usuario = session.get('user_id')
     
@@ -187,6 +190,7 @@ from sqlalchemy import or_
 @actualizar_presupuestos_vencidos
 @actualizar_turnos_vencidos
 @verificar_rol(4)
+@enviar_estudios_automaticamente
 def ver_estudios_medico():
     id_usuario = session.get('user_id')
     
@@ -219,6 +223,7 @@ def ver_estudios_medico():
 @bp.route('/detalle_estudio_medico/<estudio_id>', methods=['GET'])
 @verificar_autenticacion
 @verificar_rol(4)
+@enviar_estudios_automaticamente
 def detalle_estudio_medico(estudio_id):
     estudio = Estudio.query.get(estudio_id)
     if not estudio:
@@ -337,6 +342,7 @@ def presupuesto_estudio(estudio_id):
 @verificar_autenticacion
 @actualizar_turnos_vencidos
 @verificar_rol(5)
+@enviar_estudios_automaticamente
 def mis_turnos():
     id_usuario = session.get('user_id')
     

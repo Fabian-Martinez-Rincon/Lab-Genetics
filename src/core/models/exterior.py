@@ -6,3 +6,4 @@ class Exterior(db.Model):
     estudios = db.relationship('Estudio', backref='exterior_relacion', cascade='all, delete-orphan')
     fecha_envio = db.Column(db.DateTime, default=datetime.now)
     estado = db.Column(db.String(100), nullable=False) #ENVIADO AL EXTERIOR, RESULTADOS RECIBIDOS
+    enviados_path = db.Column(db.String(255), nullable=True)
