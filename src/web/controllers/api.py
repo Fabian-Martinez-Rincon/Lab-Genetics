@@ -46,16 +46,17 @@ class SnippetsAPI:
     def crear_pdf(self, csv_file_path):
         """
         Crea un PDF a partir de un archivo CSV.
-        
+
         :param csv_file_path: Ruta al archivo CSV
-        :return: Respuesta de la API o None en caso de error
+        :return: Contenido binario del PDF o None en caso de error
         """
         url = f"{self.BASE_URL}/pdf/"
         with open(csv_file_path, 'rb') as f:
             try:
-                response = requests.post(url, files={'file': f})
-                response.raise_for_status()
-                return response.json()
+                files = {'csv_file': (csv_file_path, f, 'text/csv')}
+                response = requests.post(url, files=files)
+                response.raise_for_status() 
+                return response.content
             except requests.exceptions.HTTPError as err:
                 print(f"Error al crear el PDF: {err}")
                 return None
