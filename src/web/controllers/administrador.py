@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, flash, redirect, url_for
 from src.core.models.database import db
-from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos
+from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos, enviar_estudios_automaticamente
 from src.core.models.estudio import Estudio
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import func
@@ -8,10 +8,12 @@ from src.core.models.historialEstado import HistorialEstado
 
 bp = Blueprint('administrador', __name__)
 
+
 @bp.route('/presupuestos_solicitados', methods=['GET'])
 @verificar_autenticacion
 @actualizar_presupuestos_vencidos
 @verificar_rol(2)
+@enviar_estudios_automaticamente
 def presupuestos_solicitados():
     # Subconsulta para obtener la última fecha por estudio_id
     subquery_max_date = db.session.query(
@@ -62,6 +64,7 @@ def presupuestos_solicitados():
 @bp.route('/presupuestos_pagados', methods=['GET'])
 @verificar_autenticacion
 @verificar_rol(2)
+@enviar_estudios_automaticamente
 def presupuestos_pagados():
     from src.core.models.presupuesto import Presupuesto
     from src.core.models.estado import Estado
@@ -111,6 +114,7 @@ def presupuestos_pagados():
 @bp.route('/presupuestos_aceptados', methods=['GET'])
 @verificar_autenticacion
 @verificar_rol(2)
+@enviar_estudios_automaticamente
 def presupuestos_aceptados():
     from src.core.models.presupuesto import Presupuesto
     from src.core.models.estado import Estado
