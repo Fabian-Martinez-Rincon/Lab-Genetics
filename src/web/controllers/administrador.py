@@ -2,6 +2,7 @@ from flask import render_template, Blueprint, flash, redirect, url_for
 from src.core.models.database import db
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion, actualizar_presupuestos_vencidos, enviar_estudios_automaticamente
 from src.core.models.estudio import Estudio
+from src.core.models.exterior import Exterior
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import func
 from src.core.models.historialEstado import HistorialEstado
@@ -144,4 +145,53 @@ def presupuestos_aceptados():
     return render_template(
         'administrador/presupuestos_aceptados.html',
         presupuestos=presupuestos_con_estudios
+    )
+
+import os
+@bp.route('/listado_exterior', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(2)
+def listado_exterior():
+    envios_exterior = (
+        db.session.query(Exterior)
+        .order_by(Exterior.fecha_envio.desc())  # Ordenar por fecha de envío (más recientes primero)
+        .all()
+    )
+
+    # Modificar el path para que sea relativo a static y use '/'
+    for envio in envios_exterior:
+        if envio.enviados_path:
+            # Obtener la parte relativa al directorio 'static' y reemplazar '\' por '/'
+            relative_path = os.path.relpath(envio.enviados_path, 'src/static')
+            envio.enviados_path = relative_path.replace('\\', '/')
+
+    cantidad_envios = len(envios_exterior)
+
+    return render_template(
+        'administrador/listado_exterior.html', 
+        envios_exterior=envios_exterior, 
+        cantidad_envios=cantidad_envios
+    )
+
+
+
+@bp.route('/detalle_envio/<int:envio_id>', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(2)
+def detalle_envio(envio_id):
+    envio = Exterior.query.get(envio_id)
+    if not envio:
+        flash('Envío no encontrado.', 'error')
+        return redirect(url_for('espera_envios.listado_exterior'))
+
+    # Ajustar el path de enviados_path para que sea relativo a static
+    if envio.enviados_path:
+        relative_path = os.path.relpath(envio.enviados_path, 'src/static')
+        envio.enviados_path = relative_path.replace('\\', '/')
+
+    estudios = envio.estudios  # Obtener los estudios asociados al envío
+    return render_template(
+        'administrador/detalle_envio.html',
+        envio=envio,
+        estudios=estudios
     )
