@@ -63,6 +63,8 @@ def login():
                 session['logged_in'] = True
                 session['rol_id'] = user.id_rol
                 session['token'] = user.token
+                if 'jornada_activa' not in session:
+                    session['jornada_activa'] = False
                 if user.token == False:
                     flash('Bienvenido a la plataforma, por favor actualice su contraseña.', 'success')
                     return redirect(url_for('editar_perfil.editar_perfil', usuario_id=user.id))
