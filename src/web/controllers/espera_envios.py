@@ -34,7 +34,6 @@ def espera_envios():
         .filter(ultimo_estado.estado == "ESPERANDO ENVIO AL EXTERIOR")
         .filter(Estudio.fecha_ingreso_central != None)
         .order_by(Estudio.fecha_ingreso_central.asc())
-        .limit(3)
         .all()
     )
     cantidad_estudios = len(estudios)
