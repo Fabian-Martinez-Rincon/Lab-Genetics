@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, flash, redirect, url_for
+from flask import Blueprint, request, jsonify, flash, redirect, url_for, session
 from src.core.models.pedido import Pedido
 from src.core.models.database import db
 from src.web.controllers.utils import verificar_autenticacion, verificar_rol
@@ -13,6 +13,7 @@ bp = Blueprint("finalizar_jornada", __name__)
 @verificar_rol(6)
 @bp.route('/finalizar_jornada', methods=['POST'])
 def finalizar_jornada():
+    session['jornada_activa'] = False
     pedidos_finalizados = Pedido.query.filter(
         and_(
             Pedido.estado == 'FINALIZADO',
