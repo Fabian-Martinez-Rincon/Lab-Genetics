@@ -35,19 +35,25 @@
 
       <!-- Botones de Jornada -->
       <div class="flex justify-center mb-4">
-        <form action="{{ url_for('transportista.empezar_jornada') }}" method="POST" class="mr-2">
-          <button type="submit"
-                  class="px-4 py-2 text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-green-700">
-            Empezar Jornada
-          </button>
-        </form>
-        <form action="{{ url_for('finalizar_jornada.finalizar_jornada') }}" method="POST">
-          <button type="submit"
-                  class="px-4 py-2 text-white transition duration-300 bg-red-600 rounded-lg shadow-md hover:bg-red-700">
-            Terminar Jornada
-          </button>
-        </form>
+        {% if session.jornada_activa %}
+          <!-- Mostrar botón Terminar Jornada si la jornada está activa -->
+          <form action="{{ url_for('finalizar_jornada.finalizar_jornada') }}" method="POST">
+            <button type="submit"
+                    class="px-4 py-2 text-white transition duration-300 bg-red-600 rounded-lg shadow-md hover:bg-red-700">
+              Terminar Jornada
+            </button>
+          </form>
+        {% else %}
+          <!-- Mostrar botón Empezar Jornada si la jornada no está activa -->
+          <form action="{{ url_for('transportista.empezar_jornada') }}" method="POST" class="mr-2">
+            <button type="submit"
+                    class="px-4 py-2 text-white transition duration-300 bg-green-600 rounded-lg shadow-md hover:bg-green-700">
+              Empezar Jornada
+            </button>
+          </form>
+        {% endif %}
       </div>
+      
       <p class="mb-4 text-base text-gray-500 md:text-lg">
         A continuación se muestra una lista de los pedidos en estado "Pendiente".
       </p>
@@ -78,35 +84,39 @@
                  class="text-indigo-500 hover:underline">
                 Ver Detalle
               </a>
-              {% if pedido.estado == 'PENDIENTE' %}
-                <form action="{{ url_for('transportista.comenzar_viaje', pedido_id=pedido.id) }}" method="POST" class="inline">
-                  <button type="submit" 
-                          class="ml-2 px-4 py-2 text-white rounded-lg shadow-md transition duration-300
-                                 {% if pedido_en_proceso %}bg-gray-400 cursor-not-allowed{% else %}bg-blue-600 hover:bg-blue-700{% endif %}"
-                          {% if pedido_en_proceso %}disabled{% endif %}>
-                    Comenzar Viaje
+              {% if session.jornada_activa %} <!-- Mostrar solo si la jornada está activa -->
+                {% if pedido.estado == 'PENDIENTE' %}
+                  <form action="{{ url_for('transportista.comenzar_viaje', pedido_id=pedido.id) }}" method="POST" class="inline">
+                    <button type="submit" 
+                            class="ml-2 px-4 py-2 text-white rounded-lg shadow-md transition duration-300
+                                   {% if pedido_en_proceso %}bg-gray-400 cursor-not-allowed{% else %}bg-blue-600 hover:bg-blue-700{% endif %}"
+                            {% if pedido_en_proceso %}disabled{% endif %}>
+                      Comenzar Viaje
+                    </button>
+                  </form>
+                {% elif pedido.estado == 'EN PROCESO' %}
+                  <button type="button" onclick="openCancelModal({{ pedido.id }})"
+                          class="ml-2 px-4 py-2 text-white bg-red-600 rounded-lg shadow-md hover:bg-red-700 transition duration-300">
+                    Cancelar
                   </button>
-                </form>
-              {% elif pedido.estado == 'EN PROCESO' %}
-                <button type="button" onclick="openCancelModal({{ pedido.id }})"
-                        class="ml-2 px-4 py-2 text-white bg-red-600 rounded-lg shadow-md hover:bg-red-700 transition duration-300">
-                  Cancelar
-                </button>
-                <form action="{{ url_for('transportista.posponer_pedido', pedido_id=pedido.id) }}" method="POST" class="inline">
-                  <button type="submit"
-                          class="ml-2 px-4 py-2 text-white bg-yellow-600 rounded-lg shadow-md hover:bg-yellow-700 transition duration-300">
-                    Posponer
-                  </button>
-                </form>
-                <form action="{{ url_for('transportista.terminar_viaje', pedido_id=pedido.id) }}" method="POST" class="inline">
-                  <button type="submit"
-                          class="ml-2 px-4 py-2 text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 transition duration-300">
-                    Finalizar
-                  </button>
-                </form>
+                  <form action="{{ url_for('transportista.posponer_pedido', pedido_id=pedido.id) }}" method="POST" class="inline">
+                    <button type="submit"
+                            class="ml-2 px-4 py-2 text-white bg-yellow-600 rounded-lg shadow-md hover:bg-yellow-700 transition duration-300">
+                      Posponer
+                    </button>
+                  </form>
+                  <form action="{{ url_for('transportista.terminar_viaje', pedido_id=pedido.id) }}" method="POST" class="inline">
+                    <button type="submit"
+                            class="ml-2 px-4 py-2 text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 transition duration-300">
+                      Finalizar
+                    </button>
+                  </form>
+                {% endif %}
+              {% else %}
+                <!-- Mensaje opcional cuando la jornada no está activa -->
               {% endif %}
-            </td>                               
-          </tr>
+            </td>
+            
           {% endfor %}
         </tbody>
       </table>
