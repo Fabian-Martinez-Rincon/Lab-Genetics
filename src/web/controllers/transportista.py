@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, flash, redirect, url_for, request
+from flask import render_template, Blueprint, flash, redirect, url_for, request, session
 from src.core.models.database import db
 from src.web.controllers.utils import verificar_rol, verificar_autenticacion
 from src.core.models.pedido import Pedido
@@ -135,6 +135,7 @@ def comenzar_viaje(pedido_id):
 @verificar_autenticacion
 @verificar_rol(6)
 def empezar_jornada():
+    session['jornada_activa'] = True  # Marca la jornada como activa
     flash("¡Jornada iniciada exitosamente!", "success")
     return redirect(url_for('transportista.listar_pedidos_pendientes'))
 
@@ -143,6 +144,7 @@ def empezar_jornada():
 @verificar_autenticacion
 @verificar_rol(6)
 def terminar_jornada():
+    session['jornada_activa'] = False  # Marca la jornada como inactiva
     flash("¡Jornada finalizada con éxito!", "success")
     return redirect(url_for('transportista.listar_pedidos_pendientes'))
 
