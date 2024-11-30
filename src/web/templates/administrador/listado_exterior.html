@@ -1,0 +1,65 @@
+{% extends "_layouts/app.html" %}
+
+{% block head %}
+<title>Lab-Genetics - Envíos al Exterior</title>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <h1 class="mb-4 text-3xl font-extrabold text-indigo-800 md:text-4xl lg:text-5xl">
+      Envíos al Exterior
+    </h1>
+    {% if envios_exterior %}
+    <p class="mb-4 text-base md:text-lg text-zinc-500">
+      A continuación se muestra un listado de los envíos realizados al exterior.
+    </p>
+    <p class="mb-4 text-base text-blue-500 md:text-lg">
+        Cantidad de envíos registrados: {{ cantidad_envios }}
+    </p>
+    <div class="w-full overflow-x-auto">
+      <table class="w-full text-left border-collapse table-auto">
+        <thead>
+          <tr class="text-white bg-indigo-500">
+            <th class="px-4 py-2">ID Envío</th>
+            <th class="px-4 py-2">Estado</th>
+            <th class="px-4 py-2">Fecha de Envío</th>
+            <th class="px-4 py-2">Archivo Enviado</th>
+            <th class="px-4 py-2">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for envio in envios_exterior %}
+          <tr class="text-black bg-very-light-yellow-green">
+            <td class="px-4 py-2">{{ envio.id }}</td>
+            <td class="px-4 py-2">{{ envio.estado }}</td>
+            <td class="px-4 py-2">{{ envio.fecha_envio.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td class="px-4 py-2">
+                {% if envio.enviados_path %}
+                <a href="{{ url_for('static', filename=envio.enviados_path) }}" 
+                  class="text-indigo-500 hover:underline" target="_blank">
+                  Ver Archivo
+                </a>
+
+                {% else %}
+                <span class="text-gray-500 italic">No disponible</span>
+                {% endif %}
+              </td>
+              <td class="px-4 py-2">
+                <a href="{{ url_for('administrador.detalle_envio', envio_id=envio.id) }}" 
+                   class="text-blue-500 hover:underline">
+                  Ver Detalle
+                </a>
+              </td>
+              
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="mb-4 text-base text-green-600 md:text-lg"><strong>No hay envíos registrados.<strong></p>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}
