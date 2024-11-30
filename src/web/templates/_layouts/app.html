@@ -131,7 +131,7 @@ endblock %} {% block base_body %}
             viewBox="0 0 576 512">
             <path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c.2 35.5-28.5 64.3-64 64.3l-320.4 0c-35.3 0-64-28.7-64-64l0-160.4-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L416 100.7 416 64c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 121 52.8 46.4c8 7 12 15 11 24zM272 192c-8.8 0-16 7.2-16 16l0 48-48 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l48 0 0 48c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-48 48 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-48 0 0-48c0-8.8-7.2-16-16-16l-32 0z"/></svg>' | safe%} {% if session.logged_in %} 
             {% set informationComunLogged = [ 
-              ["Ver Perfil", "/perfil", svg_perfil] 
+              ["Ver Perfil", "/perfil"] 
             ] %} 
             {{
               Menu.Menu(informationComunLogged) 
@@ -140,11 +140,12 @@ endblock %} {% block base_body %}
             {% if session.rol_id == 1 %}
             <!-- owner -->
             {% set informationOwner = [ 
-              ["Ver Usuarios", "/listar_usuarios", svg_generales],
-              ["Registrar Administrador","/listar_usuarios", svg_generales],
-              ["Registrar Medico","/listar_usuarios", svg_generales],
-              ["Listar Laboratorios", "/listar_laboratorios", svg_laboratorio],
-              ["Registrar Laboratorio", "/registrar_laboratorio", svg_registrar]
+              ["Registrar Transportista", "/registrar_transportista"],
+              ["Registrar Administrador","/registrar_administrador"],
+              ["Registrar Medico","/registrar_medico"],
+              ["Ver Usurios", "/listar_usuarios"],
+              ["Listar Laboratorios", "/listar_laboratorios"],
+              ["Registrar Laboratorio", "/registrar_laboratorio"]
               ]
             %} {{
               Menu.Menu(informationOwner) 
@@ -153,10 +154,12 @@ endblock %} {% block base_body %}
             {%elif session.rol_id == 2 %}
             <!-- Administrador Laboratorio -->
             {% set informationAdministrador = [
-              ["Generar Presupuesto", "/", svg_generales],
-              ["Confirmar Pagos", "/", svg_generales],
-              ["Cargar Resultados", "/", svg_generales],
-              ["Espera de Envios", "/", svg_generales],
+              ["Presupuestos Solicitados", "/presupuestos_solicitados"],
+              ["Confirmar Pagos", "/presupuestos_pagados"],
+              ["Pagos Realizados", "/presupuestos_aceptados"],
+              ["Cargar Resultados", "/"],
+              ["Espera de Envios", "/espera_envios"],
+              ["Enviados al Exterior", "/listado_exterior"],
               ]
             %} 
             {{
@@ -166,7 +169,7 @@ endblock %} {% block base_body %}
             {% elif session.rol_id == 3 %}
             <!-- Laboratorio extraccion -->
             {% set informationLaboratorio = [ 
-              ["Turnos", "/", svg_generales]
+              ["Turnos", "/listar_turnos"]
             ] %} {{ 
               Menu.Menu(informationLaboratorio) 
             }}
@@ -174,10 +177,10 @@ endblock %} {% block base_body %}
             {% elif session.rol_id == 4 %}
             <!-- Medico -->
             {% set informationLaboratorio = [ 
-              ["Registrar Paciente", "/registrar_paciente", svg_generales],
-              ["Reasignar Paciente", "/reasignar", svg_generales],
-              ["Ver Pacientes", "/mis_pacientes", svg_generales],
-              ["Ver Estudios", "/", svg_generales],
+              ["Registrar Paciente", "/registrar_paciente"],
+              ["Reasignar Paciente", "/reasignar"],
+              ["Ver Pacientes", "/mis_pacientes"],
+              ["Ver Estudios", "/ver_estudios_medico"],
             ] %} {{ 
               Menu.Menu(informationLaboratorio) 
             }}
@@ -185,9 +188,9 @@ endblock %} {% block base_body %}
             {% elif session.rol_id == 5 %}
             <!-- Paciente -->
             {% set informationLaboratorio = [ 
-              ["Presupuesto", "/", svg_generales],
-              ["Turnos", "/", svg_generales],
-              ["Mis Estudios", "/", svg_generales]
+              ["Mis Presupuestos", "/mis_presupuestos"],
+              ["Turnos", "/mis_turnos"],
+              ["Mis Estudios", "/mis_estudios"]
             ] %} {{ 
               Menu.Menu(informationLaboratorio) 
             }}
@@ -195,9 +198,8 @@ endblock %} {% block base_body %}
             {% elif session.rol_id == 6 %}
             <!-- Transportista -->
             {% set informationLaboratorio = [ 
-              ["Registrar Paciente", "/", svg_generales],
-              ["Ver Pacientes", "/", svg_generales],
-              ["Ver Estudios", "/", svg_generales],
+              ["Pedidos", "/listar_pedidos_pendientes"],
+              ["Pedidos Finalizados", "/listar_pedidos_completados"],
             ] %} {{ 
               Menu.Menu(informationLaboratorio) 
             }}
