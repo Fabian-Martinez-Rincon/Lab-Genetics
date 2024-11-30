@@ -15,6 +15,8 @@ import csv
 import tempfile
 import requests
 import os
+from sqlalchemy.orm import aliased
+from sqlalchemy.sql import func
 
 def verificar_autenticacion(f):
     """
@@ -123,6 +125,8 @@ def actualizar_turnos_vencidos(f):
         return f(*args, **kwargs)
     return wrapped_function
 
+
+
 def enviar_estudios_automaticamente(f):
     """
     Decorador que verifica si hay 100 estudios esperando envío,
@@ -131,15 +135,29 @@ def enviar_estudios_automaticamente(f):
     """
     @wraps(f)
     def wrapped_function(*args, **kwargs):
+        ultimo_estado_subquery = (
+            db.session.query(
+                HistorialEstado.estudio_id,
+                func.max(HistorialEstado.fecha_hora).label("ultima_fecha")
+            )
+            .group_by(HistorialEstado.estudio_id)
+            .subquery()
+        )
+        ultimo_estado = aliased(HistorialEstado)
         print("Verificando si hay estudios para procesar automáticamente...")
-        estudios = Estudio.query \
-            .join(HistorialEstado, Estudio.id == HistorialEstado.estudio_id) \
-            .filter(HistorialEstado.estado == "ESPERANDO ENVIO AL EXTERIOR") \
-            .filter(Estudio.fecha_ingreso_central != None) \
-            .order_by(Estudio.fecha_ingreso_central.asc()) \
-            .limit(3) \
+        estudios = (
+            db.session.query(Estudio)
+            .join(ultimo_estado, Estudio.id == ultimo_estado.estudio_id)
+            .join(ultimo_estado_subquery, 
+                (ultimo_estado.estudio_id == ultimo_estado_subquery.c.estudio_id) &
+                (ultimo_estado.fecha_hora == ultimo_estado_subquery.c.ultima_fecha))
+            .filter(ultimo_estado.estado == "ESPERANDO ENVIO AL EXTERIOR")
+            .filter(Estudio.fecha_ingreso_central != None)
+            .order_by(Estudio.fecha_ingreso_central.asc())
+            .limit(3)
             .all()
-        
+        )
+            
         if len(estudios) == 3:
             csv_folder = os.path.join(os.getcwd(),'src', 'static', 'csv_files')  
             os.makedirs(csv_folder, exist_ok=True) 

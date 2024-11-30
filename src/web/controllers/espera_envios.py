@@ -8,6 +8,7 @@ from sqlalchemy.orm import aliased
 from src.core.models.notificacion import Notificacion
 from src.core.models.exterior import Exterior
 
+
 bp = Blueprint("espera_envios", __name__)
 
 @enviar_estudios_automaticamente
@@ -15,9 +16,26 @@ bp = Blueprint("espera_envios", __name__)
 @verificar_rol(2)
 @bp.route('/espera_envios', methods=['GET','POST'])
 def espera_envios():
-    estudios = Estudio.query \
-    .join(HistorialEstado, Estudio.id == HistorialEstado.estudio_id) \
-    .filter(HistorialEstado.estado == "ESPERANDO ENVIO AL EXTERIOR") \
-    .all()
+    ultimo_estado_subquery = (
+            db.session.query(
+                HistorialEstado.estudio_id,
+                func.max(HistorialEstado.fecha_hora).label("ultima_fecha")
+            )
+            .group_by(HistorialEstado.estudio_id)
+            .subquery()
+        )
+    ultimo_estado = aliased(HistorialEstado)
+    estudios = (
+        db.session.query(Estudio)
+        .join(ultimo_estado, Estudio.id == ultimo_estado.estudio_id)
+        .join(ultimo_estado_subquery, 
+            (ultimo_estado.estudio_id == ultimo_estado_subquery.c.estudio_id) &
+            (ultimo_estado.fecha_hora == ultimo_estado_subquery.c.ultima_fecha))
+        .filter(ultimo_estado.estado == "ESPERANDO ENVIO AL EXTERIOR")
+        .filter(Estudio.fecha_ingreso_central != None)
+        .order_by(Estudio.fecha_ingreso_central.asc())
+        .limit(3)
+        .all()
+    )
     cantidad_estudios = len(estudios)
     return render_template('administrador/espera_envios.html', estudios=estudios, cantidad_estudios=cantidad_estudios)
