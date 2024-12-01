@@ -34,7 +34,7 @@ def filtrar_usuarios(roles_permitidos):
 @bp.route('/listar_usuarios', methods=['GET', 'POST'])
 @verificar_autenticacion
 @verificar_rol(1)
-@enviar_estudios_automaticamente
+# @enviar_estudios_automaticamente
 def listar_usuarios():
     roles_permitidos = [2, 4, 6]
     
@@ -190,7 +190,7 @@ from sqlalchemy import or_
 @actualizar_presupuestos_vencidos
 @actualizar_turnos_vencidos
 @verificar_rol(4)
-@enviar_estudios_automaticamente
+# @enviar_estudios_automaticamente
 def ver_estudios_medico():
     id_usuario = session.get('user_id')
     
