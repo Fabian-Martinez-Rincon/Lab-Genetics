@@ -4,6 +4,7 @@ from src.web.formularios.editar_perfil import EditarPerfilForm
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session, Blueprint, flash, redirect, url_for, render_template
 from src.core.models.notificacion import Notificacion
+from src.core.models.laboratorio import Laboratorio
 
 bp = Blueprint("editar_perfil", __name__)
 
@@ -11,11 +12,12 @@ bp = Blueprint("editar_perfil", __name__)
 def editar_perfil():
     form = EditarPerfilForm()  # Asegúrate de crear este formulario en tu aplicación
     usuario_actual = Usuario.query.get(session.get('user_id'))
-
     if usuario_actual is None:
-        flash('No se encontró al usuario. Por favor, vuelve a iniciar sesión.', 'error')
-        # Puedes redirigir al usuario a una página de inicio de sesión o a cualquier otra página de tu elección
-        return redirect(url_for('root.login'))
+        usuario_actual = Laboratorio.query.get(session.get('user_id'))
+        if usuario_actual is None:
+            flash('No se encontró al usuario. Por favor, vuelve a iniciar sesión.', 'error')
+            # Puedes redirigir al usuario a una página de inicio de sesión o a cualquier otra página de tu elección
+            return redirect(url_for('root.login'))
 
     if form.validate_on_submit():
         if len(form.nueva_password.data) < 8:
@@ -27,6 +29,7 @@ def editar_perfil():
             usuario_actual.password = hashed_password
             if usuario_actual.token == False:
                 usuario_actual.token = True
+                session.setdefault('token', True)
                 session['token'] = True
             db.session.commit()
             Notificacion.send_mail(usuario_actual.id, "Se ha actualizado su contraseña.")
