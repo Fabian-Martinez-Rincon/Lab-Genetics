@@ -1,17 +1,17 @@
 [
     {
-        "resultadoDetalle": "Resultado completo de la evaluación",
-        "hallazgos": "Anomalías leves detectadas",
+        "resultadoBase": "Resultado completo de la evaluación",
+        "resultadoHallazgosSecundarios": "Anomalías leves detectadas",
         "observacion": "Se recomienda revisión adicional"
     },
     {
-        "resultadoDetalle": "Resultado negativo para condiciones especificadas",
-        "hallazgos": null,
+        "resultadoBase": "Resultado negativo para condiciones especificadas",
+        "resultadoHallazgosSecundarios": null,
         "observacion": "Sin observaciones adicionales"
     },
     {
-        "resultadoDetalle": "Resultado positivo para patología Y",
-        "hallazgos": "Hallazgos consistentes con patología Y",
+        "resultadoBase": "Resultado positivo para patología Y",
+        "resultadoHallazgosSecundarios": "Hallazgos consistentes con patología Y",
         "observacion": "Consultar especialista inmediatamente"
     }
 ]
