@@ -14,7 +14,7 @@
       Registrar Transportista
     </h1>
 
-    <form action="{{ url_for('registrar.register_transportista') }}" method="POST">
+    <form action="{{ url_for('registrar.registrar_transportista') }}" method="POST">
       {{ form.hidden_tag() }}
 
       <div class="rounded-md shadow-sm">
@@ -31,13 +31,6 @@
         <div class="mb-2">
           <label for="email" class="block font-bold text-gray-700">Email</label>
           {{ form.email(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
-        </div>
-
-        <div class="mb-2">
-          <label for="password" class="block font-bold text-gray-700">Contraseña</label>
-          <input type="password" name="password" id="password" 
-                 class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" 
-                 value="{{ password | default('') }}">
         </div>
 
         <div class="mb-2">

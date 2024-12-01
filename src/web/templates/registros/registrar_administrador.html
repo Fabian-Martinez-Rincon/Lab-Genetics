@@ -14,7 +14,7 @@
       Registrar Administrador
     </h1>
 
-    <form action="{{ url_for('registrar.register_administrador') }}" method="POST">
+    <form action="{{ url_for('registrar.registrar_administrador') }}" method="POST">
       {{ form.hidden_tag() }}
 
       <div class="rounded-md shadow-sm">
@@ -33,12 +33,6 @@
           {{ form.email(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
         </div>
 
-        <div class="mb-2">
-          <label for="password" class="block font-bold text-gray-700">Contraseña</label>
-          <input type="password" name="password" id="password" 
-                 class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" 
-                 value="{{ password | default('') }}">
-        </div>
 
         <div class="mb-2">
           <label for="dni" class="block font-bold text-gray-700">DNI</label>

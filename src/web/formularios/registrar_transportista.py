@@ -13,7 +13,7 @@ def validate_fecha_nacimiento(form, field):
 class RegisterTransportistaForm(FlaskForm):
     nombre           = StringField('Nombre', validators=[DataRequired(), Length(max=50)])
     apellido         = StringField('Apellido', validators=[DataRequired(), Length(max=50)])
-    password         = PasswordField('Contraseña', validators=[DataRequired(), Length(min=8, message="La contraseña debe tener al menos 8 caracteres.")])
+    password = PasswordField('Contraseña', validators=[Optional()])
     email            = StringField('Email', validators=[
         DataRequired(message="Este campo es obligatorio."),
         Email(message="Por favor ingrese un correo electrónico válido.")
