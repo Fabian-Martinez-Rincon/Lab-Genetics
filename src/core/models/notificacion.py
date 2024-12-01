@@ -16,6 +16,8 @@ class Notificacion(db.Model):
         """
         app = current_app._get_current_object()
         usuario = Usuario.query.filter_by(id=userId).first()
+        if usuario is None:
+            usuario = Laboratorio.query.filter_by(id=userId).first()
         mail = Mail(app)
         subject = 'Nueva Notificacion'
         sender = app.config['MAIL_DEFAULT_SENDER']
@@ -41,6 +43,22 @@ class Notificacion(db.Model):
         msg.body = message
         mail.send(msg)  
     
+    @staticmethod
+    def send_mail_User(userId: int, descripcion: str)->None:
+        """
+        Send the confirmation email to the user.
+        """
+        app = current_app._get_current_object()
+        usuario= Usuario.query.filter_by(id=userId).first()
+        mail = Mail(app)
+        subject = 'Nueva Notificacion'
+        sender = app.config['MAIL_DEFAULT_SENDER']
+        recipients = [usuario.email]
+        message = f'¡Atencion! Se le notifica que:\n{descripcion}\n\n Para Conocer mas detalles ingrese a la plataforma.'
+        msg = Message(subject, sender=sender, recipients=recipients)
+        msg.body = message
+        mail.send(msg)  
+
     @staticmethod
     def send_mail2(email: str, descripcion: str)->None:
         """
