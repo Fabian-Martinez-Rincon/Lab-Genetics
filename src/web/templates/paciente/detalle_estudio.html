@@ -53,16 +53,17 @@
 
 
 
-    {% if resultado %}
+        {% if resultado %}
       <h2 class="pt-4 mt-8 text-2xl font-semibold text-indigo-700 border-t border-indigo-200">Resultado del Estudio</h2>
       <div class="mt-4 space-y-4 text-gray-800">
-        <p class="text-lg"><strong class="text-indigo-600">Resultado Detalle:</strong> {{ resultado.resultadoDetalle }}</p>
-        <p class="text-lg"><strong class="text-indigo-600">Hallazgos:</strong> {{ resultado.hallazgos or 'No especificado' }}</p>
-        <p class="text-lg"><strong class="text-indigo-600">Observación:</strong> {{ resultado.observacion or 'No especificado' }}</p>
+        <p class="text-lg"><strong class="text-indigo-600">Resultado Detalle:</strong> {{ resultado.resultadoBase }}</p>
+        <a href="{{ url_for('listar.detalle_resultado', resultado_id=resultado.id) }}" 
+          class="inline-block px-4 py-2 font-semibold text-white transition duration-300 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg">
+          Ver Resultado
+        </a>
       </div>
-    {% else %}
-      
     {% endif %}
+
 
     <div class="mt-8 text-center">
       {% if estado_pago_aceptado or estado_turno_cancelado %}

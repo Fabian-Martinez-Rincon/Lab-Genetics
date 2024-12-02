@@ -181,6 +181,17 @@ def detalle_estudio(estudio_id):
         estado_pago_aceptado=estado_pago_aceptado, estado_turno_cancelado=estado_turno_cancelado
     )
 
+@bp.route('/detalle_resultado/<resultado_id>', methods=['GET'])
+@verificar_autenticacion
+@verificar_rol(5)
+def detalle_resultado(resultado_id):
+    resultado = Resultado.query.get(resultado_id)
+    if not resultado:
+        flash('Resultado no encontrado.', 'error')
+        return redirect(url_for('listar.mis_estudios'))
+
+    return render_template('paciente/detalle_resultado.html', resultado=resultado)
+
 
 
 from sqlalchemy import or_
