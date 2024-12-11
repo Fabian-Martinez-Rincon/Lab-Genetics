@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash, Blueprint
+from flask import render_template, request, redirect, url_for, flash, Blueprint, jsonify
 from src.core.models.database import db
 from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
@@ -9,7 +9,9 @@ from sqlalchemy.orm import aliased
 from sqlalchemy.sql import func
 from src.core.models.exterior import Exterior
 from src.core.models.notificacion import Notificacion
+
 bp = Blueprint("cargar_resultado", __name__) 
+
 
 @enviar_estudios_automaticamente
 @verificar_autenticacion
@@ -117,3 +119,21 @@ def cargar_resultado():
         return redirect(url_for('cargar_resultado.cargar_resultado'))
     
     return render_template('administrador/cargar_resultado.html', estudios_enviados=estudios_enviados)
+
+@bp.route('/get_listado_variantes', methods=['POST'])
+def get_listado_variantes():
+    estudio_id = request.json.get('estudio')
+    estudio = Estudio.query.filter_by(id=estudio_id).first()
+    if not estudio:
+        return jsonify({"error": "Estudio no encontrado"}), 404
+    api = SnippetsAPI()
+    variantes = []
+    genes = estudio.listado_genes.split(",") if estudio.listado_genes else []
+    for gen in genes:
+        variantes_gen = api.obtener_variantes_por_gen(gen)
+        print('RESULTADO DE LA API', variantes_gen)
+        if variantes_gen:
+            variantes.extend(variantes_gen)
+    if not variantes:
+        return jsonify({"error": "No se encontraron variantes"}), 404
+    return jsonify({"variantes": variantes})

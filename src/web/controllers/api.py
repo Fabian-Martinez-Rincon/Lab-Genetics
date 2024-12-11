@@ -132,22 +132,25 @@ class SnippetsAPI:
 
     def obtener_variantes_por_gen(self, nombre_gen):
         """
-        Obtiene las variantes asociadas al gen especificado.
+        Obtiene los nombres de las variantes asociadas al gen especificado.
         
         :param nombre_gen: Nombre del gen
-        :return: Lista de variantes o None en caso de error
+        :return: Lista de nombres de variantes o None en caso de error
         """
         url = f"{self.BASE_URL}/variantes/{nombre_gen}"
         try:
             response = requests.get(url)
             response.raise_for_status()
-            return response.json()
+            variantes = response.json()
+            nombres_variantes = [variante['nombre'] for variante in variantes]
+            return nombres_variantes
         except requests.exceptions.HTTPError as err:
             print(f"Error al obtener variantes: {err}")
             return None
         except Exception as e:
             print(f"Ocurrió un error: {e}")
             return None
+
 
     def obtener_hallazgos_secundarios_por_patologias(self, patologias):
         """
