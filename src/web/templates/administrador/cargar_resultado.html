@@ -13,19 +13,22 @@
                autocomplete="off" oninput="sugerirEstudios(this.value)" required>
         <div id="sugerencias_estudios" class="mt-1 bg-white border border-gray-300 rounded"></div>
       </div>
+      
+      <!-- Campo oculto para almacenar el ID del estudio seleccionado -->
+      <input type="hidden" id="id_estudio_seleccionado" name="id_estudio_seleccionado" value="">
 
       <div class="mb-4">
-        <label for="variantes" class="block font-bold text-gray-700">Variantes de Patologia/s:</label>
+        <label for="variantes" class="block font-bold text-gray-700">Variantes de Patología/s:</label>
         <div class="flex">
           <input type="text" id="variantes_input" placeholder="Ingrese una variante" 
-                 class="w-full border border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500">
-          <button type="button" class="px-4 py-2 ml-2 text-white bg-green-500 rounded hover:bg-green-600" 
-                  onclick="agregarVariante()">Agregar</button>
+                 class="w-full border border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500" 
+                 autocomplete="off" oninput="sugerirVariantes(this.value)">
         </div>
+        <div id="sugerencias_variantes" class="mt-1 bg-white border border-gray-300 rounded"></div>
         <div id="lista_variantes" class="mt-2">
-        <textarea name="variantes" id="variantes" 
-                  class="w-full mt-2 border border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500" 
-                  readonly rows="4"></textarea></div>
+          <!-- Las variantes seleccionadas se mostrarán aquí -->
+        </div>
+        <textarea name="variantes" id="variantes" class="hidden" readonly></textarea>
       </div>
 
       <div class="mb-4">
@@ -51,6 +54,7 @@
 
 <script>
   const estudios = {{ estudios_enviados | tojson }};
+  const variantesSeleccionadas = new Set();
 
   function sugerirEstudios(input) {
     const sugerencias = document.getElementById('sugerencias_estudios');
@@ -71,20 +75,138 @@
 
   function seleccionarEstudio(estudio) {
     document.getElementById('id_estudio').value = estudio;
+    document.getElementById('id_estudio_seleccionado').value = estudio;
     document.getElementById('sugerencias_estudios').innerHTML = '';
+  
+    variantesSeleccionadas.clear();
+    const lista = document.getElementById('lista_variantes');
+    lista.innerHTML = '';
+    actualizarVariantesTextarea();
+  
+    obtenerVariantes(estudio);
+  }
+  
+  
+  function obtenerVariantes(estudioId) {
+    fetch('/get_listado_variantes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ estudio: estudioId }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      return response.text(); // Get the response as text first
+    })
+    .then(text => {
+      try {
+        const data = JSON.parse(text); // Try to parse the text as JSON
+        const sugerencias = document.getElementById('sugerencias_variantes');
+        sugerencias.innerHTML = '';
+        if (data.error) {
+          sugerencias.innerHTML = `<div class="p-2 text-red-500">${data.error}</div>`;
+        } else {
+          const variantes = data.variantes || [];
+          sugerencias.innerHTML = variantes.map(variante => 
+            `<div class="p-2 cursor-pointer hover:bg-gray-200" onclick="agregarVariante('${variante}')">
+              ${variante}
+            </div>`
+          ).join('');
+        }
+      } catch (error) {
+        throw new Error('Failed to parse JSON response');
+      }
+    })
+    .catch(error => {
+      const sugerencias = document.getElementById('sugerencias_variantes');
+      sugerencias.innerHTML = `<div class="p-2 text-red-500">Error: ${error.message}</div>`;
+      console.error('Fetch error:', error);
+    });
   }
 
-  function agregarVariante() {
-    const input = document.getElementById('variantes_input');
-    const lista = document.getElementById('lista_variantes');
-    if (input.value.trim()) {
-      const varianteDiv = document.createElement('div');
-      varianteDiv.textContent = input.value.trim();
-      lista.appendChild(varianteDiv);
-      const textarea = document.getElementById('variantes');
-      textarea.value += (textarea.value ? ',' : '') + input.value.trim();
-      input.value = '';
+  function sugerirVariantes(input) {
+    const estudioId = document.getElementById('id_estudio_seleccionado').value; // Obtener ID seleccionado
+    const sugerencias = document.getElementById('sugerencias_variantes');
+    sugerencias.innerHTML = ''; // Limpiar el contenedor de sugerencias
+  
+    if (input.length > 0 && estudioId) {
+      // Fetch los datos si el estudio está seleccionado
+      fetch('/get_listado_variantes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ filtro: input, estudio: estudioId }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Datos recibidos:", data); // Depurar datos recibidos
+  
+        // Verificar si se recibieron variantes
+        if (data.variantes && Array.isArray(data.variantes)) {
+          // Filtrar variantes que incluyan el input
+          const variantesCoincidentes = data.variantes.filter(variante =>
+            variante.toLowerCase().includes(input.toLowerCase())
+          );
+  
+          console.log("Variantes coincidentes:", variantesCoincidentes); // Depurar coincidencias
+  
+          // Mostrar las variantes coincidentes en el DOM
+          variantesCoincidentes.forEach(variante => {
+            const div = document.createElement('div');
+            div.className = 'p-2 hover:bg-gray-200 cursor-pointer';
+            div.textContent = variante;
+            div.onclick = () => agregarVariante(variante);
+            sugerencias.appendChild(div);
+          });
+        } else {
+          sugerencias.innerHTML = '<div class="p-2 text-gray-500">No hay variantes disponibles.</div>';
+        }
+      })
+      .catch(error => {
+        console.error("Error al obtener variantes:", error);
+        sugerencias.innerHTML = '<div class="p-2 text-red-500">Error al cargar variantes</div>';
+      });
+    } else {
+      sugerencias.innerHTML = '<div class="p-2 text-gray-500">Escribe para buscar variantes.</div>';
     }
+  }  
+
+  function agregarVariante(variante) {
+    if (!variantesSeleccionadas.has(variante)) {
+      variantesSeleccionadas.add(variante);
+
+      const lista = document.getElementById('lista_variantes');
+      const div = document.createElement('div');
+      div.className = 'flex items-center justify-between p-2 border-b';
+      div.textContent = variante;
+
+      const eliminarBtn = document.createElement('button');
+      eliminarBtn.textContent = '❌';
+      eliminarBtn.className = 'ml-4 text-red-500';
+      eliminarBtn.onclick = () => eliminarVariante(variante, div);
+      div.appendChild(eliminarBtn);
+
+      lista.appendChild(div);
+      actualizarVariantesTextarea();
+    }
+
+    document.getElementById('variantes_input').value = '';
+    document.getElementById('sugerencias_variantes').innerHTML = '';
+  }
+
+  function eliminarVariante(variante, elementoDiv) {
+    variantesSeleccionadas.delete(variante);
+    elementoDiv.remove();
+    actualizarVariantesTextarea();
+  }
+
+  function actualizarVariantesTextarea() {
+    const textarea = document.getElementById('variantes');
+    textarea.value = Array.from(variantesSeleccionadas).join(',');
   }
 </script>
 {% endblock %}
