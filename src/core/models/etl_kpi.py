@@ -211,6 +211,98 @@ def migrar_datos():
                 (estudio_id, id_estado_origen, id_estado_destino, id_tiempo_inicio, id_tiempo_fin, tiempo_demora, id_patologia, id_tipo_estudio)
             )
 
+        print("Migrando datos de 'Revenue'...")
+        source_cursor.execute(
+            """
+            SELECT 
+                p.id AS id_presupuesto, 
+                p.fecha_pago, 
+                p."montoFinal", 
+                e.tipo_estudio, 
+                ep.patologia_id, 
+                l.nombre AS nombre_localidad
+            FROM presupuestos p
+            INNER JOIN estudios e ON p.id = e.id_presupuesto
+            LEFT JOIN estudios_patologias ep ON e.id = ep.estudio_id
+            LEFT JOIN turnos t ON e.id = t.id_estudio AND t.estado = (SELECT id FROM estados WHERE nombre = 'ACEPTADO')
+            LEFT JOIN laboratorios l ON t.id_laboratorio = l.id
+            WHERE p.id_estado = (SELECT id FROM estados WHERE nombre = 'PAGADO');
+            """
+        )
+
+        presupuestos = source_cursor.fetchall()
+
+        for presupuesto in presupuestos:
+            id_presupuesto = presupuesto[0]
+            fecha_pago = presupuesto[1]
+            monto_final = presupuesto[2]
+            tipo_estudio = presupuesto[3]
+            id_patologia = presupuesto[4]
+            nombre_localidad = presupuesto[5]
+
+            dest_cursor.execute(
+                """
+                INSERT INTO dim_tipo_estudio (tipo_estudio)
+                VALUES (%s)
+                ON CONFLICT (tipo_estudio) DO NOTHING;
+                """,
+                (tipo_estudio,)
+            )
+
+            dest_cursor.execute(
+                "SELECT id_tipo_estudio FROM dim_tipo_estudio WHERE tipo_estudio = %s;",
+                (tipo_estudio,)
+            )
+            id_tipo_estudio = dest_cursor.fetchone()[0]
+
+            dest_cursor.execute(
+                """
+                INSERT INTO dim_tiempo (fecha, mes, trimestre, anio)
+                VALUES (%s, %s, %s, %s)
+                ON CONFLICT (fecha) DO NOTHING;
+                """,
+                (
+                    fecha_pago,
+                    fecha_pago.month,
+                    (fecha_pago.month - 1) // 3 + 1,
+                    fecha_pago.year,
+                ),
+            )
+
+            dest_cursor.execute(
+                "SELECT id_tiempo FROM dim_tiempo WHERE fecha = %s;",
+                (fecha_pago,)
+            )
+            id_tiempo = dest_cursor.fetchone()[0]
+
+            dest_cursor.execute(
+                """
+                INSERT INTO dim_localidad (nombre_localidad)
+                VALUES (%s)
+                ON CONFLICT (nombre_localidad) DO NOTHING;
+                """,
+                (nombre_localidad,)
+            )
+
+            dest_cursor.execute(
+                "SELECT id_localidad FROM dim_localidad WHERE nombre_localidad = %s;",
+                (nombre_localidad,)
+            )
+            id_localidad = dest_cursor.fetchone()[0]
+
+            # Insertar en hechos_revenue
+            dest_cursor.execute(
+                """
+                INSERT INTO hechos_revenue (
+                    id_presupuesto, id_tiempo, id_patologia, id_tipo_estudio, id_localidad, monto_final
+                ) VALUES (%s, %s, %s, %s, %s, %s)
+                ON CONFLICT (id_presupuesto) DO NOTHING;
+                """,
+                (
+                    id_presupuesto, id_tiempo, id_patologia, id_tipo_estudio, id_localidad, monto_final
+                ),
+            )
+
         dest_connection.commit()
         print("Migración completada exitosamente.")
 

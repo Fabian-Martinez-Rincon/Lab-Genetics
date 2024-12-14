@@ -52,6 +52,11 @@ def crear_base_de_datos():
                 descripcion TEXT
             );
 
+            CREATE TABLE dim_localidad (
+                id_localidad SERIAL PRIMARY KEY,
+                nombre_localidad VARCHAR(255) NOT NULL UNIQUE
+            );
+
             -- Tabla de hechos cantidad de estudios
             CREATE TABLE hechos_estudios (
                 id_estudio VARCHAR(255) PRIMARY KEY,
@@ -62,7 +67,6 @@ def crear_base_de_datos():
                 FOREIGN KEY (id_patologia) REFERENCES dim_patologia(id_patologia),
                 FOREIGN KEY (id_tipo_estudio) REFERENCES dim_tipo_estudio(id_tipo_estudio)
             );
-
 
             CREATE TABLE dim_estado (
                 id_estado SERIAL PRIMARY KEY,
@@ -89,6 +93,20 @@ def crear_base_de_datos():
                 FOREIGN KEY (id_patologia) REFERENCES dim_patologia(id_patologia),
                 FOREIGN KEY (id_tipo_estudio) REFERENCES dim_tipo_estudio(id_tipo_estudio)
             );
+
+            -- Tabla de hechos para calcular las ganancias
+            CREATE TABLE hechos_revenue (
+                id_presupuesto INT PRIMARY KEY,
+                id_tiempo INT NOT NULL,
+                id_patologia INT,
+                id_tipo_estudio INT NOT NULL,
+                id_localidad INT NOT NULL,
+                monto_final FLOAT NOT NULL,
+                FOREIGN KEY (id_tiempo) REFERENCES dim_tiempo(id_tiempo),
+                FOREIGN KEY (id_patologia) REFERENCES dim_patologia(id_patologia),
+                FOREIGN KEY (id_tipo_estudio) REFERENCES dim_tipo_estudio(id_tipo_estudio),
+                FOREIGN KEY (id_localidad) REFERENCES dim_localidad(id_localidad)
+            );
         """)
 
         connection.commit()
@@ -102,4 +120,3 @@ def crear_base_de_datos():
 
 if __name__ == "__main__":
     crear_base_de_datos()
-
