@@ -10,7 +10,7 @@ class Presupuesto(db.Model):
     id_estado = db.Column(db.Integer, db.ForeignKey("estados.id"), nullable=False)
     observaciones = db.Column(db.String(255), nullable=True)
     estado = db.relationship("Estado", backref=db.backref('presupuestos'))
-    
+    fecha_pago = db.Column(db.Date, nullable=True)
     @classmethod
     def generar_detalle(cls, patologias, genes, adicionales, hallazgos):
         detalle = ""
