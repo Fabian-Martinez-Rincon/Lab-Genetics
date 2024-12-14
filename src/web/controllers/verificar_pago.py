@@ -5,6 +5,7 @@ from src.core.models.estudio import Estudio
 from src.core.models.historialEstado import HistorialEstado
 from src.core.models.presupuesto import Presupuesto
 from src.core.models.notificacion import Notificacion
+from datetime import datetime
 bp = Blueprint('verificar_pago', __name__)
 
 @bp.route('/verificar_pago/<estudio_id>', methods=['GET', 'POST'])
@@ -20,6 +21,7 @@ def verificar_pago(estudio_id):
         if accion == 'aceptar':
             presupuesto.id_estado = 3  
             presupuesto.observaciones = None
+            presupuesto.fecha_pago = datetime.now().date()
             estudio.historial.append(HistorialEstado(estado="PAGO ACEPTADO"))
             flash("Pago aceptado correctamente", "success")
             mail = "El pago de su estudio ha sido aceptado."
