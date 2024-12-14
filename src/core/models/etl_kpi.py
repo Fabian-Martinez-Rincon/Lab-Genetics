@@ -104,12 +104,111 @@ def migrar_datos():
 
             dest_cursor.execute(
                 """
-                INSERT INTO fact_estudios (
+                INSERT INTO hechos_estudios (
                     id_estudio, id_tiempo, id_patologia, id_tipo_estudio
                 ) VALUES (%s, %s, %s, %s) 
                 ON CONFLICT (id_estudio) DO NOTHING;
                 """,
                 (estudio_id, id_tiempo, id_patologia, id_tipo_estudio)
+            )
+
+        print("Migrando datos de 'Tiempos de Demora'...")
+        source_cursor.execute("""
+            SELECT 
+                he.estudio_id, 
+                he.estado AS estado_origen, 
+                LEAD(he.estado) OVER (PARTITION BY he.estudio_id ORDER BY he.fecha_hora) AS estado_destino,
+                he.fecha_hora AS fecha_inicio,
+                LEAD(he.fecha_hora) OVER (PARTITION BY he.estudio_id ORDER BY he.fecha_hora) AS fecha_fin
+            FROM historial_estados he;
+        """)
+
+        historial = source_cursor.fetchall()
+        for registro in historial:
+            estudio_id = registro[0]
+            estado_origen = registro[1]
+            estado_destino = registro[2]
+            fecha_inicio = registro[3]
+            fecha_fin = registro[4]
+
+            if not estado_destino or not fecha_fin:
+                continue
+
+            dest_cursor.execute(
+                """
+                INSERT INTO dim_estado (nombre_estado) 
+                VALUES (%s) 
+                ON CONFLICT (nombre_estado) DO NOTHING;
+                """,
+                (estado_origen,)
+            )
+
+            dest_cursor.execute(
+                "INSERT INTO dim_estado (nombre_estado) VALUES (%s) ON CONFLICT (nombre_estado) DO NOTHING;",
+                (estado_destino,)
+            )
+
+            dest_cursor.execute(
+                "SELECT id_estado FROM dim_estado WHERE nombre_estado = %s;",
+                (estado_origen,)
+            )
+            id_estado_origen = dest_cursor.fetchone()[0]
+
+            dest_cursor.execute(
+                "SELECT id_estado FROM dim_estado WHERE nombre_estado = %s;",
+                (estado_destino,)
+            )
+            id_estado_destino = dest_cursor.fetchone()[0]
+
+            dest_cursor.execute(
+                "INSERT INTO dim_tiempo (fecha, mes, trimestre, anio) VALUES (%s, %s, %s, %s) ON CONFLICT (fecha) DO NOTHING;",
+                (
+                    fecha_inicio.date(),
+                    fecha_inicio.month,
+                    (fecha_inicio.month - 1) // 3 + 1,
+                    fecha_inicio.year
+                )
+            )
+
+            dest_cursor.execute(
+                "INSERT INTO dim_tiempo (fecha, mes, trimestre, anio) VALUES (%s, %s, %s, %s) ON CONFLICT (fecha) DO NOTHING;",
+                (
+                    fecha_fin.date(),
+                    fecha_fin.month,
+                    (fecha_fin.month - 1) // 3 + 1,
+                    fecha_fin.year
+                )
+            )
+
+            dest_cursor.execute(
+                "SELECT id_tiempo FROM dim_tiempo WHERE fecha = %s;",
+                (fecha_inicio.date(),)
+            )
+            id_tiempo_inicio = dest_cursor.fetchone()[0]
+
+            dest_cursor.execute(
+                "SELECT id_tiempo FROM dim_tiempo WHERE fecha = %s;",
+                (fecha_fin.date(),)
+            )
+            id_tiempo_fin = dest_cursor.fetchone()[0]
+
+            tiempo_demora = int((fecha_fin - fecha_inicio).total_seconds() / 60)
+
+            dest_cursor.execute(
+                "SELECT id_patologia, id_tipo_estudio FROM hechos_estudios WHERE id_estudio = %s;",
+                (estudio_id,)
+            )
+            estudio_info = dest_cursor.fetchone()
+            id_patologia = estudio_info[0] if estudio_info else None
+            id_tipo_estudio = estudio_info[1] if estudio_info else None
+
+            dest_cursor.execute(
+                """
+                INSERT INTO hechos_tiempos_demora (
+                    estudio_id, id_estado_origen, id_estado_destino, id_tiempo_inicio, id_tiempo_fin, tiempo_demora, id_patologia, id_tipo_estudio
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                """,
+                (estudio_id, id_estado_origen, id_estado_destino, id_tiempo_inicio, id_tiempo_fin, tiempo_demora, id_patologia, id_tipo_estudio)
             )
 
         dest_connection.commit()
