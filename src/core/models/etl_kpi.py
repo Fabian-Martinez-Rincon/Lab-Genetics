@@ -220,7 +220,7 @@ def migrar_datos():
                 p."montoFinal", 
                 e.tipo_estudio, 
                 ep.patologia_id, 
-                l.nombre AS nombre_localidad
+                COALESCE(l.nombre, 'Sin Definir') AS nombre_localidad
             FROM presupuestos p
             INNER JOIN estudios e ON p.id = e.id_presupuesto
             LEFT JOIN estudios_patologias ep ON e.id = ep.estudio_id
@@ -290,7 +290,6 @@ def migrar_datos():
             )
             id_localidad = dest_cursor.fetchone()[0]
 
-            # Insertar en hechos_revenue
             dest_cursor.execute(
                 """
                 INSERT INTO hechos_revenue (
