@@ -214,24 +214,32 @@ def migrar_datos():
         print("Migrando datos de 'Revenue'...")
         source_cursor.execute(
             """
-            SELECT 
+            SELECT DISTINCT
                 p.id AS id_presupuesto, 
                 p.fecha_pago, 
                 p."montoFinal", 
                 e.tipo_estudio, 
                 ep.patologia_id, 
-                COALESCE(l.nombre, 'Sin Definir') AS nombre_localidad
+                COALESCE(t_l.address, 'Sin Definir') AS nombre_localidad
             FROM presupuestos p
             INNER JOIN estudios e ON p.id = e.id_presupuesto
             LEFT JOIN estudios_patologias ep ON e.id = ep.estudio_id
-            LEFT JOIN turnos t ON e.id = t.id_estudio AND t.estado = (SELECT id FROM estados WHERE nombre = 'ACEPTADO')
-            LEFT JOIN laboratorios l ON t.id_laboratorio = l.id
-            WHERE p.id_estado = (SELECT id FROM estados WHERE nombre = 'PAGADO');
+            LEFT JOIN (
+                SELECT 
+                    t.id_estudio, 
+                    MIN(l.address) AS address
+                FROM turnos t
+                LEFT JOIN laboratorios l ON t.id_laboratorio = l.id
+                WHERE t.estado IN (
+                    SELECT id FROM estados WHERE nombre IN ('ACEPTADO', 'PENDIENTE')
+                )
+                GROUP BY t.id_estudio
+            ) t_l ON e.id = t_l.id_estudio
+            WHERE p.id_estado = (SELECT id FROM estados WHERE nombre = 'ACEPTADO');
+
             """
         )
-
         presupuestos = source_cursor.fetchall()
-
         for presupuesto in presupuestos:
             id_presupuesto = presupuesto[0]
             fecha_pago = presupuesto[1]
@@ -268,13 +276,11 @@ def migrar_datos():
                     fecha_pago.year,
                 ),
             )
-
             dest_cursor.execute(
                 "SELECT id_tiempo FROM dim_tiempo WHERE fecha = %s;",
                 (fecha_pago,)
             )
             id_tiempo = dest_cursor.fetchone()[0]
-
             dest_cursor.execute(
                 """
                 INSERT INTO dim_localidad (nombre_localidad)
@@ -283,25 +289,28 @@ def migrar_datos():
                 """,
                 (nombre_localidad,)
             )
-
             dest_cursor.execute(
                 "SELECT id_localidad FROM dim_localidad WHERE nombre_localidad = %s;",
                 (nombre_localidad,)
             )
             id_localidad = dest_cursor.fetchone()[0]
-
+    
             dest_cursor.execute(
                 """
                 INSERT INTO hechos_revenue (
                     id_presupuesto, id_tiempo, id_patologia, id_tipo_estudio, id_localidad, monto_final
                 ) VALUES (%s, %s, %s, %s, %s, %s)
-                ON CONFLICT (id_presupuesto) DO NOTHING;
+                ON CONFLICT (id_presupuesto) DO UPDATE SET
+                    id_tiempo = EXCLUDED.id_tiempo,
+                    id_patologia = EXCLUDED.id_patologia,
+                    id_tipo_estudio = EXCLUDED.id_tipo_estudio,
+                    id_localidad = EXCLUDED.id_localidad,
+                    monto_final = EXCLUDED.monto_final;
                 """,
-                (
-                    id_presupuesto, id_tiempo, id_patologia, id_tipo_estudio, id_localidad, monto_final
-                ),
+                (id_presupuesto, id_tiempo, id_patologia, id_tipo_estudio, id_localidad, monto_final)
             )
-
+            
+            
         dest_connection.commit()
         print("Migración completada exitosamente.")
 
