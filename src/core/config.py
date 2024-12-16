@@ -25,9 +25,9 @@ class Config:
     MAIL_PORT = 465
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
-    MAIL_USERNAME = 'labgeneticsgrupo02@gmail.com'
-    MAIL_PASSWORD = 'lbue soil leho cdsl'  # para ingresar a GMAIL: 08_hopeTrade
-    MAIL_DEFAULT_SENDER = 'labgeneticsgrupo02@gmail.com'
+    MAIL_USERNAME = 'hopetrade08@gmail.com'
+    MAIL_PASSWORD = 'lhyp xepr gaxa bonm'  # para ingresar a GMAIL: 08_hopeTrade
+    MAIL_DEFAULT_SENDER = 'hopetrade08@gmail.com'
     
     @classmethod
     def load_env_config(cls) -> None:
